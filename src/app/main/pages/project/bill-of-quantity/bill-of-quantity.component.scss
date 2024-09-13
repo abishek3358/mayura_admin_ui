@@ -1,0 +1,22 @@
+.table thead th {
+    vertical-align: middle !important;
+}
+
+th,
+td {
+    min-width: 100px;
+}
+
+.custom-width {
+    min-width: 170px !important;
+    max-width: 170.1px !important;
+    border-bottom: 1px solid lightgray !important;
+    border-collapse: collapse !important;
+    padding: auto 10px;
+}
+
+div div.custom-width {
+    padding-top: 10px;
+    justify-content: center;
+    display: flex;
+}

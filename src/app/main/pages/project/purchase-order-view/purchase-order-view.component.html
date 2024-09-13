@@ -1,0 +1,612 @@
+<div id="print-item" style="background-color: white; padding-top: 10px; font-family: sans-serif;">
+  <div style="border: 1px solid lightgray; padding-top: 0%;">
+    <div style="border: 1px solid;">
+      <p style="text-align: center;font-size: 17px; "><b> PURCHASE ORDER</b></p>
+    </div>
+    <div>
+      <table style="width: 100%;border-collapse: collapse;">
+        <tr>
+          <td colspan="2" style="border: 1px solid;padding: 8px;"> <span
+              style="width: 200px; display: inline-block;">Job code</span>: <span style="padding-left: 44px;"> &nbsp;
+              &nbsp;
+              <span>{{purchaseOrderView.jobCode}}</span></span>
+          </td>
+          <td colspan="2" style="border: 1px solid;padding: 8px;"><span style="width: 200px; display: inline-block;">
+              purchase Order Date</span>:<span style="padding-left: 44px;"> &nbsp; &nbsp;
+              <span>{{purchaseOrderView.purchaseorderDate}}</span></span>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2" style="border: 1px solid;padding: 8px;"> <span
+              style="width: 200px; display: inline-block;">purchase Order No</span>: <span style="padding-left: 44px;">
+              &nbsp; &nbsp;
+              <span>{{purchaseOrderView.purchaseOrderNo}}</span></span>
+          </td>
+          <td colspan="3" style="border: 1px solid;padding: 8px;"> <span
+              style="width: 200px; display: inline-block;">Delivery Date</span>:<span style="padding-left: 44px;">
+              &nbsp; &nbsp;
+              <span>{{purchaseOrderView.deliveryDate}}</span></span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" style="border: 1px solid;padding: 8px;"><span
+              style="width: 200px; display: inline-block;">Your Ref. No. and Date</span>:<span
+              style="padding-left: 44px;"> &nbsp; &nbsp;
+              <span>{{purchaseOrderView.ourReferenceNo}} & {{purchaseOrderView.ourReferenceDate}}</span></span>
+          </td>
+          <td colspan="3" style="border: 1px solid;padding: 8px;"><span
+              style="width: 200px; display: inline-block;">Mode Of Transport</span>:<span style="padding-left: 44px;">
+              &nbsp; &nbsp;
+              <span>{{purchaseOrderView.modeofTranspoat}}</span></span>
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid;padding: 8px;"><b>Supplier Name and Address </b>  </td>
+          <td colspan="" style="border: 1px solid;padding: 8px;"><b>Billing Address </b>  </td>
+          <td colspan="4" style="border: 1px solid;padding: 8px;"><b>Delivery Address </b>  </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid; padding-left: 8px;">{{purchaseOrderView.vendorName}} ,<br>
+            {{purchaseOrderView.vendorAddressLine1}} ,
+            <br> {{purchaseOrderView.vendorCityName}}, <br>{{purchaseOrderView.vendorStateName}} ,
+            <br>{{purchaseOrderView.vendorCountryName}} -{{purchaseOrderView.vendorPostalCode}}.
+          </td>
+          <td colspan="" style="border: 1px solid; padding-left: 8px;">{{purchaseOrderView.companyDisplayName}} </td>
+          <td colspan="4" style="border: 1px solid; padding:8px;">{{purchaseOrderView.companyName}} ,<br>
+            {{purchaseOrderView.companyAddressLine1}} ,<br> {{purchaseOrderView.companyCityName}},
+            <br>{{purchaseOrderView.companyStateName}} ,<br>{{purchaseOrderView.companyCountryName}} -{{purchaseOrderView.companyPostalCode}}.
+        
+          </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid;padding: 8px;">Supplier PAN No</td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.vendorPanNo}} </td>
+          <td style="border: 1px solid;padding: 8px;">Byer PAN No </td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.companyPanNumber}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid;padding: 8px;">Supplier GST Reg No</td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.vendorGst}}</td>
+          <td style="border: 1px solid;padding: 8px;">Byer GST Reg No </td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.companyGst}} </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid;padding: 8px;">Contact Person Name </td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.contactPersonName}}</td>
+          <td style="border: 1px solid;padding: 8px;">Site Contact Person </td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.siteContactPersonName}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid;padding: 8px;">Contact Person Mobile No</td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.contactPersonMobileNo}}</td>
+          <td style="border: 1px solid;padding: 8px;">Mobile No </td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.companyMobileNo}}</td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid;padding: 8px;">Contact Person Email Id </td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.contactPersonEmailId}}</td>
+          <td style="border: 1px solid;padding: 8px;">Vendor Email Id </td>
+          <td style="border: 1px solid;padding: 8px;">{{purchaseOrderView.vendorEmailId}}</td>
+        </tr>
+
+      </table>
+      <table style="width: 100%;">
+        <div
+          style=" border: 1px solid;padding: 8px;  border-top: none; border-bottom: none; border-right: 1px solid;border-left: 1px solid;text-align: justify;">
+
+          Please take up the following order as per instructions and in accordance with the technical  specifications,
+          terms and conditions. Please convey your acceptance immediately on receipt of this  purchase Order.
+
+
+
+
+        </div>
+      </table>
+
+      <!-- <table style="width: 100%;">
+      
+      <tr>
+          <td style="border: 1px solid;padding: 8px;"><b>Supplier Name and Address :- </b>  </td>
+          <td style="border: 1px solid;padding: 8px;"><b>Billing address :-</b>  </td>
+          <td style="border: 1px solid;padding: 8px;"><b>Delivery address :- </b>  </td>
+        </tr>
+        <tr>
+          <td style="border: 1px solid;">jk cement ,<br> indore ,<br> madhyaprathesh</td>
+          <td style="border: 1px solid;">MK Infro Projects</td>
+          <td style="border: 1px solid;">CHIPANNER MICRO LIFT IRREGATION PROJECT,<br> C/O (SPCL). <br>
+            Nasrullaganj,CHIPPANER, <br> MP- 466331
+          </td>
+        </tr>
+       
+       </table>  -->
+      <!-- <table style="width: 100%;">
+
+      </table> -->
+      <table style="width: 100%;border-collapse: collapse;">
+        <tr>
+          <th style="border: 1px solid;padding: 8px;">S.NO</th>
+          <th style="border: 1px solid;padding: 8px;">DESCRIPTION</th>
+          <th style="border: 1px solid;padding: 8px;">HSA/SAC</th>
+          <th style="border: 1px solid;padding: 8px;">UNIT</th>
+          <th style="border: 1px solid;padding: 8px;">QUANTITY</th>
+          <th style="border: 1px solid;padding: 8px;width: 15%;">UNIT RATE (Rs)</th>
+          <th style="border: 1px solid;padding: 8px;">AMOUNT</th>
+        </tr>
+        <tbody *ngFor="let purchaseOrderData of purchaseOrderView.purchaseOrderMaterialDTOList; let i = index;">
+          <tr>
+            <td style="border: 1px solid;padding: 8px;">{{i+1}}</td>
+            <td style="border: 1px solid;padding: 8px;">{{purchaseOrderData.materialName}}</td>
+            <td style="border: 1px solid;padding: 8px;">{{purchaseOrderData.sacName}}</td>
+            <td style="border: 1px solid;padding: 8px;">{{purchaseOrderData.uomName}}</td>
+            <td style="border: 1px solid;padding: 8px;">{{purchaseOrderData.quantity}}</td>
+            <td style="border: 1px solid;padding: 8px;">{{purchaseOrderData.unitRate}}</td>
+            <td style="border: 1px solid;padding: 8px;">{{purchaseOrderData.amount}}</td>
+
+          </tr>
+        </tbody>
+
+                <tr style="border: 1px solid;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="padding: 8px;">Total in (Rs.)</td>
+                    <td style="padding: 8px;">{{purchaseOrderView.subTotalAmount}}</td>
+
+                </tr>
+                <tr style="border: 1px solid;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="padding: 8px;">CGST</td>
+                    <td style="padding: 8px;"> {{purchaseOrderView.cgstPercentage}}%</td>
+                    <td style="padding: 8px;">{{purchaseOrderView.cgst}}</td>
+                </tr>
+                <tr style="border: 1px solid;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="padding: 8px;">SGST </td>
+                    <td style="padding: 8px;"> {{purchaseOrderView.sgstPercentage}}%</td>
+                    <td style="padding: 8px;">{{purchaseOrderView.sgst}}</td>
+                </tr>
+                <tr style="border:1px solid">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="padding: 8px;">IGST</td>
+                    <td style="padding: 8px;">{{purchaseOrderView.igstPercentage}}%</td>
+                    <td style="padding: 8px;">{{purchaseOrderView.igst}}</td>
+                </tr>
+                <tr style="border:1px solid;border-bottom: none;">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="padding: 8px;"></td>
+                    <td style="padding: 8px;">Total Amount in (Rs.)</td>
+                    <td style="padding: 8px;">{{purchaseOrderView.totalAmount}}</td>
+                </tr>
+<!-- 
+        </tr>
+        <tr style="border: 1px solid;">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 8px;">Cgst</td>
+          <td style="padding: 8px;"> {{purchaseOrderView.cgstPercentage}}%</td>
+          <td style="padding: 8px;">{{purchaseOrderView.cgst}}</td>
+        </tr>
+        <tr style="border: 1px solid;">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 8px;">Sgst </td>
+          <td style="padding: 8px;"> {{purchaseOrderView.sgstPercentage}}%</td>
+          <td style="padding: 8px;">{{purchaseOrderView.sgst}}</td>
+        </tr>
+        <tr style="border:1px solid">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 8px;">Igst</td>
+          <td style="padding: 8px;">{{purchaseOrderView.igstPercentage}}%</td>
+          <td style="padding: 8px;">{{purchaseOrderView.igst}}</td>
+        </tr>
+        <tr style="border:1px solid;border-bottom: none;">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding: 8px;"></td>
+          <td style="padding: 8px;">Total Amount in (Rs.)</td>
+          <td style="padding: 8px;">{{purchaseOrderView.totalAmount}}</td>
+        </tr> -->
+
+      </table>
+      <!-- <table style="width:100%;">
+        <tr style="border: 1px solid;border-top: none;border-bottom: none;">
+
+          <td style="padding: 8px "> 
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Total Amount </td>
+          <td>{{purchaseOrderView.totalAmount}}</td>
+        </tr>
+      </table>  -->
+
+
+
+      <table style="width:100%; border-collapse: collapse;">
+        <tr>
+          <td style="border:1px solid;padding:8px;">1</td>
+          <td style="border:1px solid;padding:8px;"><b> Deduction of Taxes</b></td>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td style="border:1px solid;padding:8px;" rowspan="2" colspan="6">Special Conditions
+            : {{purchaseOrderView.specialCondition}} </td>
+
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td style="border:1px solid;padding:8px;">a) Income Tax (TDS)</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.incometax}} </td>
+
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td style="border:1px solid;padding:8px;">b) Gst</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.gst}}</td>
+          <td colspan="6" style="border:1px solid;padding:8px;"><b>Supplier Account Details </b> </td>
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;">2</td>
+          <td style="border:1px solid;padding:8px;"><b>Terms of Payments</b></td>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td rowspan="3" colspan="6" style="border:1px solid;padding:8px;"> <span
+              style="width: 120px; display: inline-block;">Name</span>:
+            <span style="padding-left: 30px;"> &nbsp; &nbsp;{{purchaseOrderView.vendorAccountHolderName}}</span> <br>
+            <span style="width: 120px; display: inline-block;">Bank Name</span>: <span
+              style="padding-left: 30px;">&nbsp; &nbsp;{{purchaseOrderView.vendorBankName}}</span><br> <span
+              style="width: 120px; display: inline-block;">A/C No</span>:
+            <span style="padding-left: 30px;"> &nbsp; &nbsp;{{purchaseOrderView.vendorAccountNo}}</span> <br> <span
+              style="width: 120px; display: inline-block;">IFSC Code</span>: <span style="padding-left: 30px;"> &nbsp;
+              &nbsp;{{purchaseOrderView.vendorIfscCode}}</span>
+          </td>
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td style="border:1px solid;padding:8px;">a) Materials Advance</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.materialAdvance}}</td>
+
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td style="border:1px solid;padding:8px;">Release of Payment</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.releaseofPayment}}</td>
+
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;">3</td>
+          <td style="border:1px solid;padding:8px;">a) Performance Guarantee</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.performanceGuarantee}}</td>
+          <td rowspan="4" colspan="" style="border:1px solid; text-align: center;padding-top: 111px;width: 210px;"><span
+              style="text-align: center;"><b>Supplier</b> </span> </td>
+          <td rowspan="4" colspan="" style="border:1px solid; text-align: center;padding-top: 111px;width: 210px; ">
+            <span style="text-align: center;"><b>Byer</b> </span> </td>
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td style="border:1px solid;padding:8px;">b) Release of Performance Guarantee</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.releaseofperformanceGuarantee}}</td>
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;">4</td>
+          <td style="border:1px solid;padding:8px;">Liquidated Damages for Delay</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.liquidatedDamagesforDelay}}</td>
+
+
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;">5</td>
+          <td style="border:1px solid;padding:8px;">Transportation</td>
+          <td style="border:1px solid;padding:8px;">{{purchaseOrderView.transporation}}</td>
+        </tr>
+
+
+      </table>
+      <table style="width: 100%;">
+        <div style="border: 1px solid; padding: 8px;border-top: none;border-right: 1px solid;">
+
+          <b>Note:</b> Signature of supplier on this purchase Order is a legally binding contract between both the
+          parties.
+
+
+
+        </div>
+      </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- <table style="width: 100%;">
+        <tr>
+          <td style="border:1px solid;padding:8px;"></td>
+          <td style="border:1px solid;padding:8px;">b) Release of Performance Guarantee</td>
+          <td style="border:1px solid;padding:8px;">Nill</td>
+          <td rowspan="3" colspan="4"  style="border:1px solid;padding:8px;">Supplier</td>
+         <td rowspan="3" colspan="4"  style="border:1px solid;padding:8px;">Byer</td>
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;">4</td>
+          <td style="border:1px solid;padding:8px;">Liquidated damages for delay</td>
+          <td style="border:1px solid;padding:8px;">Nill</td>
+         
+         
+          
+        </tr>
+        <tr>
+          <td style="border:1px solid;padding:8px;">5</td>
+          <td style="border:1px solid;padding:8px;">Transportation</td>
+          <td style="border:1px solid;padding:8px;">Included</td>
+          
+        </tr>
+      </table> -->
+    </div>
+    <!-- <div style="display: flex; padding-left: 3%; " *ngIf="waitingForTheResponse ">
+      <div style="width: 60%; padding-top: 4%;"><img src="assets/images/logo/erplogo.png" style="  display: block;"
+          width="150" height="120" alt=""></div>
+      <div style="width: 40%; padding-left: 0%; padding-top: 1%; padding-bottom: 0%;">
+        <span style="margin-top: 8px; font-size: 18px; padding-bottom: 5px;"> Address :</span><br>
+        <span>{{companyAddressObj.companyDisplayName}}, <br>
+          {{companyAddressObj.companyAddressDTOList[0].addressLine1}},<br>
+          {{companyAddressObj.companyAddressDTOList[0].cityName}},
+          {{companyAddressObj.companyAddressDTOList[0].stateName}},{{companyAddressObj.companyAddressDTOList[0].countryName}}.<br>
+          GST : {{companyAddressObj.gst}} <br>
+          PAN : {{companyAddressObj.panNo}} <br>
+          CONTACT: {{companyAddressObj.companyMobileNo}}
+        </span>
+      </div>
+
+    </div>
+    <hr style="border-top: 1px solid lightgray;">
+    <span style="padding-left: 3%; padding-bottom: 0.8%; font-size: 17px; display: block;">PO Details:</span>
+    <div style="display: flex; padding-left: 3%;">
+      <div style="width:50% ; padding-left: 1%;">
+        <span style="width:130px;display:inline-block">Project Code</span>: &nbsp; &nbsp; {{poObj.jobCode}}
+        <br /> <br />
+        <span style="width:130px;display:inline-block">PO No</span>: &nbsp; &nbsp; {{poObj.purchaseOrderNo}}
+        <br /><br />
+        <span style="width:130px;display:inline-block">PO Date</span>: &nbsp; &nbsp; {{poObj.purchaseorderDate}}
+        <br /><br />
+        <span style="width:130px;display:inline-block">Delivery Date</span>: &nbsp; &nbsp; {{poObj.deliveryDate}}
+      </div>
+      <div style="width:45% ;margin-left: 15%;">
+
+        <span style="width: 150px;display: inline-block;">Mode Of Transport</span>: &nbsp; &nbsp;
+        {{poObj.modeofTranspoat}}<br /><br />
+        <span style="width: 150px;display: inline-block;">Reference No</span>: &nbsp; &nbsp; {{poObj.referenceNo}}
+        <br /><br />
+        <span style="width: 150px;display: inline-block;">Vendor</span>: &nbsp; &nbsp; {{poObj.vendorName}}
+
+      </div>
+    </div> -->
+    <!-- <div style="padding:50px">
+            <table style="width: 100%;">
+                <thead>
+                    <tr style="display: flex;">
+                        <th style="width: 70px;">
+                            S.NO
+                        </th>
+                        <th style="width: 200px;">ITEM</th>
+                        <th style="width: 150px;">SAC</th>
+                        <th style="width: 120px;">UOM</th>
+                        <th style="width: 120px;">QUANTITY</th>
+                        <th style="width: 120px;">UNIT RATE</th>
+                        <th style="width: 150px;">AMOUNT</th>
+                    </tr>
+
+                </thead>
+                <tbody style="margin-left: 0; padding-left: 0;">
+                    <tr *ngFor="let po of poObj.purchaseOrderMaterialDTOList; let i = index" style="display: flex; padding-top: 20px; margin-left: 0;">
+                        <td style="width: 70px; ">{{i+1}}</td>
+                        <td style="width: 200px;">{{po.itemDescription}}</td>
+                        <td style="width: 150px;">Pending</td>
+                        <td style="width: 120px;">{{po.uomName}}</td>
+                        <td style="width: 120px;">{{po.quantity}}</td>
+                        <td style="width: 120px;">{{po.unitRate}}</td>
+                        <td style="width: 150px;">{{po.amount}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div> -->
+    <!-- <div style="padding-top:30px; padding-left: 3%; padding-right: 3%;">
+      <div style="width: 100%;padding: 0px 00px;">
+        <div class="">
+          <table style="width: 100%;border-collapse: collapse; text-align: left;">
+            <thead>
+              <tr>
+                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;
+                            font-size: 0.857rem;padding: 0.72rem ;">
+                  S.NO
+                </th>
+                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;
+                            font-size: 0.857rem;padding: 0.72rem ;">
+                  ITEM
+                </th>
+                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;
+                                font-size: 0.857rem;padding: 0.72rem;">
+                  SAC</th>
+                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;
+                                        font-size: 0.857rem;padding: 0.72rem ;">
+                  UOM</th>
+                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;
+                            font-size: 0.857rem;padding: 0.72rem ">
+                  QTY</th>
+                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;
+                            font-size: 0.857rem;padding: 0.72rem ">
+                  RATE
+                </th>
+                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;
+                            font-size: 0.857rem;padding: 0.72rem ">
+                  AMOUNT
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let po of poObj.purchaseOrderMaterialDTOList; let i = index">
+                <td style="border: 1px solid #dee2e6;
+                        font-size: 0.857rem;padding: 0.72rem ;">{{i+1}}</td>
+                <td style="border: 1px solid #dee2e6;
+                        font-size: 0.857rem;padding: 0.72rem ;">{{po.item}}</td>
+                <td style="border: 1px solid #dee2e6;
+                        font-size: 0.857rem;padding: 0.72rem ;">{{po.sacName}}</td>
+                <td style="border: 1px solid #dee2e6;
+                        font-size: 0.857rem;padding: 0.72rem ;">{{po.uomName}}</td>
+                <td style="border: 1px solid #dee2e6;
+                        font-size: 0.857rem;padding: 0.72rem ;">{{po.quantity}}</td>
+                <td style="border: 1px solid #dee2e6;
+                           font-size: 0.857rem;padding: 0.72rem ;">{{po.unitRate}}</td>
+                <td style="border: 1px solid #dee2e6;
+                              font-size: 0.857rem;padding: 0.72rem ;">{{po.amount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div> -->
+    <!-- <div style="display:flex;padding-top:20px; padding-left:3% ; padding-bottom: 2%; padding-right: 2%;">
+      <div style="width: 50%;">
+        <span style="font-size: 17px;">Notes :</span>
+        <p style="text-indent: 50px;">{{poObj.remarks}}</p>
+      </div> -->
+
+    <!-- <div style="width: 50%; padding-top: 1%; padding-left: 20%;">
+        <span style="width: 35%; display: inline-block;">SUB TOTAL </span> <span
+          style="width:30%; display: inline-block;"></span><span>&nbsp;&nbsp;{{poObj.subTotalAmount}} </span><br> <br>
+         <span style="width: 35%; display: inline-block;">Sub Total</span> <span style="width:15%; display: inline-block;"></span> <span>&nbsp;&nbsp;{{poObj.subTotal}} </span> <br> <br> 
+        <span style="width: 40%; display: inline-block;">IGST</span><span *ngIf="poObj.igstPercentage"
+          style="width:27%; display: inline-block;">{{poObj.igstPercentage}}%</span><span
+          style="width:27%; display: inline-block;"
+          *ngIf="!poObj.igstPercentage">0</span><span>{{poObj.igst}}</span><br><br>
+        <span style="width: 40%; display: inline-block;">CGST</span><span *ngIf="poObj.cgstPercentage"
+          style="width:27%; display: inline-block;">{{poObj.cgstPercentage}}%</span>
+        <span style="width:27%; display: inline-block;"
+          *ngIf="!poObj.cgstPercentage">0</span><span>{{poObj.cgst}}</span><br><br>
+        <span style="width: 40%; display: inline-block;">SGST</span><span *ngIf="poObj.sgstPercentage"
+          style="width:27%; display: inline-block;">{{poObj.sgstPercentage}}%</span> <span
+          style="width:27%; display: inline-block;" *ngIf="!poObj.sgstPercentage">0</span><span>{{poObj.sgst}}</span>
+        <br><br>
+        <span style="width: 33%; display: inline-block;">TOTAL</span><span
+          style="width:30%; display: inline-block;"></span><span>&nbsp;&nbsp; {{poObj.totalAmount}}</span>
+      </div>
+    </div>
+  </div> -->
+    <!--   <div style="border-top: 1px solid lightgray; display: flex">
+      <div style="width: 50%; padding: 30px 0 0 30px">
+        <h3>PO Details:</strong></h3>
+        <div style="padding-left: 20px">
+          <strong>Project Code : </strong><br />
+          <br />
+          <strong>PO No : </strong> <br /><br />
+          <strong>PO Date :</strong> <br /><br />
+          <strong>Delevery date :</strong>
+        </div>
+      </div>
+      <div style="width: 50%; padding: 40px 0 0 30px">
+        <br />
+        <strong style="padding-top: 15px">Mode OF Transport : </strong>
+        <br /><br />
+        <strong>Reference No :</strong> <br /><br />
+        <strong>Vendor :</strong>
+      </div>
+    </div>
+    <div style="padding: 50px">
+      <table style="width: 100%">
+        <thead>
+          <tr style="display: flex">
+            <th style="width: 10%">S.NO</th>
+            <th style="width: 15%">ITEM</th>
+            <th style="width: 15%">SAC</th>
+            <th style="width: 15%">UOM</th>
+            <th style="width: 15%">QUANTITY</th>
+            <th style="width: 15%">UNIT RATE</th>
+            <th style="width: 15%">AMOUNT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display: flex; padding: 20px">
+      <div style="width: 25%">
+        <h4><strong>Notes :</strong></h4>
+      </div>
+      <div style="width: 25%"></div>
+      <div style="width: 20%"></div>
+      <div style="width: 30%">
+        <strong style="width: 35%; display: inline-block">Sub Total</strong>
+        <strong style="width: 15%; display: inline-block"></strong>
+        <strong>1000</strong> <br />
+        <br />
+        <strong style="width: 35%; display: inline-block">IGST</strong>
+        <strong style="width: 15%; display: inline-block">10%</strong>
+        <strong>100</strong><br /><br />
+        <strong style="width: 35%; display: inline-block">CGST</strong>
+        <strong style="width: 15%; display: inline-block">20%</strong>
+        <strong> 200</strong><br /><br />
+        <strong style="width: 35%; display: inline-block">SGST</strong
+        ><strong style="width: 15%; display: inline-block">30%</strong>
+        <strong>300</strong> <br /><br />
+        <strong style="width: 35%; display: inline-block">Total</strong>
+        <strong style="width: 15%; display: inline-block"></strong>
+        <strong>1600</strong>
+      </div>
+    </div>
+  </div>
+</div> -->
+  </div>
+</div>
+<div class="text-right mr-5 mt-2">
+  <button class="btn btn-primary" printTitle="Purchase-Order Copy" printSectionId="print-item" ngxPrint>
+    Download
+  </button>
+</div>

@@ -1,0 +1,205 @@
+<div class="container-fluid px-0">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="row">
+            <div class="col-6">
+              <div class=" pageHeading">
+                <h4 class="">GST</h4>
+              </div>
+            </div>
+            <div class="col-6" *ngIf="selectedTab === 1">
+              <div class="text-right my-auto ">
+                <button type="button" class="btn btn-primary btn-sm  mb-2" (click)="openModal(myModal)">
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom mt-1 theme-blue-custom ">
+            <li [ngbNavItem]="1" (click)="onHide()">
+              <a ngbNavLink>
+                <span>ACTIVE</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="cardBg">
+                  <div class="card-body">
+                    <table id="active" class="table table-bordered" style="width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>GST</th>
+                          <th>CGST</th>
+                          <th>SGST</th>
+                          <th>IGST</th>
+                          <th>STATUS</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let gstObj of hideGst;let i = index">
+                          <td class="ml-2">{{i + 1}}</td>
+                          <td class="ml-3">{{gstObj.name}}</td>
+                          <td class="ml-3">{{gstObj.gst}}</td>
+                          <td class="ml-3">{{gstObj.cgst}}</td>
+                          <td class="ml-3">{{gstObj.sgst}}</td>
+                          <td class="ml-3">{{gstObj.igst}}</td>
+                          <td class="ml-3">{{gstObj.status}}</td>
+
+                          <td>
+                            <a ngbDropdownItem (click)="editGst(myModal,gstObj.id)"><i
+                                class='bx bxs-edit text-success'></i></a>
+                            <!-- <div ngbDropdown container="body">
+                    <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                      <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                    </button>
+
+                    <div ngbDropdownMenu>
+                      <a ngbDropdownItem (click)="editGst(myModal,gstObj.id)"><i
+                          class='bx bxs-edit text-success'></i><span class="ml-2">Edit</span></a>
+                    </div>
+                  </div> -->
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2" (click)="onTest()">
+              <a ngbNavLink>
+                <span>INACTIVE</span>
+              </a>
+              <ng-template ngbNavContent>
+                <div class="cardBg">
+                  <div class="card-body">
+                    <table id="inActive" class="table table-bordered" style="width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>GST</th>
+                          <th>CGST</th>
+                          <th>SGST</th>
+                          <th>IGST</th>
+                          <th>STATUS</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let gstObj of masterGst;let i = index">
+                          <td class="ml-2">{{i + 1}}</td>
+                          <td class="ml-3">{{gstObj.name}}</td>
+                          <td class="ml-3">{{gstObj.gst}}</td>
+                          <td class="ml-3">{{gstObj.cgst}}</td>
+                          <td class="ml-3">{{gstObj.sgst}}</td>
+                          <td class="ml-3">{{gstObj.igst}}</td>
+                          <td class="ml-3">{{gstObj.status}}</td>
+
+                          <td>
+                            <a ngbDropdownItem (click)="editGst(myModal,gstObj.id)"><i
+                                class='bx bxs-edit text-success'></i></a>
+                        
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="gstModalLabel">GST</h5>
+    <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="gstForm">
+      <div class="form-row">
+        <div class="col-12 form-group">
+          <label class="form-label">Name</label>
+          <input placeholder="Name" formControlName="name" type="text" class="form-control"
+            [ngClass]="{ 'is-invalid': gstSubmitted && f.name.errors}">
+          <div *ngIf="gstSubmitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">*Required</div>
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label">GST %
+          </label>
+          <input placeholder="GST %" type="number" class="form-control" formControlName="gst"
+            [ngClass]="{ 'is-invalid': gstSubmitted && f.gst.errors}">
+          <div *ngIf="gstSubmitted && f.gst.errors" class="invalid-feedback">
+            <div *ngIf="f.gst.errors.required">*Required</div>
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label">IGST %
+          </label>
+          <input placeholder="IGST %" type="number" class="form-control" formControlName="igst"
+            [ngClass]="{ 'is-invalid': gstSubmitted && f.igst.errors }">
+          <div *ngIf="gstSubmitted && f.igst.errors " class="invalid-feedback">
+            <div *ngIf="f.igst.errors.required">*Required</div>
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label">CGST %
+          </label>
+          <input placeholder="CGST %" type="number" class="form-control" formControlName="cgst"
+            [ngClass]="{ 'is-invalid': gstSubmitted && f.cgst.errors }">
+          <div *ngIf="gstSubmitted && f.cgst.errors" class="invalid-feedback">
+            <div *ngIf="f.cgst.errors.required">*Required</div>
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label class="form-label">SGST %
+          </label>
+          <input placeholder="SGST %" type="number" class="form-control" formControlName="sgst"
+            [ngClass]="{ 'is-invalid': gstSubmitted && f.sgst.errors }">
+          <div *ngIf="gstSubmitted && f.sgst.errors" class="invalid-feedback">
+            <div *ngIf="f.sgst.errors.required">*Required</div>
+          </div>
+        </div>
+        <div class="col-12 form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" placeholder="Description" formControlName="description"
+            [ngClass]="{ 'is-invalid': gstSubmitted && f.description.errors }"></textarea>
+
+          <div *ngIf="gstSubmitted && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required">*Required</div>
+          </div>
+        </div>
+        <div class="col-12 form-group">
+          <label class="">Status</label>
+          <ng-select [items]="['ACTIVE','INACTIVE']" name="status" bindLabel="value" bindValue="id" placeholder="Choose"
+            formControlName="status" [(ngModel)]="gstObj.status"
+            [ngClass]="{ 'is-invalid': gstSubmitted && f.status.errors}">
+          </ng-select>
+          <div *ngIf="gstSubmitted && f.status.errors " class="invalid-feedback">
+            <div *ngIf="f.status.errors.required">*Required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-right mt-2">
+        <button type="submit" class="btn btn-sm btn-primary mb-2" (click)="submit(modal)">{{buttonText}}</button>
+      </div>
+
+    </form>
+  </div>
+
+
+</ng-template>

@@ -1,0 +1,172 @@
+<div class="card">
+    <div class="card-body">
+        <div class=" pageHeading">
+            <h4 class="">Employee Attendance</h4>
+        </div>
+        <div>
+            <form [formGroup]="employeeAttendanceForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label for="projectId">Job/Project Code</label>
+                        <ng-select [items]="projectArr" name="projectId" id="projectId" (change)="getAttendance($event.id)" bindLabel="jobCode" bindValue="id" placeholder="Choose" formControlName="projectId" [readonly]="update" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && f.projectId.errors}">
+                        </ng-select>
+                        <div *ngIf="empAttendanceSubmitted && f.projectId.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectId.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="month">Month-Year</label>
+                        <input type="month" class="form-control" name="month" id="month" (change)="getDate(employeeAttendanceForm.value.month)" formControlName="month" [readonly]="update" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && f.month.errors}">
+                        <div *ngIf="empAttendanceSubmitted && f.month.errors" class="invalid-feedback">
+                            <div *ngIf="f.month.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="date">Date</label>
+                        <ng-select [items]="dateArr" name="date" id="date" placeholder="Choose" formControlName="date" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && f.date.errors}" [readonly]="update">
+                        </ng-select>
+                        <div *ngIf="empAttendanceSubmitted && f.date.errors" class="invalid-feedback">
+                            <div *ngIf="f.date.errors.required">Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" row mt-2" *ngIf="true">
+                    <!-- <div class="card col-6">
+                        <div class="card-body border">
+                            <h6>Name And Address Of Contractor</h6>
+                            {{attendanceDetails.nameAndAddressOfContractor}}
+                        </div>
+
+                    </div>
+                    <div class="card col-6">
+                        <div class="card-body border">
+                            <h6>Carried On</h6>
+                            {{attendanceDetails.carriedOn}}
+                        </div>
+                    </div>
+                    <div class="card col-6">
+                        <div class="card-body border">
+                            <h6>Job Location</h6>
+                            {{attendanceDetails.jobLocation}}
+                        </div>
+
+                    </div>
+                    <div class="card col-6">
+                        <div class="card-body border">
+                            <h6>Principal Employer</h6>
+                            {{attendanceDetails.principalEmployer}}
+                        </div>
+                    </div> -->
+                    <div class="col-12 ml-0 row justify-content-between">
+                        <!-- <div class="col-sm-5">
+                            <div class="form-group col-12 row">
+                                <div class="col-6 text-right">
+                                    <label for="date" style="padding-top: 10px;">Date</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input id="date" type="text" class="form-control " ngbDatepicker #date="ngbDatepicker" (click)="date.toggle()" formControlName="date" placeholder="yyyy-mm-dd" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && f.date.errors }">
+                                    <div *ngIf="empAttendanceSubmitted && f.date.errors" class="invalid-feedback">
+                                        <div *ngIf="f.date.errors.required">Required</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> -->
+                        <!-- <div class="col-sm-5">
+                            <div class="form-group col-12 row">
+                                <div class="col-4 text-right">
+                                    <label for="month" style="padding-top: 8px;">Month</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    <ng-select [items]="['January','February','March','April','May','June','July','August','September','October','November','December']" name="month" id="month" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="month" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && f.month.errors}">
+                                    </ng-select>
+                                    <div *ngIf="empAttendanceSubmitted && f.month.errors" class="invalid-feedback">
+                                        <div *ngIf="f.month.errors.required">Required</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> -->
+                        <div class="col-12 px-0">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>SL.No</th>
+                                        <th>Employee Name</th>
+                                        <!-- <th>Employee Father Name</th> -->
+                                        <th>Attendance</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="employeeAttendanceDtlDTOList">
+                                    <tr *ngFor="let attendance of employeeAttendanceDtlDTOListArr.controls; let i = index" [formGroupName]="i">
+                                        <td>{{i+1}}</td>
+                                        <td class="px-1">
+                                            <div class=" form-group">
+                                                <input name="slNoForm" id="slNoForm{{i}}" class="form-control border-top-0 border-left-0 border-right-0" placeholder="SL.No" formControlName="slNoForm" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && employeeAttendanceDtlDTOListArr.controls[i].get('slNoForm').errors }">
+
+                                                <div *ngIf="empAttendanceSubmitted && employeeAttendanceDtlDTOListArr.controls[i].get('slNoForm').errors" class="invalid-feedback">
+                                                    <div *ngIf="employeeAttendanceDtlDTOListArr.controls[i].get('slNoForm').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <div class=" form-group">
+                                                <input name="employeeName" id="empName{{i}}" class="form-control border-top-0 border-left-0 border-right-0" placeholder="Name" formControlName="employeeName" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && employeeAttendanceDtlDTOListArr.controls[i].get('employeeName').errors }">
+
+                                                <div *ngIf="empAttendanceSubmitted && employeeAttendanceDtlDTOListArr.controls[i].get('employeeName').errors" class="invalid-feedback">
+                                                    <div *ngIf="employeeAttendanceDtlDTOListArr.controls[i].get('employeeName').errors.required">
+                                                        Required</div>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- <td class="px-1">
+                                            <div class="form-group">
+                                                <input id="employeeFatherName{{i}}" type="text" class="form-control border-top-0 border-left-0 border-right-0" formControlName="employeeFatherName" placeholder="Employee Father Name" [ngClass]="{ 'is-invalid': empAttendanceSubmitted && employeeAttendanceDtlDTOListArr.controls[i].get('employeeFatherName').errors}">
+                                                <div *ngIf="empAttendanceSubmitted && employeeAttendanceDtlDTOListArr.controls[i].get('employeeFatherName').errors" class="invalid-feedback">
+                                                    <div *ngIf="employeeAttendanceDtlDTOListArr.controls[i].get('employeeFatherName').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </div>
+                                        </td> -->
+                                        <td class="px-1">
+                                            <div class="form-group">
+                                                <!-- <div> -->
+                                                <input id="ABSENT{{i}}" type="radio" value="ABSENT" formControlName="attendance" style="position: relative; top: 2px; margin-right: 4px;">
+                                                <label for="ABSENT{{i}}" class="mr-1">Absent</label>
+                                                <!-- </div> -->
+
+                                                <!-- <div> -->
+                                                <input id="PRESENT{{i}}" type="radio" value="PRESENT" formControlName="attendance" style="position: relative; top: 2px; margin-right: 4px;">
+                                                <label for="PRESENT{{i}}">Present</label>
+                                                <div *ngIf="empAttendanceSubmitted && employeeAttendanceDtlDTOListArr.controls[i].get('attendance').errors">
+                                                    <div *ngIf="employeeAttendanceDtlDTOListArr.controls[i].get('attendance').errors.required" class="text-danger">
+                                                        <small>Required</small>
+                                                    </div>
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                            <div class="row pt-1">
+                                <div class="text-left col-6">
+                                    <!-- <button type="button" class="btn btn-success">View</button> -->
+                                </div>
+                                <div class="text-right col-6">
+                                    <button type="button" (click)="onSubmit()" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

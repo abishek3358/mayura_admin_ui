@@ -1,0 +1,91 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <!-- <nav aria-label="breadcrumb" class="mb-1 size ">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item mt-0"><a routerLink="/vendor/vendor-order/allocated">Allocated List</a>
+                    </li> -->
+            <!-- <li class="breadcrumb-item active" aria-current="page"></li> -->
+            <!-- <li class="breadcrumb-item " aria-current="page">Shipped List</li>
+                    <li class="breadcrumb-item " aria-current="page"><a
+                            routerLink="/vendor/vendor-order/delivered-list">Delivered List</a></li>
+                </ol>
+            </nav> -->
+            <div class=" pageHeading">
+                <h4 class="ml-1 mb-1">Shipped Order</h4>
+            </div>
+            <!-- <ngx-simplebar> -->
+            <table id="shippedTable" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S.NO</th>
+                        <th>Order No</th>
+                        <th>Grand Total</th>
+                        <th>No Of Items</th>
+                        <th>Delivery Address</th>
+                        <th>Payment Status</th>
+                        <!-- <th>Estimated Delivery Date</th>
+                        <th>Shipped Date</th>
+                        <th>Actual Delivery Date</th> -->
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let shipped of shippedArr;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{shipped.customerOrderNo}}</td>
+                        <td>{{shipped.grantTotal}}</td>
+                        <td>{{shipped.noOfItems}}</td>
+                        <td>{{shipped.deliveryAddress}}</td>
+                        <td *ngIf="shipped.paymentStatus === 'CASH_ON_DELIVERY'">{{"Cash on delivery"}}</td>
+                        <!-- <td></td>   -->
+                        <!-- <td></td>                    
+                        <td></td> -->
+                        <td>
+                            <!-- <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                    data-toggle="dropdown"> -->
+                            <!-- <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i></button> -->
+
+                            <!-- <div ngbDropdownMenu> -->
+                            <a (click)="openModal(shippedModal,shipped.customerOrderId)">
+                                <i class='bx bxs-edit text-success'></i><span class="ml-2"></span></a>
+                            <!-- </div>
+                            </div> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- </ngx-simplebar> -->
+        </div>
+    </div>
+</div>
+<ng-template #shippedModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Shipped</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-1" id="myModal">
+        <form [formGroup]="shippedForm" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="name">Delivery Date</label>
+                        <input id="EDD" type="datetime-local" class="form-control"
+                            formControlName="estimatedDeliveryDate"
+                            [ngClass]="{ 'is-invalid':  shippedSubmitted && f.estimatedDeliveryDate.errors }">
+                        <div *ngIf=" shippedSubmitted && f.estimatedDeliveryDate.errors " class="invalid-feedback">
+                            <div *ngIf="f.estimatedDeliveryDate.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-2 ">
+                <button type="submit" class="btn btn-sm btn-primary mb-2 p-1"
+                    (click)="onSubmit(modal)">Delivered</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

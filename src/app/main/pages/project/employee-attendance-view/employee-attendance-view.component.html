@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="card-body">
+        <div class=" pageHeading">
+            <h4 class="">Employee Attendance Report</h4>
+        </div>
+        <form [formGroup]="attendanceViewForm">
+            <div class="row mt-2">
+                <div class="col-4 px-1 ml-0 form-group row">
+
+                    <label for="projectId" style="padding-top: 8px;">Job/Project Code</label>
+                    <ng-select [items]="projectArr" name="projectId" id="projectId" class="w-100" bindLabel="jobCode" bindValue="id" placeholder="Choose" formControlName="projectId" [ngClass]="{ 'is-invalid': attendanceViewSubmitted && f.projectId.errors}">
+                    </ng-select>
+                    <div *ngIf="attendanceViewSubmitted && f.projectId.errors" class="invalid-feedback">
+                        <div *ngIf="f.projectId.errors.required">Required</div>
+                    </div>
+
+
+                </div>
+                <div class="col-4 px-1 ml-0 form-group row">
+
+                    <label for="month" style="padding-top: 8px;">Month</label>
+                    <input type="month" name="month" class="w-100 form-control" id="month" formControlName="month">
+                    <!-- 
+                    <div *ngIf="attendanceViewSubmitted && f.month.errors" class="invalid-feedback">
+                        <div *ngIf="f.month.errors.required">Required</div>
+                    </div> -->
+
+
+
+                </div>
+                <div class="col-2 pl-2" style="display: flex;
+                align-items: center;">
+                    <button type="button" (click)="getReport()" class="btn btn-success mt-1 d-inline-block">Fetch</button>
+                </div>
+
+            </div>
+        </form>
+        <div class="col-12 text-right mb-1" *ngIf="WaitingFortheResponse">
+            <button type="button" class="btn btn-primary" (click)="addAttendance()">Add</button>
+        </div>
+        <div class="col-12 px-0 table-responsive" *ngIf="WaitingFortheResponse">
+            <table id="attendanceTable" class="table table-bordered ">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Month</th>
+                        <th>Date</th>
+                        <th>Updated By</th>
+                        <th>Updated Date</th>
+                        <th>Action</th>
+                    </tr>
+
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let report of reportArr;let i =index">
+                        <td>{{i+1}}</td>
+                        <td>{{report.month}}</td>
+                        <td>{{report.date}}</td>
+                        <td>{{report.modifiedBy}}</td>
+                        <td>{{report.modifiedOn}}</td>
+                        <td>
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                    <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                </button>
+
+                                <div ngbDropdownMenu>
+                                    <a ngbDropdownItem (click)="editAttendance(report.id)"><i
+                                            class='bx bxs-edit text-success'></i><span class="ml-2">Edit</span></a><a ngbDropdownItem><i class='bx bxs-trash-alt'
+                                            style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

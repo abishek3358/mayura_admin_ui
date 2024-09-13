@@ -1,0 +1,71 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="mb-2 pageHeading">
+                                <h4 class=""> Work-Order Details</h4>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="text-right my-auto ">
+
+                                <button type="button" class="btn btn-primary p-1 btn-sm mb-2" (click)="addform()">
+
+                                    Add
+                                </button>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <table id="workTable" class="table table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Work</th>
+                                <th>Period From</th>
+                                <th>Period To</th>
+                                <th>Wo value</th>
+                                <th>Total</th>
+                                <th>Action</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let workData of workArr;let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{workData.natureofWork}}</td>
+                                <td>{{workData.periodFrom}}</td>
+                                <td>{{workData.periodTo}}</td>
+                                <td>{{workData.woValue}}</td>
+                                <td>{{workData.total}}</td>
+                                <td>
+
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                            data-toggle="dropdown">
+                                            <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                        </button>
+
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem><i class='bx bxs-edit text-success'></i><span
+                                                    class="ml-2">Edit</span></a><a ngbDropdownItem><i
+                                                    class='bx bxs-trash-alt' style='color:#c32424'></i><span
+                                                    class="ml-2">Delete</span></a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

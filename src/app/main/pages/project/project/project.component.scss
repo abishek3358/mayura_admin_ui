@@ -1,0 +1,18 @@
+@import '@core/scss/base//bootstrap-extended/include';
+@import '~bs-stepper/dist/css/bs-stepper.min.css';
+@import '@core/scss/base/plugins/forms/form-wizard';
+.baseBlock:hover {
+    background-color: #7367f0;
+    color: white !important;
+    cursor: pointer;
+}
+
+.baseBlockdes:hover {
+    background-color: lightgray;
+    color: white !important;
+    cursor: no-drop;
+}
+
+//   .card {
+//     min-height: 150px;
+// }

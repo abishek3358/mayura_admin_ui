@@ -1,0 +1,86 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="pageHeading">
+                        <h4 class="">Bills</h4>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="text-right my-auto ">
+                        <button type="button" class="btn btn-primary btn-sm p-1 mb-2" routerLink="new">Add</button>
+                    </div>
+
+                </div>
+            </div>
+            <ngx-simplebar>
+                <table id="billTable" class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Status</th>
+                            <th>Bill No</th>
+                            <th>Reference No</th>
+                            <th>Bill Date</th>
+                            <th>Payment Due</th>
+                            <th>Vendor</th>
+                            <!-- <th>Due Date</th> -->
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let billData of billArr; let i = index">
+                            <td>{{i+1}}</td>
+                            <td style="min-width: 100px;"><span class="badge w-75  d-block" style="padding: 5px 0;" [ngClass]="{'badge-success':billData.paymentStatus == 'PAID' ,'badge-danger':billData.paymentStatus == 'UNPAID'}">{{billData.paymentStatus}}</span>
+                            </td>
+                            <td>{{billData.billNumber}}</td>
+                            <td>{{billData.referenceNumber}}</td>
+                            <td>{{billData.billDate}}</td>
+                            <td>{{billData.dueDate}}</td>
+                            <td>{{billData.vendorName}}</td>
+                            <td>{{billData.totalAmount}}</td>
+                            <!-- <td>{{billData.dueDate}}</td> -->
+                            <td>
+                                <div ngbDropdown container="body">
+                                    <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                        <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                    </button>
+
+                                    <div ngbDropdownMenu>
+                                        <a ngbDropdownItem (click)="viewBill(billData.id)"><i
+                                                class='bx bxs-file text-primary'></i><span class="ml-2">View</span></a>
+                                        <a ngbDropdownItem (click)="recordPayment(billData.id)" *ngIf="billData.paymentStatus == 'UNPAID'"><img src="assets/images/bills/invoices.png" height="15" width="15" alt=""><span class="ml-2">Record Payment</span></a>
+                                        <a ngbDropdownItem (click)="editBill(billData.id)"><i
+                                                class='bx bxs-edit text-success'></i><span
+                                                class="ml-2">Edit</span></a><a ngbDropdownItem (click)="deleteConfirmation(deleteBill,billData)"><i class='bx bxs-trash-alt'
+                                                style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </ngx-simplebar>
+
+        </div>
+    </div>
+
+</div>
+<ng-template #deleteBill let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+        <div class="text-right mt-2 ">
+            <button type="button" class="btn btn-primary  ml-2 " (click)="deleteBill(modal)">Yes</button>
+        </div>
+    </div>
+
+</ng-template>

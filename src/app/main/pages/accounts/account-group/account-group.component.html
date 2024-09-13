@@ -1,0 +1,158 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class=" pageHeading">
+                                <h4 class=""> Account Group</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right my-auto ">
+                                <button type="button" class="btn btn-primary btn-sm p-1 mb-2" (click)="openModal(myModal)">
+                  Add
+                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="">
+                        <table class="table p-5" *ngFor="let accountGroupData of accountGroupArray;let i = index">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="12">
+                                        <h6 style="margin-bottom: 0;"> <strong>{{accountGroupData.accountName}}</strong> &nbsp;&nbsp;
+                                            <i class='bx bx-help-circle' style='color:#7b8087 ;font-size: 18px; vertical-align: bottom; cursor: pointer;'></i>
+                                        </h6>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="px-5" *ngIf="accountGroupData.subAccountList">
+                                <tr class=" col-12" *ngFor="let subAccount of accountGroupData.subAccountList;let j = index">
+                                    <div class="row col-12 ml-0" style="height: 70px; border-bottom: 1px solid lightgray;">
+                                        <div class="col-6"><span style="font-size: 18px;
+                                          position: absolute;
+                                          bottom: 10px;
+                                          left: 20px;">{{subAccount.accountName}}</span></div>
+                                        <div class="col-6">
+                                            <i class='bx bxs-pencil text-primary' (click)="editAccountGroup(myModal,subAccount)" style="font-size: 20px;
+                                            position: absolute;
+                                            bottom: 10px;
+                                            right: 50px;
+                                            cursor: pointer;"></i>
+                                        </div>
+                                        <div class="">
+                                            <i class='bx bxs-trash-alt '
+                                            style="color:#c32424; position: absolute; right: 30px; bottom: 10px; font-size: 20px;
+                                             cursor: pointer;" (click)=deleteAccountGroup(deleteModal,subAccount)></i>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-6 text-right">{{subAccount}}</div> -->
+                                </tr>
+                            </tbody>
+                            <tr>
+                                <p class="pl-1 text-primary" (click)="editAccountGroup(myModal,accountGroupData)" style='font-size: 15px; margin: 20px; cursor: pointer;'>
+                                    <i class='bx bx-plus-circle' style="font-size: 18px; vertical-align: text-bottom;"></i> <strong style="vertical-align: bottom;">&nbsp;&nbsp;Add account</strong>
+                                </p>
+
+                            </tr>
+
+
+                            <!-- <div  class="col-4"> <a  (click)="openModal(myModal)">
+                  <p  >
+                   <i class='bx bx-plus-circle' style='color:#3235cb;font-size: 20px;'></i>
+                    <span style='color:#3235cb;font-size: 20px;'>Add account</span></p>
+                </a></div> -->
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <ng-template #myModal let-modal>
+                <div class="modal-header">
+                    <h5 class="modal-title w-100">Account Group</h5>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body p-1" id="myModal">
+                    <form [formGroup]="accountGroupForm" autocomplete="off" (ngSubmit)="onSubmit(modal)">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="name">Name</label>
+                                    <input id="name" type="text" class="form-control" formControlName="name" placeholder="Name" [ngClass]="{ 'is-invalid': accountGroupSubmitted && f.name.errors || f.name.invalid && (f.name.dirty)}">
+                                    <div *ngIf="accountGroupSubmitted && f.name.errors || f.name.invalid && (f.name.dirty)" class="invalid-feedback">
+                                        <div *ngIf="f.name.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="shortName">Short Name</label>
+                                    <input id="shortName" type="text" class="form-control" formControlName="shortName" placeholder="Short Name" [ngClass]="{ 'is-invalid': accountGroupSubmitted && f.shortName.errors || f.shortName.invalid && (f.shortName.dirty)}">
+                                    <div *ngIf="accountGroupSubmitted && f.shortName.errors || f.shortName.invalid && (f.shortName.dirty)" class="invalid-feedback">
+                                        <div *ngIf="f.shortName.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="accountId">Account </label>
+                                    <ng-select class="custom " placeholder="Account" [items]="accountGroupDropdownListArray" groupBy="accountName" formControlName="accountId" bindLabel="name" bindValue="id">
+                                        <!-- [ngClass]="{ 'is-invalid': accountGroupSubmitted && f.accountId.errors || f.accountId.invalid && (f.accountId.dirty || f.accountId.touched)}"> -->
+                                    </ng-select>
+                                    <!-- <div
+                    *ngIf="accountGroupSubmitted && f.accountId.errors || f.accountId.invalid && (f.accountId.dirty || f.accountId.touched)"
+                    class="invalid-feedback">
+                    <div *ngIf="f.accountId.errors.required">Required</div>
+                  </div> -->
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="currencyId">Currency </label>
+                                    <ng-select class="custom" placeholder="Currency" [items]="currencyArray" formControlName="currencyId" bindLabel="name" bindValue="id" [ngClass]="{ 'is-invalid': accountGroupSubmitted && f.currencyId.errors || f.currencyId.invalid && (f.currencyId.dirty || f.currencyId.touched)}">
+                                    </ng-select>
+                                    <div *ngIf="accountGroupSubmitted && f.currencyId.errors || f.currencyId.invalid && (f.currencyId.dirty || f.currencyId.touched)" class="invalid-feedback">
+                                        <div *ngIf="f.currencyId.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="description">Description</label>
+                                    <textarea id="description" type="text" class="form-control" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': accountGroupSubmitted && f.description.errors || f.description.invalid && (f.description.dirty)}">
+                        </textarea>
+                                    <div *ngIf="accountGroupSubmitted && f.description.errors || f.description.invalid && (f.description.dirty)" class="invalid-feedback">
+                                        <div *ngIf="f.description.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right mt-2 ">
+                            <button type="submit" data-dismiss="modal" class="btn btn-sm btn-primary mb-2 p-1">{{buttonText}}</button>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+
+            <ng-template #deleteModal let-modal>
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div>
+                    <h6 class="ml-3 mt-2">Are you sure want to delete this ?</h6>
+                    <div class="text-right mt-2 mr-2">
+                        <button type="button" class="btn btn-primary mb-1 ml-2 " (click)="deleteData(modal)">Yes</button>
+                    </div>
+                </div>
+            </ng-template>
+        </div>

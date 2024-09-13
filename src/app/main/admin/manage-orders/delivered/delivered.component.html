@@ -1,0 +1,92 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <!-- <nav aria-label="breadcrumb" class="mb-1">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item mt-0"><a routerLink="/admin/order-management/allocated-orders">Allocated Orders</a>
+                    </li>
+                    <li class="breadcrumb-item  active" aria-current="page">Delivered Order
+                    </li>
+                </ol>
+            </nav> -->
+            
+            <div class="mb-2 pageHeading">
+                <h4 class="">Delivered Order</h4>
+            </div>
+            <ngx-simplebar>
+
+                <table id="delivered" class="table table-bordered">
+                    <thead class="thead bg-white">
+                        <tr>
+                            <th>S.NO</th>
+                            <th>ORDER NO</th>
+                            <th>VENDOR NAME</th>
+                            <th>CUSTOMER NAME</th>
+                            <th>ORDER DATE</th>
+                            <th>ALLOCATED DATE</th>
+                            <th>DELIVERY DATE</th>
+                            <th>DELIVERY DURATION</th>
+                            <!-- <th>ACTION</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orderArr; let i=index">
+                            <td>{{i+1}}</td>
+                            <td> {{order.orderNo}}</td>
+                            <td>{{order.vendorName}}</td>
+                            <td>{{order.customerName}}</td>
+                            <td>{{order.orderDate}}</td>
+                            <td>{{order.allocatedDate}}</td>
+                            <td>{{order.outForDelivery}}</td>
+                            <td>{{order.deliveryDuration}}</td>
+                           <!-- <td>
+                                <button type="button" class="btn btn-primary pick"
+                                    style="padding:0.2px 1px; font-size: 12px; margin-left:12px ;"
+                                    [ngClass]="{'highlight' : order== objj}"   (click)="onClick(order)">Pick</button>
+                            </td> -->
+                        </tr>
+                    </tbody>
+
+                </table>
+            </ngx-simplebar>
+          
+            <div class="mt-2 text-right">
+                <button type="button" class="btn btn-success btn-sm closed" [disabled]="isDisabled" (click)="closed(myModal)">Closed</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Closed</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-1" id="myModal">
+        <div [formGroup]="deliveredForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group ">
+
+
+                        <label for="notes"> Notes</label>
+                        <input id="notes" type="text" class="form-control" formControlName="notes" placeholder="Notes"
+                            [ngClass]="{ 'is-invalid': deliveredFormSubmitted && f.notes.errors}">
+                        <div *ngIf="deliveredFormSubmitted && f.notes.errors" class="invalid-feedback">
+                            <div *ngIf="f.notes.errors.required">*Required</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-right mt-2 ">
+                <button type="button" class="btn btn-sm btn-primary mb-2 " (click)="onSubmit(modal)">Submit</button>
+            </div>
+
+        </div>
+    </div>
+</ng-template>

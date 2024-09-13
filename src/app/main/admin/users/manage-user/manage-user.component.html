@@ -1,0 +1,130 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="usersForm" autocomplete="off">
+            <div class="row">
+                <div class="col-12">
+                    <div class=" pageHeading">
+                        <h4 class="">Manage User</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="jobCode">Full Name</label>
+                        <input id="jobCode" type="text" class="form-control" placeholder="Full Name"
+                            formControlName="fullName"
+                            [ngClass]="{ 'is-invalid': usersFormSubmitted && f.fullName.errors}">
+                        <div *ngIf="usersFormSubmitted && f.fullName.errors" class="invalid-feedback">
+                            <div *ngIf="f.fullName.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="name">Email</label>
+                        <input id="name" type="email" class="form-control" placeholder="Email"  pattern="[A-Za-z0-9._%+-]+@[A-Za-z]+\.[A-Za-z]{1,63}$"
+                            formControlName="email" [ngClass]="{ 'is-invalid': usersFormSubmitted && f.email.errors
+                        ||f.email.invalid && (f.email.dirty || f.email.touched)}">
+                        <div *ngIf="usersFormSubmitted && f.email.errors || f.email.invalid && (f.email.dirty || f.email.touched)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">*Required</div>
+                            <div *ngIf="f.email.errors.pattern">*Enter valid email id</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="name">Mobile Number</label>
+                        <input id="name" type="number" class="form-control" placeholder="Mobile Number"
+                            formControlName="mobileNo" [ngClass]="{ 'is-invalid': usersFormSubmitted && f.mobileNo.errors || 
+                                    f.mobileNo.invalid && (f.mobileNo.dirty || f.mobileNo.touched)}">
+                        <div *ngIf="usersFormSubmitted && f.mobileNo.errors || f.mobileNo.invalid && 
+                                (f.mobileNo.dirty || f.mobileNo.touched)" class="invalid-feedback">
+                            <div *ngIf="f.mobileNo.errors.required">*Required</div>
+                            <div *ngIf="f.mobileNo.errors.pattern ">*Enter 10 digit mobile number</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="userType">Role</label>
+                        <ng-select [items]="['USER']" name="Role" id="Role" bindLabel="name"
+                            bindValue="id" placeholder="Choose" formControlName="userRole"
+                            [ngClass]="{ 'is-invalid': usersFormSubmitted && f.userRole.errors}">
+                        </ng-select>
+                        <div *ngIf="usersFormSubmitted && f.userRole.errors" class="invalid-feedback">
+                            <div *ngIf="f.userRole.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="userName">User Name</label>
+                        <input id="userName" type="text" class="form-control" placeholder="User Name "
+                            formControlName="userName"
+                            [ngClass]="{ 'is-invalid': usersFormSubmitted && f.userName.errors}">
+                        <div *ngIf="usersFormSubmitted && f.userName.errors" class="invalid-feedback">
+                            <div *ngIf="f.userName.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between">
+                          <label for="login-password">Password</label><a routerLink="/forgot-password"></a>
+                        </div>
+                        <div class="input-group input-group-merge form-password-toggle">
+                          <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
+                            class="form-control form-control-merge"
+                            [ngClass]="{ 'is-invalid error': usersFormSubmitted && f.password.errors }" placeholder="Password"
+                            aria-describedby="login-password" tabindex="2" />
+                          <div class="input-group-append">
+                            <span class="input-group-text cursor-pointer"><i class="feather font-small-4" [ngClass]="{
+                                  'icon-eye-off': !passwordTextType,
+                                  'icon-eye': passwordTextType
+                                }" (click)="togglePasswordTextType()"></i></span>
+                          </div>
+                        </div>
+                        <div *ngIf="usersFormSubmitted && f.password.errors" class="invalid-feedback"
+                          [ngClass]="{ 'd-block': usersFormSubmitted && f.password.errors }">
+                          <div *ngIf="f.password.errors.required">*Required</div>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between">
+                          <label for="login-password">Confirm Password</label><a routerLink="/forgot-password"></a>
+                        </div>
+                        <div class="input-group input-group-merge form-password-toggle">
+                          <input [type]="passwordText ? 'text' : 'password'" formControlName="confirmPassword"
+                            class="form-control form-control-merge"
+                            [ngClass]="{ 'is-invalid error': usersFormSubmitted && f.confirmPassword.errors }" placeholder="Confirm Password"
+                            aria-describedby="login-password" tabindex="2" />
+                          <div class="input-group-append">
+                            <span class="input-group-text cursor-pointer"><i class="feather font-small-4" [ngClass]="{
+                                  'icon-eye-off': !passwordText,
+                                  'icon-eye': passwordText
+                                }" (click)="togglePasswordText()"></i></span>
+                          </div>
+                        </div>
+                        <div *ngIf="usersFormSubmitted && f.confirmPassword.errors" class="invalid-feedback"
+                          [ngClass]="{ 'd-block': usersFormSubmitted && f.confirmPassword.errors }">
+                          <div *ngIf="f.confirmPassword.errors.required">*Required</div>
+                          <div *ngIf="f.confirmPassword.errors.mustMatch">*Password mismatch</div>
+
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <div class="text-right  ml-4">
+                <button class="btn btn-primary ml-2" (click)=" onSubmit()">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

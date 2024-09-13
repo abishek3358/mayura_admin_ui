@@ -1,0 +1,123 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <!-- <nav aria-label="breadcrumb" class="mb-1 ">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item mt-0"><a routerLink="/vendor/vendor-order/allocated">Allocated List</a>
+                    </li>
+
+                    <li class="breadcrumb-item mt-0"><a routerLink="/vendor/vendor-order/shippedList">Shipped List</a>
+                    </li>
+                    <li class="breadcrumb-item " aria-current="page">Delivered List</li>
+                </ol>
+            </nav> -->
+            <div class=" pageHeading">
+                <h4 class="ml-1 mb-2">Delivered Order</h4>
+            </div>
+            <table id="deliverey" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S.NO</th>
+                        <th>Order No</th>
+                        <th>Grand Total</th>
+                        <th>No Of Items</th>
+                        <th>Payment Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of listArr;let i=index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.customerOrderNo}}</td>
+                       <td>{{list.grantTotal}}</td>
+                        <td>{{list.noOfItems}}</td>
+                        <td *ngIf="list.paymentStatus === 'CASH_ON_DELIVERY'">{{"Cash on delivery"}}</td>
+                        <!-- <td *ngIf="list.paymentStatus !== 'CASH_ON_DELIVERY'">{{list.paymentStatus}}</td> -->
+                        <td>
+                            <a (click)="openModal(myModal,list.customerOrderId)" title="Product Details"
+                                ><i class="fa fa-eye"
+                                    style='color:#048519;font-size:17px;' aria-hidden="true" ></i><span
+                                    class="ml-1"></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="text-right " routerLink="/vendor/vendor-order/allocated">
+            <button type="submit" class="btn btn-sm btn-primary mr-2 mb-1 ">Go To Allocated List</button>
+        </div>
+    </div>
+</div>
+<ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Order Details</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-1" id="myModal">
+
+        <div class="row">
+            <div class="col-6">
+                <label>
+                    <h5 style="margin-right: 14px;">Customer Name</h5>
+                </label>: &nbsp;
+                {{view.customerName}} <br>
+                <label>
+                    <h5 style="margin-right: 69px;">Order No</h5>
+                </label>: &nbsp;
+                {{view.customerOrderNo}} <br>
+
+                <label>
+                    <h5 style="margin-right: 55px;">Total Items </h5>
+                </label>: &nbsp;
+                {{view.noOfItems}} <br>
+
+            </div>
+            <div class="col-6 mnge-size">
+                <label>
+                    <h5 style="margin-right: 56px;">Total Price</h5>
+                </label>: &nbsp;
+                {{view.grantTotal}}<br>
+                <label>
+                    <h5 style="margin-right: 26px;">Payment Type </h5>
+                </label>: &nbsp;
+       <span *ngIf="view.paymentStatus === 'CASH_ON_DELIVERY'">{{"Cash on delivery"}} </span> <br>
+                <label>
+                    <h5 style="margin-right: 7px;">Delivery Address </h5>
+                </label>: &nbsp;
+                <span>{{view.deliveryAddress}}</span>
+
+
+            </div>
+        </div>
+        <div class="shadow p-2 mb-2 card card-size mt-3">
+            <div class="row">
+                <table id="pending" class="table table-bordered" style="height: 0px;">
+                    <thead class="thead bg-white">
+                        <tr>
+                            <th>S.NO</th>
+                            <th>PRODUCT NAME</th>
+                            <th>PRICE WITH UOM</th>
+                            <th>ORDER QUANTITY</th>
+                            <th>PRICE</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let vendor of view.customerOrderItemsDTOList; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{vendor.productName}}</td>
+                            <td>{{vendor.priceWithUom}}</td>
+                           <td>{{vendor.orderQty}}</td>
+                           <td>{{vendor.price}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</ng-template>

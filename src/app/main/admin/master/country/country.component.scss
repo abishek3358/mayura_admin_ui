@@ -1,0 +1,19 @@
+.table th, .table td {
+
+    padding: 0.72rem 1rem !important;
+    vertical-align: middle !important;
+}
+
+.table.dataTable td {
+    padding: 0rem;
+    padding-left: 22px;
+}
+.cardBg .card-body{
+    overflow-x: scroll;
+}
+@media (min-width:1024px) {
+    .cardBg .card-body{
+        overflow-x: hidden;
+    }
+}
+

@@ -1,0 +1,411 @@
+<section class="horizontal-wizard">
+
+
+    <div id="stepper3" class="bs-stepper horizontal-wizard-example">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/admin/master/products">Products</a></li>
+                <!-- <li class="breadcrumb-item active" aria-current="page"></li> -->
+                <li class="breadcrumb-item " aria-current="page">Manage Product</li>
+
+            </ol>
+        </nav>
+        <div class="bs-stepper-header">
+            <div class="step" data-target="#personal-info">
+                <button class="step-trigger mb-1">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-detail font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Product</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#address">
+                <button class="step-trigger mb-1">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-notepad font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Uom</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#data">
+                <button class="step-trigger mb-1">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-notepad font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Image</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#productDescription">
+                <button class="step-trigger mb-1">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-notepad font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Description</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+
+
+        </div>
+        <div class="bs-stepper-content">
+            <form [formGroup]="productListForm" autocomplete="off">
+                <div id="personal-info" class="content">
+
+
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="name"> Name</label>
+                            <input id="name" type="text" class="form-control" formControlName="productName"
+                                placeholder="Name"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.productName.errors }">
+                            <div *ngIf="productListSubmitted && f.productName.errors" class="invalid-feedback">
+                                <div *ngIf="f.productName.errors.required">*Required</div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group col-sm-6">
+                            <label for="productCode">Code</label>
+                            <input id="productCode" type="text" class="form-control" formControlName="productCode"
+                                placeholder="Code"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.productCode.errors }">
+                            <div *ngIf="productListSubmitted && f.productCode.errors" class="invalid-feedback">
+                                <div *ngIf="f.productCode.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="hsCode">HS Code </label>
+                            <input id="hsCode" type="text" class="form-control" formControlName="hsCode"
+                                placeholder="HS Code"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.hsCode.errors }">
+                            <div *ngIf="productListSubmitted && f.hsCode.errors" class="invalid-feedback">
+                                <div *ngIf="f.hsCode.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="productCategoryName">Product Category</label>
+                            <ng-select [items]="productcategoryArr" name="polId" id="productCategoryId" bindValue="id"
+                                placeholder="Product Category" bindLabel="name" formControlName="productCategoryId"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.productCategoryId.errors }">
+                            </ng-select>
+
+                            <div *ngIf="productListSubmitted && f.productCategoryId.errors" class="invalid-feedback">
+                                <div *ngIf="f.productCategoryId.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="productValidityInDays">Validity Days</label>
+                            <input id="productValidityInDays" type="number" class="form-control"
+                                formControlName="productValidityInDays" placeholder="Validity Days"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.productValidityInDays.errors }">
+                            <div *ngIf="productListSubmitted && f.productValidityInDays.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="f.productValidityInDays.errors.required">*Required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="Tags">Tags</label>
+                            <ng-select [items]="Tag" [addTag]="true" [multiple]="true" placeholder="Select Tags"
+                                formControlName="tagsList"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.tagsList.errors || f.tagsList.invalid && (f.tagsList.dirty || f.tagsList.touched) }">
+                            </ng-select>
+                            <div *ngIf=" productListSubmitted && f.tagsList.errors || f.tagsList.invalid && (f.tagsList.dirty || f.tagsList.touched) " class="invalid-feedback">
+                                <div *ngIf="f.tagsList.errors.required">*Required</div>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="Brand">Brand</label>
+                            <ng-select [items]="BrandArr" name="polId" placeholder="Select Brand" bindLabel="brandName"
+                                bindValue="id" formControlName="brandId"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.brandId.errors }">
+                            </ng-select>
+                            <div *ngIf="productListSubmitted && f.brandId.errors" class="invalid-feedback">
+                                <div *ngIf="f.brandId.errors.required">*Required</div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="description">Description</label>
+                            <textarea id="description" type="text" rows="1" class="form-control"
+                                formControlName="description" placeholder="Description"
+                                [ngClass]="{ 'is-invalid': productListSubmitted && f.description.errors }"></textarea>
+                            <div *ngIf="productListSubmitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">*Required</div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-end">
+
+                        <button class="btn btn-primary btn-sm" (click)="next()" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="address" class="content">
+
+                    <ngx-simplebar>
+                        <table id="voucherList-table" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>UOM</th>
+                                    <th>DISCOUNT TYPE</th>
+                                    <th>DISCOUNT</th>
+                                    <th>QUANTITY</th>
+                                    <th>THRESHOLD QUANTITY</th>
+                                    <th>PURCHASE RATE</th>
+                                    <th>SALES RATE</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="workOrder-table" formArrayName="productDtlList">
+                                <tr *ngFor="let ProductList of productDtlListArr.controls;let i=index;"
+                                    [formGroupName]="i">
+                                    <td>{{i+1}}</td>
+                                    <td class="px-1">
+                                        <ng-select [items]="UomArr" [appendTo]="'body'" placeholder="Choose"
+                                            bindLabel="name" bindValue="id" formControlName="uomId"
+                                            style="width: 200px;"
+                                            [ngClass]="{ 'is-invalid': productListSubmitted && productDtlListArr.controls[i].get('uomId').errors}">
+                                        </ng-select>
+                                        <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('uomId').errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="productDtlListArr.controls[i].get('uomId').errors.required">
+                                                *Required</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-1">
+                                        <ng-select [items]="discountArr" [appendTo]="'body'"
+                                            formControlName="discountType" placeholder="Discount Type" bindLabel="name"
+                                            style="width: 200px;"
+                                            [ngClass]="{ 'is-invalid': productListSubmitted && productDtlListArr.controls[i].get('discountType').errors}">
+                                        </ng-select>
+
+                                        <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('discountType').errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="productDtlListArr.controls[i].get('discountType').errors.required">
+                                                *Required</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-1">
+
+                                        <input class="form-control border-top-0 border-left-0 border-right-0"
+                                            type="number" [readOnly]="ProductList.value.discountType == 'NONE'"
+                                            placeholder="Discount" formControlName="discount" style="width: 200px;">
+                                        <!-- <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('discount').errors" class="invalid-feedback">
+                                            <div *ngIf="productDtlListArr.controls[i].get('discount').errors.required">
+                                                *Required</div>
+                                            <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('discount').errors  && ProductList.value.discountType !='NONE'" class="invalid-feedback">
+                                                <div *ngIf="productDtlListArr.controls[i].get('discount').errors.required && ProductList.value.discountType !='NONE'">
+                                                    *Required</div>
+                                            </div>
+                                        </div> -->
+
+                                    </td>
+
+                                    <td class="px-1">
+                                        <input class="form-control border-top-0 border-left-0 border-right-0"
+                                            type="number" placeholder="Quantity" formControlName="quantity"
+                                            style="width: 200px;"
+                                            [ngClass]="{ 'is-invalid': productListSubmitted && productDtlListArr.controls[i].get('quantity').errors}">
+                                        <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('quantity').errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="productDtlListArr.controls[i].get('quantity').errors.required">
+                                                *Required</div>
+                                        </div>
+                                    </td>
+
+                                    <td class="px-1">
+                                        <input class="form-control border-top-0 border-left-0 border-right-0"
+                                            type="number" placeholder="Threshold Quantity"
+                                            formControlName="thresholdQuantity" style="width: 200px;"
+                                            [ngClass]="{ 'is-invalid': productListSubmitted && productDtlListArr.controls[i].get('thresholdQuantity').errors}">
+                                        <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('thresholdQuantity').errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="productDtlListArr.controls[i].get('thresholdQuantity').errors.required">
+                                                *Required</div>
+                                        </div>
+
+                                    </td>
+
+                                    <td class="px-1">
+                                        <input class="form-control border-top-0 border-left-0 border-right-0"
+                                            type="number" placeholder="Purchase Rate" formControlName="purchaseRate"
+                                            style="width: 200px;"
+                                            [ngClass]="{ 'is-invalid': productListSubmitted && productDtlListArr.controls[i].get('purchaseRate').errors}">
+                                        <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('purchaseRate').errors"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="productDtlListArr.controls[i].get('purchaseRate').errors.required">
+                                                *Required</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input class="form-control border-top-0 border-left-0 border-right-0"
+                                            type="number" placeholder="Sales Rate" formControlName="salesRate"
+                                            style="width: 200px;"
+                                            [ngClass]="{ 'is-invalid': productListSubmitted && productDtlListArr.controls[i].get('salesRate').errors}">
+                                        <div *ngIf="productListSubmitted && productDtlListArr.controls[i].get('salesRate').errors"
+                                            class="invalid-feedback">
+                                            <div *ngIf="productDtlListArr.controls[i].get('salesRate').errors.required">
+                                                *Required</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <i class='bx bxs-trash-alt cursor-pointer ml-1' (click)="deleteUom(ProductList.value.id,i)"
+                                            style='color:#c32424'></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ngx-simplebar>
+                    <div class="my-2 d-flex">
+                        <button class="btn btn-primary btn-sm" (click)="addUom()">Add</button>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-secondary btn-sm" (click)="previous()" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+
+                        </button>
+
+                        <button class="btn btn-primary btn-sm" (click)="productNext()" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="data" class="content">
+                    <div class="card">
+                        <table id="voucherList-table" class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>IMAGE TYPE</th>
+                                    <th>FILE NAME</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody class="workOrder-table" formArrayName="productImageList">
+                                <tr *ngFor="let productListImage of productImageListArr.controls;let i=index;"
+                                    [formGroupName]="i">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td class="px-1">
+                                        <div class="row form-inline justify-content-center flex-direction-column">
+                                            <ng-select [items]="productImgArr" placeholder="Choose" type="text" id=""
+                                                placeholder="Image Type" formControlName="productImageType"
+                                                style="width: 150px;"
+                                                [ngClass]="{ 'is-invalid': productListSubmitted && productImageListArr.controls[i].get('productImageType').errors}">
+                                            </ng-select>
+                                            <div style="width: 150px;"
+                                                *ngIf="productListSubmitted && productImageListArr.controls[i].get('productImageType').errors"
+                                                class="invalid-feedback">
+                                                <div
+                                                    *ngIf="productImageListArr.controls[i].get('productImageType').errors.required">
+                                                    *Required</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row form-inline justify-content-center">
+                                            <label [for]="i">
+                                                <i class="bx bx-upload mx-auto "
+                                                    style=" font-size: 25px; cursor: pointer;"></i><span>{{productListImage.value.fileName}}</span>
+                                            </label>
+                                            <input [id]="i" type="file" (change)="onImageFileupload($event,i)"
+                                                formControlName="file" style="display: none;">
+                                            <label for="filedownload" *ngIf="add">
+                                                <i class="bx bx-download mt-0 cursor:pointer ml-2 "
+                                                    style="font-size: 25px;" aria-hidden="true"></i> <span class="mt-0"
+                                                    style="font-size: 12px;"></span>
+                                            </label>
+                                            <input id="filedownload" type="file" formControlName="filedownload"
+                                                (click)="downloadImageFile(productListImage.value.fileUrl)"
+                                                style="display: none;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row form-inline justify-content-center">
+                                            <i class='bx bxs-trash-alt cursor-pointer' (click)="deleteImage(productListImage.value.id,i)"
+                                                style='color:#c32424'></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="my-2 d-flex">
+                            <button class="btn btn-primary btn-sm" (click)="addImage()">Add</button>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-secondary btn-sm" (click)="previousUom()" rippleEffect>
+                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+
+                                <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            </button>
+                            <button class="btn btn-primary btn-sm" (click)="productImage()" rippleEffect>
+                                <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="productDescription" class="content">
+                    <angular-editor formControlName="detailedDescription" id="angularEditor" class="description"
+                        [ngClass]="{ 'is-invalid': productListSubmitted && f.detailedDescription.errors }">
+
+                    </angular-editor>
+                    <div *ngIf="productListSubmitted && f.detailedDescription.errors" class="invalid-feedback">
+                        <div *ngIf="f.detailedDescription.errors.required">*Required</div>
+                    </div>
+
+
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-secondary btn-sm mt-2" (click)="previousDescription()" rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-sm mt-2" (click)="onSubmit()" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">{{buttonText}}</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</section>

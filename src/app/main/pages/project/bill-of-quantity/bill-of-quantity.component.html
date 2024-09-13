@@ -1,0 +1,396 @@
+<div class="card">
+    <div class="card-body">
+        <div class=" pageHeading">
+            <h4 class="">BOQ</h4>
+        </div>
+        <div>
+            <form [formGroup]="boqForm" autocomplete="off">
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 form-group">
+                        <label for="projectId">Job/Project Code</label>
+                        <ng-select [items]="projectArr" (change)="jobCode($event.id)" name="projectId" id="projectId" bindLabel="jobCode" bindValue="id" placeholder="Choose" formControlName="projectId"  [ngClass]="{ 'is-invalid': boqSubmitted && f.projectId.errors}">
+                        </ng-select>
+                        <div *ngIf="boqSubmitted && f.projectId.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectId.errors.required">Required</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- *ngIf="WaitingFortheResponse && boqForm.value.projectId" -->
+                <div class="col-12 px-0 mt-5" *ngIf="WaitingFortheResponse && boqForm.value.projectId">
+                    <ngx-simplebar>
+                        <table class="table table-bordered">
+                            <thead class="text-center">
+                                <tr>
+                                    <th rowspan="3" style="vertical-align: center; text-align: middle !important;">S.NO
+                                    </th>
+                                    <th rowspan="3">ITEM</th>
+                                    <th rowspan="3">QTY</th>
+                                    <!-- <th>DESCRIPTION</th> -->
+                                    <th rowspan="2" colspan="3">Sales</th>
+                                    <th colspan="15">ACE</th>
+                                    <th rowspan="3">NET AMOUNT</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="6">Supply</th>
+                                    <th colspan="6">Execution</th>
+                                    <th rowspan="2">Misc</th>
+                                    <th colspan="2">Total</th>
+                                    <!-- <th rowspan="2">Action</th> -->
+                                </tr>
+                                <tr>
+                                    <th>UOM</th>
+                                    <th>RATE</th>
+                                    <th>AMOUNT</th>
+                                    <th class="custom-width">MATERIAL</th>
+                                    <th class="custom-width">UOM</th>
+                                    <th class="custom-width">Measurement</th>
+                                    <th class="custom-width">QTY</th>
+                                    <th class="custom-width">RATE</th>
+                                    <th class="custom-width">AMOUNT</th>
+                                    <th class="custom-width">EXECUTION</th>
+                                    <th class="custom-width">UOM</th>
+                                    <th class="custom-width">Measurement</th>
+                                    <th class="custom-width">QTY</th>
+                                    <th class="custom-width">RATE</th>
+                                    <th class="custom-width">AMOUNT</th>
+                                    <th>Total Rate</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="billOfQuantityDtlDTOList">
+                                <tr *ngFor="let boq of boqListArr.controls;let i=index" [formGroupName]='i'>
+                                    <td>{{i+1}}</td>
+                                    <td style="min-width: 500px !important;">
+                                        <div *ngIf="boqArr[i]?.serviceDescription">
+                                            {{boqArr[i]?.serviceDescription }}
+                                        </div>
+                                        <div *ngIf="boqObj?.billOfQuantityDtlDTOList">
+                                            {{ boqObj.billOfQuantityDtlDTOList[i].workOrderItemName}}
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <input id="item" type="text" readonly style="width:200px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="itemDescription" placeholder="Item" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('itemDescription').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('itemDescription').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('itemDescription').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                    <!-- <td>
+                                    <div class="form-group">
+                                        <input id="description" type="text" class="form-control border-left-0 border-top-0 border-right-0" formControlName="description" placeholder="Description" (keyup)="calculateAmount(i)" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('description').errors}">
+                                        <div *ngIf="boqSubmitted && boqListArr.controls[i].get('description').errors" class="invalid-feedback">
+                                            <div *ngIf="boqListArr.controls[i].get('description').errors.required">Required
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td> -->
+                                    <td>
+                                        <div class="form-group">
+                                            <input id="quantity" readonly type="number" style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="noOfQuantity" placeholder="Qty" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('noOfQuantity').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('noOfQuantity').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('noOfQuantity').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <ng-select [items]="uomArr" class="border-top-0 border-left-0 border-right-0" [readonly]='true' name="workOrderUomId" id="workOrderUomIdId{{i}}" bindLabel="name" [appendTo]="'body'" bindValue="id" placeholder="Choose" style="width:100px;" formControlName="workOrderUomId"
+                                                [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('workOrderUomId').errors}">
+                                            </ng-select>
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('workOrderUomId').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('workOrderUomId').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input id="workOrderRate" type="number" readonly style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="workOrderRate" placeholder="Rate" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('workOrderRate').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('workOrderRate').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('workOrderRate').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="form-group">
+                                            <input id="workOrderAmount" type="number" readonly style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="workOrderAmount" style="width: 100px;" placeholder="Amount" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('workOrderAmount').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('workOrderAmount').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('workOrderAmount').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td colspan="6" class="p-0" formArrayName="billOfQuantitySupplyList">
+                                        <!-- <ng-template> -->
+                                        <div class="d-flex" *ngFor="let supply of boqSupplyList(i).controls;let j=index;" [formGroupName]="j">
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <ng-select [items]="materialArr" class="border-top-0 border-left-0 border-right-0" id="materialId{{i}}" bindLabel="name" [appendTo]="'body'" bindValue="id" placeholder="Choose" style="width:100px;" formControlName="materialId" [ngClass]="{ 'is-invalid': boqSubmitted && supply.get('materialId').errors}">
+                                                    </ng-select>
+                                                    <div *ngIf="boqSubmitted && supply.get('materialId').errors" class="invalid-feedback">
+                                                        <div *ngIf="supply.get('materialId').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <ng-select [items]="uomArr" class="border-top-0 border-left-0 border-right-0" name="uom" id="uomId{{i}}" bindLabel="name" [appendTo]="'body'" bindValue="id" placeholder="Choose" style="width:100px;" formControlName="uomId" [ngClass]="{ 'is-invalid': boqSubmitted && supply.get('uomId').errors}">
+                                                    </ng-select>
+                                                    <div *ngIf="boqSubmitted && supply.get('uomId').errors" class="invalid-feedback">
+                                                        <div *ngIf="supply.get('uomId').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width px-1">
+                                                <div class="form-group">
+                                                    <input id="measurement" type="number" class="form-control border-left-0 border-top-0 border-right-0" (keyup)="calculateSupplyQty(i,j)" formControlName="measurement" placeholder="measurement" [ngClass]="{ 'is-invalid': boqSubmitted && supply.get('measurement').errors}">
+                                                    <div *ngIf="boqSubmitted && supply.get('measurement').errors" class="invalid-feedback">
+                                                        <div *ngIf="supply.get('measurement').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <input id="qty" type="number" style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="supplyQty" (ngModelChange)="calculateSupplyAmount(i,j)" placeholder="Qty" [ngClass]="{ 'is-invalid': boqSubmitted && supply.get('supplyQty').errors}">
+                                                    <div *ngIf="boqSubmitted && supply.get('supplyQty').errors" class="invalid-feedback">
+                                                        <div *ngIf="supply.get('supplyQty').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <input id="rate" type="number" style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="supplyRate" (keyup)="calculateSupplyAmount(i,j)" placeholder="Rate" [ngClass]="{ 'is-invalid': boqSubmitted && supply.get('supplyRate').errors}">
+                                                    <div *ngIf="boqSubmitted && supply.get('supplyRate').errors" class="invalid-feedback">
+                                                        <div *ngIf="supply.get('supplyRate').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <input id="amount" type="number" style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="supplyAmount" (ngModelChange)="calculateSupplyTotal(i)" style="width: 100px;" placeholder="Amount" [ngClass]="{ 'is-invalid': boqSubmitted && supply.get('supplyAmount').errors}">
+                                                    <div *ngIf="boqSubmitted && supply.get('supplyAmount').errors" class="invalid-feedback">
+                                                        <div *ngIf="supply.get('supplyAmount').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div [formGroup]="boqForm" class="ml-0 pt-2 pl-2 row" style="justify-content: space-between;">
+                                            <div class=" col-4">
+                                                <button class="btn btn-primary" (click)="addSupplySubRow(i)">Add</button>
+                                            </div>
+                                            <div class="col-6 justify-content-end row">
+                                                <div class="text-center col-5">
+                                                    <strong style="margin-top: 9px; display: inline-block;"> Sub
+                                                        Total</strong>
+                                                </div>
+                                                <div class="col-5" formArrayName="billOfQuantityDtlDTOList">
+                                                    <div class="form-group" [formGroupName]="i">
+                                                        <input type="number" id="subTotal" class="form-control border-left-0 border-top-0 border-right-0" formControlName="supplyAmount" (ngModelChange)="calculateMiscAmount(i)" placeholder="Sub Total">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- </ng-template> -->
+                                    </td>
+                                    <td colspan="6" class="p-0" formArrayName="billOfQuantityExecutionList">
+                                        <!-- <ng-template> -->
+                                        <div *ngFor="let execution of boqExecutionLis(i).controls;let j=index;" [formGroupName]="j" class="d-flex">
+                                            <div class="custom-width px-1 ">
+                                                <div class="form-group col-12">
+                                                    <ng-select id="executionId" [items]="executionArr" class="w-100" bindLabel="name" bindValue="id" formControlName="executionId" placeholder="Choose" [ngClass]="{ 'is-invalid': boqSubmitted && execution.get('executionId').errors}"></ng-select>
+                                                    <div *ngIf="boqSubmitted && execution.get('executionId').errors" class="invalid-feedback">
+                                                        <div *ngIf="execution.get('executionId').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <ng-select [items]="uomArr" class="border-top-0 border-left-0 border-right-0" name="uom" id="uomId{{i}}" bindLabel="name" [appendTo]="'body'" bindValue="id" placeholder="Choose" style="width:100px;" formControlName="uomId" [ngClass]="{ 'is-invalid': boqSubmitted && execution.get('uomId').errors}">
+                                                    </ng-select>
+                                                    <div *ngIf="boqSubmitted && execution.get('uomId').errors" class="invalid-feedback">
+                                                        <div *ngIf="execution.get('uomId').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width px-1">
+                                                <div class="form-group">
+                                                    <input id="measurement" type="number" class="form-control border-left-0 border-top-0 border-right-0" (keyup)="calculateExecutionQty(i,j)" formControlName="measurement" placeholder="Measurement" [ngClass]="{ 'is-invalid': boqSubmitted && execution.get('measurement').errors}">
+                                                    <div *ngIf="boqSubmitted && execution.get('measurement').errors" class="invalid-feedback">
+                                                        <div *ngIf="execution.get('measurement').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <input id="executionQty" type="number" style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="executionQty" (ngModelChange)="calculateExecutionAmount(i,j)" placeholder="Qty" [ngClass]="{ 'is-invalid': boqSubmitted && execution.get('executionQty').errors}">
+                                                    <div *ngIf="boqSubmitted && execution.get('executionQty').errors" class="invalid-feedback">
+                                                        <div *ngIf="execution.get('executionQty').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <input id="rate" type="number" style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="executionRate" (keyup)="calculateExecutionAmount(i,j)" placeholder="Rate" [ngClass]="{ 'is-invalid': boqSubmitted && execution.get('executionRate').errors}">
+                                                    <div *ngIf="boqSubmitted && execution.get('executionRate').errors" class="invalid-feedback">
+                                                        <div *ngIf="execution.get('executionRate').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="custom-width">
+                                                <div class="form-group">
+                                                    <input id="amount" type="number" style="width:100px;" class="form-control border-left-0 border-top-0 border-right-0" formControlName="executionAmount" (ngModelChange)="calculateExecutionTotal(i)" style="width: 100px;" placeholder="Amount" [ngClass]="{ 'is-invalid': boqSubmitted && execution.get('executionAmount').errors}">
+                                                    <div *ngIf="boqSubmitted && execution.get('executionAmount').errors" class="invalid-feedback">
+                                                        <div *ngIf="execution.get('executionAmount').errors.required">
+                                                            Required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div [formGroup]="boqForm" class="ml-0 pt-2 pl-2 row" style="justify-content: space-between;">
+                                            <div class=" col-4">
+                                                <button class="btn  btn-primary" (click)="addExecutionSubRow(i)">Add</button>
+                                            </div>
+                                            <div class="col-6 justify-content-end row">
+                                                <div colspan="4" class="col-5 text-center">
+                                                    <strong style="display: inline-block; margin-top: 9px;"> Sub
+                                                        Total</strong>
+                                                </div>
+                                                <div class="col-5" formArrayName="billOfQuantityDtlDTOList">
+                                                    <div class="form-group" [formGroupName]='i'>
+                                                        <input type="number" id="subTotal" formControlName="executionAmount" (ngModelChange)="calculateMiscAmount(i)" class="form-control border-left-0 border-top-0 border-right-0" placeholder="Sub Total">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- </ng-template> -->
+                                    </td>
+
+                                    <td class="p-0 bor" style="position: relative;">
+                                        <div class="form-group" style="position: absolute; top: 20px;">
+                                            <input id="misc" type="number" class="form-control w-100 border-left-0 border-top-0 border-right-0" formControlName="misc" (keyup)="calculateMiscAmount(i)" style="width: 100px;" placeholder="Misc" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('misc').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('misc').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('misc').errors.required">Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" pt-2" style="position: absolute; bottom: 20px;" rowspan="5">
+                                            <div class="px-0">
+                                                <input id="miscTotal" type="number" formControlName="miscAmount" class="form-control border-left-0 border-top-0 border-right-0" placeholder="Amount" (ngModelChange)="calculateTotalRate(i)">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input id="rate" type="number" class="form-control border-left-0 border-top-0 border-right-0" style="width: 100px;" formControlName="totalRate" (ngModelChange)="calculateTotalAmount(i)" placeholder="Rate" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('totalRate').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('totalRate').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('totalRate').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input id="amount" type="number" class="form-control border-left-0 border-top-0 border-right-0" formControlName="totalAmount" style="width: 100px;" placeholder="Amount" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('totalAmount').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('totalAmount').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('totalAmount').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <input id="netAmount" type="number" class="form-control border-left-0 border-top-0 border-right-0" formControlName="netAmount" style="width: 100px;" placeholder="Amount" [ngClass]="{ 'is-invalid': boqSubmitted && boqListArr.controls[i].get('netAmount').errors}">
+                                            <div *ngIf="boqSubmitted && boqListArr.controls[i].get('netAmount').errors" class="invalid-feedback">
+                                                <div *ngIf="boqListArr.controls[i].get('netAmount').errors.required">
+                                                    Required
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!-- <td>
+                                        <i class='bx bxs-trash-alt cursor-pointer' (click)="deleteRow(i)" style='color:#c32424'></i>
+                                    </td> -->
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ngx-simplebar>
+                    <!-- <div class="">
+                        <button class="btn btn-primary" (click)="add()">Add</button>
+                    </div> -->
+                </div>
+                <!--  *ngIf="WaitingFortheResponse && boqForm.value.projectId" -->
+                <!-- <div class="row justify-content-between pt-3" *ngIf="WaitingFortheResponse && boqForm.value.projectId">
+                    <div class="col-sm-4 ">
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea id="notes" style="width:390px !important;height:100px" type="number" class="form-control " formControlName="notes" placeholder="Notes" [ngClass]="{ 'is-invalid': boqSubmitted && f.notes.errors}"> </textarea>
+                            <div *ngIf="boqSubmitted && f.notes.errors" class="invalid-feedback">
+                                <div *ngIf="f.notes.errors.required">Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 ">
+                        <div class="form-group row">
+                            <label for="totalAmount" class="text-right col-4" style="width: 40%; padding: 11px 14px 0 0;"><strong>Total</strong> </label>
+                            <input id="totalAmount" style="width: 50%;" type="number" class="form-control col-7" formControlName="totalAmount" placeholder="Total" [ngClass]="{ 'is-invalid': boqSubmitted && f.totalAmount.errors}">
+                            <div class="col-sm-4"></div>
+                            <div *ngIf="boqSubmitted && f.totalAmount.errors" class="invalid-feedback px-0 col-sm-7">
+                                <div *ngIf="f.totalAmount.errors.required">Required
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> -->
+                <!--  -->
+                <div class="col-12 row mr-0 pr-0" *ngIf="WaitingFortheResponse && boqForm.value.projectId">
+                    <div class="form-group col-6 ">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" class="form-control " formControlName="notes" placeholder="Notes"></textarea>
+
+                    </div>
+                    <div class="pb-1 col-6 d-flex pr-0 justify-content-end align-items-end" *ngIf="WaitingFortheResponse && boqForm.value.projectId">
+                        <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>

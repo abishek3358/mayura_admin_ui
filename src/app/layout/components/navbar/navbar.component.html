@@ -1,0 +1,67 @@
+<div *ngIf="horizontalMenu" class="navbar-header d-xl-block d-none">
+    <!-- Navbar brand -->
+    <ul class="nav navbar-nav flex-row">
+        <li class="nav-item">
+            <a class="navbar-brand" [routerLink]="['/']">
+                <span class="brand-logo">
+                    <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" width="36" />
+                </span>
+                <h2 class="brand-text mb-0">{{ coreConfig.app.appName }}</h2>
+            </a>
+        </li>
+    </ul>
+    <!--/ Navbar brand -->
+</div>
+
+<div class="navbar-container d-flex content">
+    <ul class="nav navbar-nav d-xl-none" *ngIf="!coreConfig.layout.menu.hidden">
+        <li class="nav-item togle">
+            <a class="nav-link menu-toggle" (click)="toggleSidebar('menu')">
+                <span [data-feather]="'menu'" [class]="'ficon'"></span>
+            </a>
+        </li>
+    </ul>
+    <!-- <li class="nav-item list" [routerLink]="['app/master/company/setting']">
+        <a class="nav-link nav-link-style btn">
+            <span [data-feather]="'settings'" [class]="'mr-50'"></span>
+        </a>
+    </li> -->
+    <ul class="nav navbar-nav align-items-center ml-auto">
+
+
+        <app-navbar-notification></app-navbar-notification>
+        <!--/ Notification -->
+
+        <!-- User Dropdown -->
+        <li ngbDropdown class="nav-item dropdown-user">
+            <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" ngbDropdownToggle
+                id="navbarUserDropdown" aria-haspopup="true" aria-expanded="false">
+                <ng-container *ngIf="this.currentUser">
+                    <div class="user-nav d-sm-flex d-none">
+                        <span class="user-name font-weight-bolder m-0">{{ this.currentUser.fullName }} </span>
+
+                    </div>
+                    <span class="avatar"><img class="round" src="assets\images\avatar-profile.jpg" alt="avatar"
+                            height="24" width="24" /><span class="avatar-status-online"></span></span>
+                    <!-- src="assets/images/portrait/small/{{ this.currentUser.avatar }}" -->
+
+                </ng-container>
+            </a>
+            <div ngbDropdownMenu aria-labelledby="navbarUserDropdown" class="dropdown-menu dropdown-menu-right"
+                style="width: 180px;">
+                        <a ngbDropdownItem *ngIf="userRole.roleObj.roleName === 'USER'" (click)="openProfileModal()">
+                            <span [data-feather]="'user'" [class]="'mr-50'"></span> Profile
+                        </a>
+                        
+                        <a ngbDropdownItem *ngIf="userRole.roleObj.roleName === 'VENDOR_ADMIN'" [routerLink]="['admin/change/password']">
+                            <span [data-feather]="'user'" [class]="'mr-50'"></span> Change Password
+                        </a>
+
+                <a ngbDropdownItem (click)="logout()"><span [data-feather]="'power'" [class]="'mr-50'"></span>
+                    Logout</a>
+
+            </div>
+        </li>
+        <!--/ User Dropdown -->
+    </ul>
+</div>

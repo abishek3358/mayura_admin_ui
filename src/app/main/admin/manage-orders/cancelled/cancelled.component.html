@@ -1,0 +1,121 @@
+<!-- <div class="container-fluid mx-auto">
+    <div class="row">
+        <div class="col-12 pr-0 pl-0">
+            <div class="shadow p-2 mb-5 col-md-12">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-2 pageHeading">
+                            <h4 class="">Vendor Rejected Orders</h4>
+                        </div>
+                    </div>
+                </div>
+                <table id="cancel" class="table table-bordered">
+                    <thead class="thead bg-white">
+                        <tr>
+                            <th>S.NO</th>
+                            <th>ORDER NO</th>
+                            <th>VENDOR NAME</th>
+                            <th>REASON</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of cancelArr; let i=index">
+
+                            <td>{{i+1}}</td>
+                            <td>{{order.orderNo}}</td>
+                            <td>{{order.customerName}}</td>
+                            <td>{{order.orderDate}}</td>
+                            <td>{{order.customerDeliveryAddress}}</td>
+                            <td>{{order.noOfItem}}</td>
+                            <a ngbDropdownItem routerLink="manage-pending/{{order.orderId}}">
+                                <i class='fa fa-arrow-right'></i>
+                                <span class="ml-1"></span></a>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="pageHeading">
+                                <h4 class="">Vendor Rejected Order</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!-- <div class="text-right my-auto ">
+                                <button type="button" class="btn btn-primary btn-sm  mb-2" (click)="openModal(myModal)">Add</button>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="scroll">
+                        <table id="cancel" class="table table-bordered" style="width: 100%">
+                            <thead>
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>ORDER NO</th>
+                                    <th>VENDOR NAME</th>
+                                    <th>Order Date</th>
+                                    <th>Address</th>
+                                    <th>REASON</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let order of cancelArr; let i=index">
+
+                                    <td>{{i+1}}</td>
+                                    <td>{{order.customerOrderNo}}</td>
+                                    <td>{{order.customerName}}</td>
+                                    <td>{{order.allocatedDate}}</td>
+                                    <td>{{order.deliveryAddress}}</td>
+                                    <td>{{order.rejectionReason}}</td>
+                                    <td>
+                                        <a
+                                            routerLink="/admin/order-management/pending/manage-pending/{{order.customerOrderId}}">
+                                            <i class='fa fa-arrow-right'></i>
+                                            <span class="ml-1"></span></a>
+                                        <!-- <a (click)="openModal(cancelModal,order.customerOrderId)">
+                                            <i class='fa fa-window-close' style='color:rgb(233, 95, 77)'></i>
+                                        </a> -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<ng-template #cancelModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Cancel Order</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-1" id="cancelModal">
+        <form [formGroup]="cancelForm" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="name">Reason</label>
+                        <textarea id="reason" type="text" class="form-control" formControlName="reason"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-2 " routerLink="shippedList">
+                <button type="submit" class="btn btn-sm btn-primary mb-2 p-1" (click)="orderCancel(modal)">Submit</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

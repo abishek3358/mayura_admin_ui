@@ -1,0 +1,181 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <div class=" pageHeading">
+                    <h4 class="">Wages</h4>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-right my-auto ">
+                    <button type="button" class="btn btn-primary btn-sm p-1 mb-2" (click)="addWages()">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <ngx-simplebar>
+            <div class="col-12 px-0 ">
+                <table id="wages" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Month</th>
+                            <th>Project Name</th>
+                            <th>Paid Wages</th>
+                            <th>Total Wages</th>
+                            <th>Updated Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let list of wagesArray;let i =index">
+                            <td>{{i+1}}</td>
+                            <td>{{list.month}}</td>
+                            <td>{{list.projectName}}</td>
+                            <td>{{list.paidWages}}</td>
+                            <td>
+                                {{list.totalWages}}
+                            </td>
+                            <td>{{list.date}}</td>
+                            <td> <span class="badge  w-100" [ngClass]="{'badge-success':list.paymentStatus != 'UNPAID' ,'badge-danger':list.paymentStatus == 'UNPAID'}">{{list.paymentStatus}}</span>
+                            </td>
+                            <td>
+                                <div ngbDropdown container="body">
+                                    <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                        <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                    </button>
+
+                                    <div ngbDropdownMenu>
+                                        <a ngbDropdownItem (click)="viewPayroll(list.projectId,list.month)"><i
+                                                class='bx bxs-file text-primary'></i><span class="ml-2">View</span></a>
+                                        <a ngbDropdownItem (click)="recordPayment(list.id)" *ngIf="list.paymentStatus == 'UNPAID'"><img src="assets/images/bills/invoices.png" height="15" width="15" alt=""><span class="ml-2">Record Payment</span></a>
+                                        <!-- <a ngbDropdownItem (click)="download(list.projectId,list.month)"><i class='bx bxs-download text-dark' ></i><span
+                                            class="ml-2">Download</span></a> -->
+                                        <a ngbDropdownItem (click)="editPayroll(list.id)"><i
+                                                class='bx bxs-edit text-success'></i><span
+                                                class="ml-2">Edit</span></a><a ngbDropdownItem><i
+                                                class='bx bxs-trash-alt' style='color:#c32424'></i><span class="ml-2"
+                                                (click)="deleteCofirmation(deleteWages,list)">Delete</span></a>
+                                    </div>
+                                </div>
+                            </td>
+                            <!-- <td>
+                                <div>
+                                    <div class="text-center">
+                                        <i class="bx bxs-file-doc cursor-pointer" title="Upload" style="font-size:24px" (click)="openModal(modalRow,list.id)"></i>
+                                        <i class='bx bx-download text-success cursor-pointer ml-2'  (click)="downloadOpenModal(Downloadmodal,list)" title="Download" style="font-size: 24px;"></i>
+                                    </div>
+                                    <div>
+                                         *ngIf="list?.billOfQuantityUploadDTOList.length > 0" 
+                                    </div>
+                                </div>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </ngx-simplebar>
+    </div>
+</div>
+<ng-template #Downloadmodal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Documents</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <div class="P-3"> -->
+        <div class="col-12 row mb-2  d-flex justify-content-center " *ngFor="let download of downloadList;let i=index">
+            <div class="col-8" style="padding-top: 8px;">
+                {{download.name}}
+            </div>
+            <div class="col-4 text-center">
+                <button class="btn btn-danger" (click)="fileDownload(modal,download)">Download</button>
+            </div>
+        </div>
+
+        <!-- </div> -->
+    </div>
+
+</ng-template>
+<ng-template #deleteWages let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+        <div class="text-right mt-2 ">
+            <button type="button" class="btn btn-primary  ml-2 " (click)="delete(modal)">Yes</button>
+        </div>
+    </div>
+
+</ng-template>
+<!-- <ng-template #modalRow let-modal>
+    <div class="pb-2 ">
+        <div class="modal-header ">
+            <h5>File Upload</h5>
+
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="col-6">
+
+            </div> -->
+<!-- <div class="col-6">
+                <button class="btn btn-primary " (click)="addRow()"></button>
+            </div> 
+        </div>
+
+
+        <div class="modal-body">
+            <form [formGroup]="modalForm">
+                <div class="text-right">
+                    <button class="btn btn-primary " (click)="addRow()">add</button>
+                </div>
+
+                <div formArrayName="wagesArr">
+
+                    <div *ngFor="let add of form.controls;let i=index;" [formGroupName]="i">
+                        <div class="row ">
+                            <div class="form-group col-5">
+                                <label for="name">Name</label>
+                                <input id="name" type="text" class="form-control" formControlName="name" placeholder="Name" [ngClass]="{ 'is-invalid': submitted &&  form.controls[i].get('name').errors }">
+                                <div *ngIf="submitted && form.controls[i].get('name').errors" class="invalid-feedback">
+                                    <div *ngIf=" form.controls[i].get('name').errors required">Required</div>
+                                </div>
+                            </div>
+                            <div class="col-5  form-group" style="margin-top: 30px;">
+
+                                <input type="file" class="w-100" [ngClass]="{'is-invalid': submitted && form.controls[i].get('fileName').errors}" (change)="onFileChange($event,i)">
+                                <div *ngIf="submitted && form.controls[i].get('fileName').errors" class="invalid-feedback">
+                                    <div *ngIf="form.controls[i].get('fileName').errors.required">Required</div>
+                                </div>
+
+                            </div>
+                            <div class="col-1" style="margin-top: 30px;">
+                                <i class='bx bxs-trash-alt' style='color:#c32424' (click)="deleteRow(i)"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+
+            <div class="text-right mt-2">
+                <button class="btn btn-primary " (click)="rowSubmit(modal)">Submit</button>
+            </div>
+        </div>
+
+
+    </div>
+</ng-template> -->

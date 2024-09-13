@@ -1,0 +1,31 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6">
+                    <div class=" pageHeading">
+                        <h4 class="">State</h4>
+                    </div>
+                </div>
+            </div>
+
+            <table id="state-table" class="table table-bordered" style="width:100%; margin-top: 8px; ">
+                <thead>
+                    <tr>
+                        <th>S.NO</th>
+                        <th>NAME</th>
+                        <th>SHORT NAME</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let state of stateArr;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{state.name}}</td>
+                        <td>{{state.shortName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>

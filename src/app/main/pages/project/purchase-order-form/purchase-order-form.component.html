@@ -1,0 +1,585 @@
+<div class="card">
+    <div class="card-body">
+        <div class=" pageHeading">
+            <h4 class="">Purchase Order</h4>
+        </div>
+        <div>
+            <form [formGroup]="purchaseOrderForm" autocomplete="off">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label for="projectCode">Job/Project Code</label>
+                        <ng-select [items]="projectArr" name="projectId" id="projectCode" bindLabel="jobCode" (change)="getItem()" bindValue="id" placeholder="Choose" formControlName="projectId" (change)="getProjectDetails($event.id)" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.projectId.errors }">
+                        </ng-select>
+                        <div *ngIf="purchaseSubmitted && f.projectId.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectId.errors.required">
+                                Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="vendorId">Vendor</label>
+                        <ng-select [items]="vendorArr" name="vendorId" id="vendorId" bindLabel="fullName" bindValue="id" placeholder="Choose" formControlName="vendorId" (change)="getVendorDetails($event.id)" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.vendorId.errors }">
+                        </ng-select>
+                        <div *ngIf="purchaseSubmitted && f.vendorId.errors" class="invalid-feedback">
+                            <div *ngIf="f.vendorId.errors.required">
+                                Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="purchaseOrderNo">PO No</label>
+                            <input id="purchaseOrderNo" type="number" class="form-control" formControlName="purchaseOrderNo" placeholder="PO No" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.purchaseOrderNo.errors}">
+                            <div *ngIf="purchaseSubmitted && f.purchaseOrderNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.purchaseOrderNo.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="deliveryDate">Delivery Date</label>
+                            <input class="form-control" id="deliveryDate" placeholder="yyyy-mm-dd" formControlName="deliveryDate" ngbDatepicker #deliveryDate="ngbDatepicker" (click)="deliveryDate.toggle()" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.deliveryDate.errors}">
+
+                            <div *ngIf="purchaseSubmitted && f.deliveryDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.deliveryDate.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="ourReferenceNo">Your Reference No</label>
+                            <input id="ourReferenceNo" type="number" class="form-control" formControlName="ourReferenceNo" placeholder="Your Reference No" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.ourReferenceNo.errors}">
+                            <div *ngIf="purchaseSubmitted && f.ourReferenceNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.ourReferenceNo.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="ourReferenceDate">Your Reference Date</label>
+                            <input class="form-control" id="ourReferenceDate" placeholder="yyyy-mm-dd" formControlName="ourReferenceDate" ngbDatepicker #ourReferenceDate="ngbDatepicker" (click)="ourReferenceDate.toggle()" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.ourReferenceDate.errors}">
+
+                            <div *ngIf="purchaseSubmitted && f.ourReferenceDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.ourReferenceDate.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 form-group">
+                        <label for="modeofTranspoat">Mode Of Transport</label>
+                        <ng-select [items]="['LORRY','BUS','TRAIN','AUTO']" name="modeofTranspoat" id="modeofTranspoat" placeholder="Choose" formControlName="modeofTranspoat" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.modeofTranspoat.errors }">
+                        </ng-select>
+                        <div *ngIf="purchaseSubmitted && f.modeofTranspoat.errors" class="invalid-feedback">
+                            <div *ngIf="f.modeofTranspoat.errors.required">
+                                Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="purchaseorderDate">PO Date</label>
+                            <input class="form-control" id="purchaseorderDate" placeholder="yyyy-mm-dd" formControlName="purchaseorderDate" ngbDatepicker #purchaseorderDate="ngbDatepicker" (click)="purchaseorderDate.toggle()" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.purchaseorderDate.errors}">
+                            <div *ngIf="purchaseSubmitted && f.purchaseorderDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.purchaseorderDate.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="contactPersonName">Contact Person Name</label>
+                            <input id="contactPersonName" type="text" class="form-control" formControlName="contactPersonName" placeholder="Contact Person Name" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.contactPersonName.errors}">
+                            <div *ngIf="purchaseSubmitted && f.contactPersonName.errors" class="invalid-feedback">
+                                <div *ngIf="f.contactPersonName.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="siteContactPersonName">Site Contact Person Name</label>
+                            <input id="siteContactPersonName" type="text" class="form-control" formControlName="siteContactPersonName" placeholder="Site Contact Person Name" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.siteContactPersonName.errors}">
+                            <div *ngIf="purchaseSubmitted && f.siteContactPersonName.errors" class="invalid-feedback">
+                                <div *ngIf="f.siteContactPersonName.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="contactPersonMobileNo">Contact Person Mobile No</label>
+                            <input id="contactPersonMobileNo" type="number" class="form-control" formControlName="contactPersonMobileNo" placeholder="Contact Person Mobile No" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.contactPersonMobileNo.errors}">
+                            <div *ngIf="purchaseSubmitted && f.contactPersonMobileNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.contactPersonMobileNo.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="siteContactPersonMobileNo">Site Contact Person Mobile No</label>
+                            <input id="siteContactPersonMobileNo" type="number" class="form-control" formControlName="siteContactPersonMobileNo" placeholder="Site Contact Person Mobile No" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.siteContactPersonMobileNo.errors}">
+                            <div *ngIf="purchaseSubmitted && f.siteContactPersonMobileNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.siteContactPersonMobileNo.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="contactPersonEmailId">Contact Person Email</label>
+                            <input id="contactPersonEmailId" type="text" class="form-control" formControlName="contactPersonEmailId" placeholder="Contact Person Email" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.contactPersonEmailId.errors}">
+                            <div *ngIf="purchaseSubmitted && f.contactPersonEmailId.errors" class="invalid-feedback">
+                                <div *ngIf="f.contactPersonEmailId.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="siteContactPersonEmailId">Site Contact Person Email</label>
+                            <input id="siteContactPersonEmailId" type="text" class="form-control" formControlName="siteContactPersonEmailId" placeholder="Site Contact Person Email" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.siteContactPersonEmailId.errors}">
+                            <div *ngIf="purchaseSubmitted && f.siteContactPersonEmailId.errors" class="invalid-feedback">
+                                <div *ngIf="f.siteContactPersonEmailId.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input id="description" type="text" class="form-control" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.description.errors}">
+                            <div *ngIf="purchaseSubmitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 row px-0 ml-0" *ngIf="vendorAndProjectIdSelected">
+                        <div class="col-6 card">
+                            <div class="card-body shadow">
+                                <h6 class="text-dark">Vendor Address</h6>
+                                <div class="row col-12 ml-0">
+                                    <!-- <div class="row"> -->
+
+                                    <div class="col-4 mt-2">Address</div>
+                                    <div class="col-8 mt-2">
+                                        {{vendorAddressObj.vendorAddressResponceDTO[0].addressLine1}}, {{vendorAddressObj.vendorAddressResponceDTO[0].cityName}}, <br> {{vendorAddressObj.vendorAddressResponceDTO[0].stateName}}, {{vendorAddressObj.vendorAddressResponceDTO[0].countryName}},
+                                        <br> {{vendorAddressObj.vendorAddressResponceDTO[0].postalCode}}
+                                    </div>
+                                    <!-- <div class="col-6 mt-2">City</div> -->
+                                    <!-- <div class="col-6 mt-2"> -->
+                                    <!-- </div>
+                                    <div class="col-6 mt-2">state</div> -->
+                                    <!-- <div class="col-6 mt-2"> -->
+                                    <!-- </div>
+                                    <div class="col-6 mt-2">Country</div> -->
+                                    <!-- <div class="col-6 mt-2"> -->
+                                    <!-- </div>
+                                    <div class="col-6 mt-2">Postal Code</div> -->
+                                    <!-- <div class="col-6 mt-2">
+                                    </div> -->
+                                    <!-- <table class="col-12 table table-bordered mt-2">
+                                        <tr> -->
+                                    <div class="col-4 mt-2">Pan No</div>
+                                    <div class="col-8 mt-2">{{vendorAddressObj.panNumber}}</div>
+                                    <!-- </tr>
+                                        <tr> -->
+                                    <div class="col-4 mt-2">GST Reg No</div>
+                                    <div class="col-8 mt-2">{{vendorAddressObj.gstNumber}}</div>
+                                    <!-- </tr>
+                                        <tr> -->
+                                    <div class="col-4 mt-2">Person Name</div>
+                                    <div class="col-8 mt-2">{{vendorAddressObj.fullName}}</div>
+                                    <!-- </tr>
+                                        <tr> -->
+                                    <div class="col-sm-4 mt-2">Mobile No</div>
+                                    <div class="col-8 mt-2">{{vendorAddressObj.phoneNo}}</div>
+                                    <!-- </tr>
+                                    </table> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 card ">
+                            <div class="card-body shadow">
+                                <h6 class="text-dark">Project Address</h6>
+                                <div class="row col-12 ml-0">
+                                    <div class="col-4 mt-2">Address</div>
+                                    <div class="col-8 mt-2">
+                                        {{projectDetails.addressLine1}} {{projectDetails.cityName}},
+                                        <br /> {{projectDetails.StateName}} {{projectDetails.countryName}},
+                                        <br /> {{projectDetails.postalCode}}
+                                    </div>
+                                    <!-- <div class="col-6 mt-2">City</div> -->
+                                    <!-- <div class="col-6 mt-2"></div> -->
+                                    <!-- <div class="col-6 mt-2">State</div> -->
+                                    <!-- <div class="col-6 mt-2"></div> -->
+                                    <!-- <div class="col-6 mt-2">Country</div> -->
+                                    <!-- <div class="col-6 mt-2"></div> -->
+                                    <!-- <div class="col-6 mt-2">Postal Code</div> -->
+                                    <!-- <div class="col-6 mt-2"></div> -->
+                                    <!-- <table class="col-12 table table-bordered mt-2"> -->
+                                    <!-- <tr> -->
+                                    <div class="col-4 mt-2">Pan No</div>
+                                    <div class="col-8 mt-2">{{officeDetails.panNo}}</div>
+                                    <!-- </tr>
+                                        <tr> -->
+                                    <div class="col-4 mt-2">GST Reg No</div>
+                                    <div class="col-8 mt-2">{{officeDetails.gst}}</div>
+                                    <!-- </tr>
+                                        <tr> -->
+                                    <div class="col-4 mt-2">Person Name</div>
+                                    <div class="col-8 mt-2">{{officeDetails.contactPersonName}}</div>
+                                    <!-- </tr>
+                                        <tr> -->
+                                    <div class="col-4 mt-2">Mobile No</div>
+                                    <div class="col-8 mt-2">{{officeDetails.contactPersonMobileNo}}</div>
+                                    <!-- </tr> -->
+                                    <!-- </table> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <ngx-simplebar>
+                            <!-- <div class="table-responsive"> -->
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Material</th>
+                                        <th>SAC</th>
+                                        <th>UOM</th>
+                                        <th>Qty</th>
+                                        <th>Unit Rate</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="purchaseOrderMaterialDTOList">
+                                    <tr *ngFor="let purchaseOrder of purchaseOrderMaterialDTOListArr.controls;let i=index" [formGroupName]="i">
+                                        <td>{{i+1}}</td>
+
+                                        <td class="px-1">
+                                            <ng-select class="pt-0 pb-0 mr-3" style="width: 140px;" [items]="itemArr" [appendTo]="'body'" type="text" (ngModelChange)="titleGet(i)" [title]="titleArr[i]" bindLabel="materialName" bindValue="id" placeholder="Choose" (change)="getSupplyDetails($event.id,i)"
+                                                formControlName="materialId" [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('materialId').errors}">
+                                            </ng-select>
+                                            <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('materialId').errors" class="invalid-feedback">
+                                                <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('materialId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <!-- <td class="px-1">
+                                            <ng-select type="text" class="ng-select-with-border-home w-82" [appendTo]="'body'" [items]="items$ | async" formControlName="workOrderDetailsId" bindLabel="itemDescription" bindValue="id" placeholder="Item" [closeOnSelect]="true" [hideSelected]="true"
+                                                [typeahead]="input$" style="width: 200px;" typeToSearchText="Type your Item" [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('workOrderDetailsId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('workOrderDetailsId').errors" class="invalid-feedback">
+                                                <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('workOrderDetailsId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td> -->
+                                        <!-- <td>
+                                            <input type="text" class="form-control border-top-0 border-left-0 border-right-0" id="item{{i}}" placeholder="item" formControlName="workOrderDetailsId" (keyup)="calculateAmount(i)" style="width: 150px;" [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('workOrderDetailsId').errors }">
+                                            <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('workOrderDetailsId').errors" class="invalid-feedback">
+                                                <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('workOrderDetailsId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td> -->
+                                        <td class="px-1">
+                                            <ng-select [items]="sacArr" class="border-top-0 border-left-0 border-right-0" name="sac" id="hsnSacCodeId{{i}}" bindLabel="hsnSacCode" [appendTo]="'body'" bindValue="id" placeholder="Choose" formControlName="sacId" style="width: 150px;" [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('sacId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('sacId').errors" class="invalid-feedback">
+                                                <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('sacId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <ng-select [items]="uomArr" class="border-top-0 border-left-0 border-right-0" name="uom" id="uomId{{i}}" bindLabel="name" [appendTo]="'body'" bindValue="id" placeholder="Choose" formControlName="uomId" style="width: 150px;" [readonly]='true' [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('uomId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('uomId').errors" class="invalid-feedback">
+                                                <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('uomId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1 d-flex" style="min-width: 200px;">
+                                            <div *ngIf="purchaseOrder.value.priviousQty!=null" class="col-3 px-0 float-left d-flex align-items-center justify-content-center">
+                                                {{purchaseOrder.value.priviousQty}}&nbsp;/
+                                            </div>
+                                            <div class="col-9  float-right" style="min-width: 100px;">
+                                                <input type="number" class="form-control w-100 border-top-0 border-left-0 border-right-0" id="quantity{{i}}" placeholder="Qty" formControlName="quantity" (keyup)="calculateAmount(i)" style="width: 130px;" [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('quantity').errors }">
+                                                <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('quantity').errors" class="invalid-feedback">
+                                                    <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('quantity').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td class="px-1">
+                                            <input type="number" class="form-control border-top-0 border-left-0 border-right-0" id="unitRate{{i}}" placeholder="Unit Rate" formControlName="unitRate" (keyup)="calculateAmount(i)" (ngModelChange)="calculateAmount(i) " style="width: 130px;" [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('unitRate').errors }">
+                                            <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('unitRate').errors" class="invalid-feedback">
+                                                <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('unitRate').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <input type="number" class="form-control border-top-0 border-left-0 border-right-0" id="amount{{i}}" placeholder="Amount" (ngModelChange)="calculateSubTotal()" (keyup)="calculateSubTotal" formControlName="amount" style="width: 130px;" [ngClass]="{ 'is-invalid': purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('amount').errors }">
+                                            <div *ngIf="purchaseSubmitted && purchaseOrderMaterialDTOListArr.controls[i].get('amount').errors" class="invalid-feedback">
+                                                <div *ngIf="purchaseOrderMaterialDTOListArr.controls[i].get('amount').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1"><i class='bx bxs-trash-alt cursor-pointer ml-2 mt-1' (click)="deleteRow(i)" style='color:#c32424'></i></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ngx-simplebar>
+                        <div class="col-12">
+                            <button class="btn btn-primary" (click)="add()">Add</button>
+                        </div>
+                        <!-- </div> -->
+                        <!-- <div class="mt-2">
+                            <button (click)="add()" class="btn btn-primary">Add</button>
+                        </div> -->
+                    </div>
+                    <div class="row col-12 mt-3">
+                        <div class="col-6">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body row">
+                                        <h4 class="text-center col-12">Deduction of Taxes</h4>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="incometax">Income Tax</label>
+                                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" name="incometax" id="incometax" placeholder="Choose" formControlName="incometax" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.incometax.errors }">
+                                            </ng-select>
+                                            <div *ngIf="purchaseSubmitted && f.incometax.errors" class="invalid-feedback">
+                                                <div *ngIf="f.incometax.errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="gst">GST</label>
+                                                <input id="gst" type="text" class="form-control" formControlName="gst" placeholder="GST" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.gst.errors}">
+                                                <div *ngIf="purchaseSubmitted && f.gst.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.gst.errors.required">Required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="specialCondition">Special Condition</label>
+                                                <input id="specialCondition" type="text" class="form-control" formControlName="specialCondition" placeholder="Special Condition" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.specialCondition.errors}">
+                                                <div *ngIf="purchaseSubmitted && f.specialCondition.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.specialCondition.errors.required">Required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label for="notes">Notes</label>
+                                                <textarea id="notes" type="text" class="form-control" formControlName="notes" placeholder="Notes" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.notes.errors}"></textarea>
+                                                <div *ngIf="purchaseSubmitted && f.notes.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.notes.errors.required">Required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label for="remarks">Remarks</label>
+                                    <textarea id="remarks" type="text" class="form-control" formControlName="remarks" placeholder="Remarks" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.remarks.errors}"> </textarea>
+                                    <div *ngIf="purchaseSubmitted && f.remarks.errors" class="invalid-feedback">
+                                        <div *ngIf="f.remarks.errors.required">Required</div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!-- <div class="col-sm-12"> -->
+                            <div class="form-group row justify-content-end">
+                                <label for="subTotalAmount" class="col-3  text-uppercase" style="font-weight: 900 !important; padding-top: 10px;">Sub Total</label>
+                                <div class="col-2"></div>
+                                <div class="col-4 px-0">
+                                    <input id="subTotalAmount" type="number" class="form-control" formControlName="subTotalAmount" (keyup)="taxCalculation()" (ngModelChange)="taxCalculation()" placeholder="Sub Total" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.subTotalAmount.errors}">
+                                    <div *ngIf="purchaseSubmitted && f.subTotalAmount.errors" class="invalid-feedback ">
+                                        <div *ngIf="f.subTotalAmount.errors.required">Required</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="igst" class="col-3 " style="font-weight: 900 !important; padding-top: 10px;">IGST</label>
+                                <div class="col-2 pl-0">
+                                    <input type="number" class="form-control  mr-1" placeholder="%" (keyup)="taxCalculation()" formControlName="igstPercentage">
+
+                                </div>
+                                <div class="col-4 px-0">
+                                    <input id="igst" type="text" class="form-control" formControlName="igst" (ngModelChange)="calculateTotal()" placeholder="IGST">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="cgst" class="col-3 " style="font-weight: 900 !important; padding-top: 10px;">CGST</label>
+                                <div class="col-2 pl-0">
+                                    <input type="number" class="form-control mr-1" placeholder="%" (keyup)="taxCalculation()" formControlName="cgstPercentage">
+
+                                </div>
+                                <div class="col-4 px-0">
+                                    <input id="cgst" type="text" class="form-control" formControlName="cgst" (ngModelChange)="calculateTotal()" placeholder="CGST">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end " >
+                                <label for="sgst" class="col-3 " style="font-weight: 900 !important; padding-top: 10px;">SGST</label>
+                                <div class="col-2 pl-0">
+                                    <input type="number" class="form-control  mr-1" placeholder="%" (keyup)="taxCalculation()" formControlName="sgstPercentage">
+
+                                </div>
+                                <div class="col-4 px-0">
+                                    <input id="sgst" type="text" class="form-control " formControlName="sgst" (ngModelChange)="calculateTotal()" placeholder="SGST">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="totalAmount" class="col-3  text-uppercase" style="font-weight: 900 !important; padding-top: 10px;"> Total</label>
+                                <div class="col-2"></div>
+                                <div class="col-4 px-0">
+                                    <input id="totalAmount" type="number" class="form-control" formControlName="totalAmount"   placeholder=" Total" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.totalAmount.errors}">
+                                    <div *ngIf="purchaseSubmitted && f.totalAmount.errors" class="invalid-feedback ">
+                                        <div *ngIf="f.totalAmount.errors.required">Required</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- <div class="form-group row justify-content-end col-4" >
+                                <label for="totalAmount" class="col-3" style="font-weight: 900 !important; padding-top: 10px;">TOTAL</label>
+                                <div class="col-2"></div>
+                                <input id="totalAmount" type="text" class="form-control" formControlName="totalAmount" placeholder="Total" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.totalAmount.errors}">
+                                <span *ngIf="purchaseSubmitted && f.totalAmount.errors" class="invalid-feedback ">
+                                    <span *ngIf="f.totalAmount.errors.required">Required</span>
+                                   
+                                </span>
+                            </div> -->
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <div class="col-12 row">
+                        <!-- <div class="col-sm-4">
+                            <div class="card">
+                                <div class="card-body row">
+                                    <h4 class="text-center col-12">Deduction of Taxes</h4>
+                                    <div class="col-sm-12 form-group">
+                                        <label for="incometax">Income Tax</label>
+                                        <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" name="incometax" id="incometax" placeholder="Choose" formControlName="incometax" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.incometax.errors }">
+                                        </ng-select>
+                                        <div *ngIf="purchaseSubmitted && f.incometax.errors" class="invalid-feedback">
+                                            <div *ngIf="f.incometax.errors.required">
+                                                Required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="gst">GST</label>
+                                            <input id="gst" type="text" class="form-control" formControlName="gst" placeholder="GST" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.gst.errors}">
+                                            <div *ngIf="purchaseSubmitted && f.gst.errors" class="invalid-feedback">
+                                                <div *ngIf="f.gst.errors.required">Required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="specialCondition">Special Condition</label>
+                                            <input id="specialCondition" type="text" class="form-control" formControlName="specialCondition" placeholder="Special Condition" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.specialCondition.errors}">
+                                            <div *ngIf="purchaseSubmitted && f.specialCondition.errors" class="invalid-feedback">
+                                                <div *ngIf="f.specialCondition.errors.required">Required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="notes">Notes</label>
+                                            <input id="notes" type="text" class="form-control" formControlName="notes" placeholder="Notes" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.notes.errors}">
+                                            <div *ngIf="purchaseSubmitted && f.notes.errors" class="invalid-feedback">
+                                                <div *ngIf="f.notes.errors.required">Required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-12 ml-auto">
+                            <div class="card">
+                                <div class="card-body row">
+                                    <h4 class="text-center col-12">Terms of Payment</h4>
+                                    <div class="col-sm-4 form-group">
+                                        <label for="materialAdvance">Material Advance</label>
+                                        <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" name="materialAdvance" id="materialAdvance" placeholder="Choose" formControlName="materialAdvance" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.materialAdvance.errors }">
+                                        </ng-select>
+                                        <div *ngIf="purchaseSubmitted && f.materialAdvance.errors" class="invalid-feedback">
+                                            <div *ngIf="f.materialAdvance.errors.required">
+                                                Required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="releaseofPayment">Release of Payment</label>
+                                            <input id="releaseofPayment" type="text" class="form-control" formControlName="releaseofPayment" placeholder="Release of Payment" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.releaseofPayment.errors}">
+                                            <div *ngIf="purchaseSubmitted && f.releaseofPayment.errors" class="invalid-feedback">
+                                                <div *ngIf="f.releaseofPayment.errors.required">Required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 form-group">
+                                        <label for="performanceGuarantee">performance Guarantee</label>
+                                        <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" name="performanceGuarantee" id="performanceGuarantee" placeholder="Choose" formControlName="performanceGuarantee" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.performanceGuarantee.errors }">
+                                        </ng-select>
+                                        <div *ngIf="purchaseSubmitted && f.performanceGuarantee.errors" class="invalid-feedback">
+                                            <div *ngIf="f.performanceGuarantee.errors.required">
+                                                Required</div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="performanceGuarantee">Performance Guarantee</label>
+                                            <input id="performanceGuarantee" type="text" class="form-control" formControlName="performanceGuarantee" placeholder="Performance Guarantee" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.performanceGuarantee.errors}">
+                                            <div *ngIf="purchaseSubmitted && f.performanceGuarantee.errors" class="invalid-feedback">
+                                                <div *ngIf="f.performanceGuarantee.errors.required">Required</div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-sm-4 form-group">
+                                        <label for="releaseofperformanceGuarantee">Release of performance
+                                            Guarantee</label>
+                                        <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" name="releaseofperformanceGuarantee" id="releaseofperformanceGuarantee" placeholder="Choose" formControlName="releaseofperformanceGuarantee" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.releaseofperformanceGuarantee.errors }">
+                                        </ng-select>
+                                        <div *ngIf="purchaseSubmitted && f.releaseofperformanceGuarantee.errors" class="invalid-feedback">
+                                            <div *ngIf="f.releaseofperformanceGuarantee.errors.required">
+                                                Required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 form-group">
+                                        <label for="liquidatedDamagesforDelay">Liquidated Damages for Delay</label>
+                                        <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" name="liquidatedDamagesforDelay" id="liquidatedDamagesforDelay" placeholder="Choose" formControlName="liquidatedDamagesforDelay" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.liquidatedDamagesforDelay.errors }">
+                                        </ng-select>
+                                        <div *ngIf="purchaseSubmitted && f.liquidatedDamagesforDelay.errors" class="invalid-feedback">
+                                            <div *ngIf="f.liquidatedDamagesforDelay.errors.required">
+                                                Required</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label for="transporation">Transporation</label>
+                                            <input id="transporation" type="text" class="form-control" formControlName="transporation" placeholder="Transporation" [ngClass]="{ 'is-invalid': purchaseSubmitted && f.transporation.errors}">
+                                            <div *ngIf="purchaseSubmitted && f.transporation.errors" class="invalid-feedback">
+                                                <div *ngIf="f.transporation.errors.required">Required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right col-12 mt-2">
+                        <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

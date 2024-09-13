@@ -1,0 +1,159 @@
+<button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+<ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs nav-tabs-custom mt-1 theme-blue-custom ">
+   
+    <li [ngbNavItem]="1" (click)="getActive(1)">
+        
+        <a ngbNavLink>
+            <span>My Profile</span>
+           
+        </a>
+        <ng-template ngbNavContent>
+
+            <div class="cardBg">
+                <div class="card-body user">
+
+                    <form [formGroup]="usersProfileForm" autocomplete="off">
+                        
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="jobCode">Full Name</label>
+                                    <input id="jobCode" type="text" class="form-control" placeholder="Full Name"
+                                        formControlName="fullName"
+                                        [ngClass]="{ 'is-invalid': usersFormSubmitted && f.fullName.errors}">
+                                    <div *ngIf="usersFormSubmitted && f.fullName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.fullName.errors.required">*Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name">Email</label>
+                                    <input id="name" type="email" class="form-control" placeholder="Email"
+                                        pattern="[A-Za-z0-9._%+-]+@[A-Za-z]+\.[A-Za-z]{1,63}$" formControlName="email"
+                                        [ngClass]="{ 'is-invalid': usersFormSubmitted && f.email.errors
+                                    ||f.email.invalid && (f.email.dirty || f.email.touched)}">
+                                    <div *ngIf="usersFormSubmitted && f.email.errors || f.email.invalid && (f.email.dirty || f.email.touched)"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">*Required</div>
+                                        <div *ngIf="f.email.errors.pattern">*Enter valid email id</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="name">Mobile Number</label>
+                                    <input id="name" type="number" class="form-control" placeholder="Mobile Number"
+                                        formControlName="mobileNo" [ngClass]="{ 'is-invalid': usersFormSubmitted && f.mobileNo.errors || 
+                                                f.mobileNo.invalid && (f.mobileNo.dirty || f.mobileNo.touched)}">
+                                    <div *ngIf="usersFormSubmitted && f.mobileNo.errors || f.mobileNo.invalid && 
+                                            (f.mobileNo.dirty || f.mobileNo.touched)" class="invalid-feedback">
+                                        <div *ngIf="f.mobileNo.errors.required">*Required</div>
+                                        <div *ngIf="f.mobileNo.errors.pattern ">*Enter 10 digit mobile number</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right mb-1 ml-4">
+                            <button class="btn btn-primary ml-2" (click)=" onSubmit()">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </ng-template>
+    </li>
+    <li [ngbNavItem]="2" (click)="getExpiry(2)">
+        <a ngbNavLink>
+            <span>Change Password 🔒</span>
+        </a>
+        <ng-template ngbNavContent>
+            <div class="cardBg changepwd">
+                <div class="card-body">
+                    <p class="card-text mb-2">Your new password must be different from previously used passwords
+                    </p>
+
+                    <form class="auth-reset-password-form mt-2" [formGroup]="resetPasswordForm">
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label for="reset-password-new">Old Password</label>
+                            </div>
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="oldPasswordTextType ? 'text' : 'password'" formControlName="oldPassword"
+                                    class="form-control form-control-merge" placeholder="Old Password"
+                                    aria-describedby="reset-password-new" tabindex="1" autofocus
+                                    [ngClass]="{ 'is-invalid error': submitted && p.oldPassword.errors }" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text cursor-pointer"><i class="feather font-small-4"
+                                            [ngClass]="{
+                        'icon-eye-off': !oldPasswordTextType,
+                        'icon-eye': oldPasswordTextType
+                      }" (click)="toggleoldPasswordTextType()"></i></span>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && p.oldPassword.errors" class="invalid-feedback"
+                                [ngClass]="{ 'd-block': submitted && p.oldPassword.errors }">
+                                <div *ngIf="p.oldPassword.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label for="reset-password-new">New Password</label>
+                            </div>
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="newPasswordTextType ? 'text' : 'password'" formControlName="newPassword"
+                                    class="form-control form-control-merge" placeholder="New Password"
+                                    aria-describedby="reset-password-new" tabindex="1" autofocus
+                                    [ngClass]="{ 'is-invalid error': submitted && p.newPassword.errors }" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text cursor-pointer"><i class="feather font-small-4"
+                                            [ngClass]="{
+                        'icon-eye-off': !newPasswordTextType,
+                        'icon-eye': newPasswordTextType
+                      }" (click)="togglenewPasswordTextType()"></i></span>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && p.newPassword.errors" class="invalid-feedback"
+                                [ngClass]="{ 'd-block': submitted && p.newPassword.errors }">
+                                <div *ngIf="p.newPassword.errors.required">*Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label for="reset-password-confirm">Confirm Password</label>
+                            </div>
+                            <div class="input-group input-group-merge form-password-toggle">
+                                <input [type]="confirmPasswordTextType ? 'text' : 'password'"
+                                    formControlName="confirmPassword" class="form-control form-control-merge"
+                                    placeholder="Confirm Password" aria-describedby="reset-password-confirm"
+                                    tabindex="2"
+                                    [ngClass]="{ 'is-invalid error': submitted && p.confirmPassword.errors }" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text cursor-pointer"><i class="feather font-small-4"
+                                            [ngClass]="{
+                        'icon-eye-off': !confirmPasswordTextType,
+                        'icon-eye': confirmPasswordTextType
+                      }" (click)="toggleconfirmPasswordTextType()"></i></span>
+                                </div>
+                            </div>
+                            <div *ngIf="submitted && p.confirmPassword.errors" class="invalid-feedback"
+                                [ngClass]="{ 'd-block': submitted && p.confirmPassword.errors }">
+                                <div *ngIf="p.confirmPassword.errors.required">*Required</div>
+                                <div *ngIf="p.confirmPassword.errors.mustMatch">*Password mismatch</div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-block" tabindex="3" rippleEffect (click)="onPasswordSubmit()">Set
+                                New Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /Reset Password v1 -->
+        </ng-template>
+    </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>

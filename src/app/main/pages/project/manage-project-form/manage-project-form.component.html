@@ -1,0 +1,626 @@
+<section class="horizontal-wizard">
+    <div id="stepper1" class="bs-stepper horizontal-wizard-example">
+        <div class="bs-stepper-header">
+            <div class="step" data-target="#personal-info">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <!-- <i class='bx bx-user '></i> -->
+                        <i class='bx bx-building-house font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Project Basic Details</span>
+                        <span class="bs-stepper-subtitle">Add Project Info</span>
+
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#account-details">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-map font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Address</span>
+                        <span class="bs-stepper-subtitle">Add Address</span>
+                    </span>
+                </button>
+            </div>
+            <!-- <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#responsible">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-user font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Responsible Resources</span>
+                        <span class="bs-stepper-subtitle">Add Resources</span>
+                    </span>
+                </button>
+            </div> -->
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#work-order">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-file font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Work Order</span>
+                        <span class="bs-stepper-subtitle">Work Order Detail</span>
+                    </span>
+                </button>
+            </div>
+            <!-- <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#document">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-file font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Document</span>
+                        <span class="bs-stepper-subtitle">Document Detail</span>
+                    </span>
+                </button>
+            </div> -->
+
+
+        </div>
+        <div class="bs-stepper-content">
+            <form [formGroup]="projectForm" autocomplete="off">
+                <div id="personal-info" class="content">
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Project Basic Info</h5>
+                        <!-- <small class="text-muted">Enter Project Basic Info.</small> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="wodNumber">WOD No</label>
+                                <input id="wodNumber" type="number" class="form-control" formControlName="wodNumber" placeholder="WOD No" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.wodNumber.errors}">
+                                <div *ngIf="projectFormSubmitted && f.wodNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="f.wodNumber.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="jobCode">Job/Project Code</label>
+                                <input id="jobCode" type="number" class="form-control" formControlName="jobCode" placeholder="Job/Project Code" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.jobCode.errors}">
+                                <div *ngIf="projectFormSubmitted && f.jobCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.jobCode.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="projectName">Project Name</label>
+                                <input id="projectName" type="text" class="form-control" formControlName="projectName" placeholder="Project Name" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.projectName.errors}">
+                                <div *ngIf="projectFormSubmitted && f.projectName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.projectName.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input id="phoneNumber" type="text" class="form-control" formControlName="phoneNumber" placeholder="Phone No" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.phoneNumber.errors}">
+                                <div *ngIf="projectFormSubmitted && f.phoneNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="f.phoneNumber.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-4 form-group">
+                            <label for="customerId">Client</label>
+                            <ng-select [items]="customerArr" name="vendor" id="customerId" bindLabel="fullName" bindValue="id" placeholder="Choose" formControlName="customerId" (change)="getCustomerAddress($event.id)" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.customerId.errors }">
+                            </ng-select>
+                            <div *ngIf="projectFormSubmitted && f.customerId.errors" class="invalid-feedback">
+                                <div *ngIf="f.customerId.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group ">
+                                <label for="startDate">Start Date</label>
+                                <input class="form-control" id="startDate" placeholder="yyyy-mm-dd" (ngModelChange)="EstimatedDays()" formControlName="startDate" ngbDatepicker #startDate="ngbDatepicker" (click)="startDate.toggle()" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.startDate.errors}">
+                                <div *ngIf="projectFormSubmitted && f.startDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.startDate.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group ">
+                                <label for="endDate">Delivery Date</label>
+                                <input class="form-control" id="endDate" [minDate]="projectForm.value.startDate" placeholder="yyyy-mm-dd" formControlName="endDate" (ngModelChange)="EstimatedDays()" ngbDatepicker #endDate="ngbDatepicker" (click)="endDate.toggle()" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.endDate.errors}">
+
+                                <div *ngIf="projectFormSubmitted && f.endDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.endDate.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="totalDays">Total Days</label>
+                                <input id="totalDays" type="number" class="form-control" formControlName="totalDays" placeholder="Total Days" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.totalDays.errors}">
+                                <div *ngIf="projectFormSubmitted && f.totalDays.errors" class="invalid-feedback">
+                                    <div *ngIf="f.totalDays.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="totalMonths">Total Months</label>
+                                <input id="totalMonths" type="number" class="form-control" formControlName="totalMonths" placeholder="Total Months" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.totalMonths.errors}">
+                                <div *ngIf="projectFormSubmitted && f.totalMonths.errors" class="invalid-feedback">
+                                    <div *ngIf="f.totalMonths.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="projectedCost">Project Cost</label>
+                                <input id="projectedCost" type="number" class="form-control" formControlName="projectedCost" placeholder="Project Cost" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.projectedCost.errors}">
+                                <div *ngIf="projectFormSubmitted && f.projectedCost.errors" class="invalid-feedback">
+                                    <div *ngIf="f.projectedCost.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="projectGst">Project GST</label>
+                                <input id="projectGst" type="number" class="form-control" formControlName="projectGst" placeholder="Project GST" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.projectGst.errors}">
+                                <div *ngIf="projectFormSubmitted && f.projectGst.errors" class="invalid-feedback">
+                                    <div *ngIf="f.projectGst.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="finalisedCost">Finalised Cost</label>
+                                <input id="finalisedCost" type="number" class="form-control" formControlName="finalisedCost" placeholder="Finalised Cost" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.finalisedCost.errors}">
+                                <div *ngIf="projectFormSubmitted && f.finalisedCost.errors" class="invalid-feedback">
+                                    <div *ngIf="f.finalisedCost.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="finalisedGst">Finalised GST</label>
+                                <input id="finalisedGst" type="number" class="form-control" formControlName="finalisedGst" placeholder="Finalised GST" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.finalisedGst.errors}">
+                                <div *ngIf="projectFormSubmitted && f.finalisedGst.errors" class="invalid-feedback">
+                                    <div *ngIf="f.finalisedGst.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 row ml-0" formGroupName="workOrderDTOObject">
+                            <div class="col-4 pl-0">
+                                <div class="form-group">
+                                    <label for="gstNumber">GST No</label>
+                                    <input id="gstNumber" type="text" class="form-control" formControlName="gstNumber" placeholder="GST No" [ngClass]="{ 'is-invalid': projectFormSubmitted && workOrderDTOObj.controls.gstNumber.errors}">
+                                    <div *ngIf="projectFormSubmitted && workOrderDTOObj.controls.gstNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="workOrderDTOObj.controls.gstNumber.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="panNumber">PAN No</label>
+                                    <input id="panNumber" type="text" class="form-control" formControlName="panNumber" placeholder="PAN No" [ngClass]="{ 'is-invalid': projectFormSubmitted && workOrderDTOObj.controls.panNumber.errors}">
+                                    <div *ngIf="projectFormSubmitted && workOrderDTOObj.controls.panNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="workOrderDTOObj.controls.panNumber.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="incharge">Incharge</label>
+                                <input id="incharge" type="text" class="form-control" formControlName="incharge" placeholder="Incharge" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.incharge.errors}">
+                                <div *ngIf="projectFormSubmitted && f.incharge.errors" class="invalid-feedback">
+                                    <div *ngIf="f.incharge.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="inchargePhoneNumber">Incharge Phone</label>
+                                <input id="inchargePhoneNumber" type="number" class="form-control" formControlName="inchargePhoneNumber" placeholder="Incharge Phone" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.inchargePhoneNumber.errors}">
+                                <div *ngIf="projectFormSubmitted && f.inchargePhoneNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="f.inchargePhoneNumber.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Incharge Name</th>
+                                        <th>Designation</th>
+                                        <th>Telephone No</th>
+                                        <th>Mobile No</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="projectInchargeDTOList">
+                                    <tr *ngFor="let incharge of inchargeList.controls; let i=index" [formGroupName]='i'>
+                                        <td class="px-1 text-center">
+                                            {{i+1}}
+                                        </td>
+                                        <td class="form-group px-1">
+                                            <input type="text" placeholder="Incharge Name" formControlName="inchargeName" class="form-control border-right-0 border-left-0 border-top-0" [ngClass]="{ 'is-invalid': projectFormSubmitted && inchargeList.controls[i].get('inchargeName').errors }">
+                                            <div *ngIf="projectFormSubmitted && inchargeList.controls[i].get('inchargeName').errors" class="invalid-feedback ">
+                                                <div *ngIf="inchargeList.controls[i].get('inchargeName').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="form-group px-1">
+                                            <input type="text" placeholder="Designation" formControlName="designation" class="form-control border-right-0 border-left-0 border-top-0" [ngClass]="{ 'is-invalid': projectFormSubmitted && inchargeList.controls[i].get('designation').errors }">
+                                            <div *ngIf="projectFormSubmitted && inchargeList.controls[i].get('designation').errors" class="invalid-feedback">
+                                                <div *ngIf="inchargeList.controls[i].get('designation').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="form-group px-1">
+                                            <input type="number" placeholder="Telephone No" formControlName="telephoneNo" class="form-control border-right-0 border-left-0 border-top-0">
+                                            <!-- <div *ngIf="projectFormSubmitted && inchargeList.controls[i].get('telephoneNo').errors" class="invalid-feedback">
+                                                <div *ngIf="inchargeList.controls[i].get('telephoneNo').errors.required">
+                                                    Required</div>
+                                            </div> -->
+                                        </td>
+                                        <td class="form-group px-1">
+                                            <input type="number" placeholder="Mobile No" formControlName="mobileNo" class="form-control border-right-0 border-left-0 border-top-0" [ngClass]="{ 'is-invalid': projectFormSubmitted && inchargeList.controls[i].get('mobileNo').errors }">
+                                            <div *ngIf="projectFormSubmitted && inchargeList.controls[i].get('mobileNo').errors" class="invalid-feedback">
+                                                <div *ngIf="inchargeList.controls[i].get('mobileNo').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <i class='bx bxs-trash-alt ml-2 mt-1' (click)="deleteIncharge(i)" style='color:#c32424'></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mb-2">
+                                <button class="btn btn-primary " (click)="addIncharge()">Add</button>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-sm-4">
+                            <div class="form-group ">
+                                <label for="startDate">Start Date</label>
+                                <input class="form-control" id="startDate" placeholder="yyyy-mm-dd" formControlName="startDate" ngbDatepicker #startDate="ngbDatepicker" (click)="startDate.toggle()" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.startDate.errors}">
+
+                                <div *ngIf="projectFormSubmitted && f.startDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.startDate.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group ">
+                                <label for="endDate">End Date</label>
+                                <input class="form-control" id="endDate" placeholder="yyyy-mm-dd" formControlName="endDate" ngbDatepicker #endDate="ngbDatepicker" (click)="endDate.toggle()" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.endDate.errors}">
+
+                                <div *ngIf="projectFormSubmitted && f.endDate.errors" class="invalid-feedback">
+                                    <div *ngIf="f.endDate.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-sm-12">
+                            <div class="form-group ">
+                                <label for="natureOfWork">Nature Of Scope</label>
+                                <!-- <textarea placeholder="Description" ></textarea> -->
+                                <angular-editor [placeholder]="'Nature Of Scope'" formControlName="natureOfWork" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.natureOfWork.errors}" id="natureOfWork"></angular-editor>
+                                <div *ngIf="projectFormSubmitted && f.natureOfWork.errors" class="invalid-feedback">
+                                    <div *ngIf="f.natureOfWork.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary btn-prev" disabled rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button (click)="goToAddress()" type="submit" class="btn btn-primary btn-next" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div id="account-details" class="content">
+
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Address Details</h5>
+                        <!-- <small class="text-muted">Enter Project Address Details.</small> -->
+                    </div>
+                    <div class="row">
+
+
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label for="addressLine1">Address 1</label>
+                                <input class="form-control" id="addressLine1" placeholder="Address" formControlName="addressLine1" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.addressLine1.errors}">
+                                <div *ngIf="projectFormSubmitted && f.addressLine1.errors" class="invalid-feedback">
+                                    <div *ngIf="f.addressLine1.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label for="addressLine2">Address 2</label>
+                                <input class="form-control" id="addressLine2" placeholder="Address" formControlName="addressLine2" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.addressLine2.errors}">
+                                <div *ngIf="projectFormSubmitted && f.addressLine2.errors" class="invalid-feedback">
+                                    <div *ngIf="f.addressLine2.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label for="countryId">Country</label>
+                            <ng-select [items]="countryArr" name="country" id="countryId" bindLabel="name" bindValue="id" placeholder="Choose" (change)='getState($event.id)' formControlName="countryId" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.countryId.errors }">
+                            </ng-select>
+                            <div *ngIf="projectFormSubmitted && f.countryId.errors" class="invalid-feedback">
+                                <div *ngIf="f.countryId.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label for="stateId">State</label>
+                            <ng-select [items]="stateList" name="state" id="stateId" bindLabel="name" bindValue="id" placeholder="Choose" (change)='getCity($event.id)' formControlName="stateId" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.stateId.errors }">
+                            </ng-select>
+                            <div *ngIf="projectFormSubmitted && f.stateId.errors" class="invalid-feedback">
+                                <div *ngIf="f.stateId.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label for="cityId">City</label>
+                            <ng-select [items]="cityList" name="state" id="cityId" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="cityId" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.cityId.errors }">
+                            </ng-select>
+                            <div *ngIf="projectFormSubmitted && f.cityId.errors" class="invalid-feedback">
+                                <div *ngIf="f.cityId.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="postalCode">Postal Code</label>
+                                <input id="postalCode" type="text" class="form-control" formControlName="postalCode" placeholder="Postal Code" [ngClass]="{ 'is-invalid': projectFormSubmitted && f.postalCode.errors}">
+                                <div *ngIf="projectFormSubmitted && f.postalCode.errors" class="invalid-feedback">
+                                    <div *ngIf="f.postalCode.errors.required">Required</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="button" (click)="modernVerticalPrevious()" class="btn btn-prev" style="background-color: #808080; color:white" rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button (click)="goToWorkOrder()" class="btn btn-primary btn-next" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div id="work-order" class="content">
+                    <div class="content-header">
+                        <h5 class="mb-0">Work Order Details</h5>
+
+                    </div>
+                    <div class="row" formGroupName="workOrderDTOObject">
+
+                        <div class="row col-12 ml-0">
+                            <div class="col-sm-6 pl-0">
+                                <div class="card shadow" style="height:90%">
+                                    <div class="card-body">
+                                        <h5 class="text-dark">Office Address
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col-4 mt-2">Address</div>
+                                            <div class="col-8 mt-2"> {{companyObj.addressLine1}}, <span *ngIf="companyObj.addressLine2">{{companyObj.addressLine2}},</span> <br> {{companyObj.cityName}} , {{companyObj.stateName}}, <br> {{companyObj.countryName}}, {{companyObj.postalCode}}
+                                                .
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-6 pr-0">
+                                <div class="card shadow " style="height: 90%;">
+                                    <div class="card-body">
+                                        <h5 class="text-dark">Project Address Detail</h5>
+                                        <div class="row">
+                                            <div class="col-4 mt-2">Address</div>
+                                            <div class="col-8 mt-2">{{addressObj.addressLine1}} ,{{addressObj.city}},
+                                                <br> {{addressObj.state}}, {{addressObj.country}}, <br> {{addressObj.postalCode}}
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12">
+
+                            <ngx-simplebar>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>SAC</th>
+                                            <th> Service Description
+                                            </th>
+                                            <th>Qty</th>
+                                            <th>UOM</th>
+                                            <th>Rate</th>
+                                            <th>Tax</th>
+                                            <th>Total Value without Tax
+                                            </th>
+                                            <th>Total Value with Tax
+                                            </th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="workOrder-table" formArrayName="workOrderDetailsDTOList">
+                                        <tr *ngFor="let tablelament of tableArrList.controls;let i=index;" [formGroupName]="i">
+                                            <td>{{i+1}}</td>
+                                            <td class="px-1">
+                                                <ng-select [items]="sacArr" class="border-top-0 border-left-0 border-right-0" name="sac" id="sacId{{i}}" bindLabel="hsnSacCode" [appendTo]="'body'" bindValue="id" placeholder="Choose" formControlName="sacId" style="width: 130px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('sacId').errors }">
+                                                </ng-select>
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('sacId').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('sacId').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+
+                                            <td class="px-1">
+                                                <input class="form-control border-top-0 border-left-0 border-right-0" id="serviceDescription{{i}}" placeholder="Service Description" [title]="tablelament.value.serviceDescription" formControlName="serviceDescription" style="width: 200px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('serviceDescription').errors }">
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('serviceDescription').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('serviceDescription').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+                                            <td class="px-1">
+                                                <input type="number" class="form-control border-top-0 border-left-0 border-right-0" id="quantity{{i}}" placeholder="Qty" formControlName="quantity" (keyup)='taxCalculation(i)' style="width: 100px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('quantity').errors }">
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('quantity').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('quantity').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+                                            <td class="px-1">
+                                                <ng-select [items]="uomArr" class="border-top-0 border-left-0 border-right-0" name="uom" id="uomId{{i}}" bindLabel="name" [appendTo]="'body'" bindValue="id" placeholder="Choose" formControlName="uomId" style="width: 130px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('uomId').errors }">
+                                                </ng-select>
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('uomId').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('uomId').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+
+                                            <td class="px-1">
+                                                <input type="number" class="form-control border-top-0 border-left-0 border-right-0" id="unitRate{{i}}" placeholder="Rate" formControlName="unitRate" (keyup)='taxCalculation(i)' style="width: 130px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('unitRate').errors }">
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('unitRate').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('unitRate').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+                                            <td class="px-1">
+                                                <input type="number" class="form-control border-top-0 border-left-0 border-right-0" id="tax{{i}}" placeholder="Tax" formControlName="tax" style="width: 130px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('tax').errors }">
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('tax').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('tax').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+                                            <td class="px-1">
+                                                <input type="number" class="form-control border-top-0 border-left-0 border-right-0" id="totalValueWithoutTax{{i}}" placeholder="Total Value Without Tax" formControlName="totalValueWithoutTax" style="width: 130px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('totalValueWithoutTax').errors }">
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('totalValueWithoutTax').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('totalValueWithoutTax').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+                                            <td class="px-1">
+                                                <input type="number" class="form-control border-top-0 border-left-0 border-right-0" id="totalValueWithTax{{i}}" placeholder="Total Value With Tax" formControlName="totalValueWithTax" style="width: 130px;" [ngClass]="{ 'is-invalid': projectFormSubmitted && tableArrList.controls[i].get('totalValueWithTax').errors }">
+                                                <div *ngIf="projectFormSubmitted && tableArrList.controls[i].get('totalValueWithTax').errors" class="invalid-feedback">
+                                                    <div *ngIf="tableArrList.controls[i].get('totalValueWithTax').errors.required">
+                                                        Required</div>
+                                                </div>
+                                            </td>
+
+                                            <td>
+                                                <i class='bx bxs-trash-alt ml-2 mt-1' style='color:#c32424' (click)="deleteRow(i)"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </ngx-simplebar>
+                        </div>
+
+
+
+                        <div class="text-left col-12 my-1">
+                            <button class="btn btn-primary" (click)="add()">Add</button>
+                        </div>
+                        <div class="row col-12">
+                            <div class="col-6">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="notes">Notes</label>
+                                        <textarea id="notes" type="text" class="form-control" formControlName="notes" placeholder="Notes" [ngClass]="{ 'is-invalid': projectFormSubmitted && b.notes.errors}"> </textarea>
+                                        <div *ngIf="projectFormSubmitted && b.notes.errors" class="invalid-feedback">
+                                            <div *ngIf="b.notes.errors.required">Required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+
+
+                                <div class="form-group row justify-content-end">
+                                    <div class="col-2"></div>
+                                    <label for="total" class="col-3  text-uppercase" style="font-weight: 900 !important; padding-top: 10px;">Total</label>
+
+                                    <input id="total" type="text" class="form-control col-4" formControlName="total" placeholder="Total" [ngClass]="{ 'is-invalid': projectFormSubmitted && b.total.errors}">
+                                    <div *ngIf="projectFormSubmitted && b.total.errors" class="invalid-feedback pl-0 justify-content-end col-4">
+                                        <div *ngIf="b.total.errors.required">Required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group row justify-content-end">
+                                    <div class="col-2"></div>
+                                    <label for="totalTaxValue" class="col-3  text-uppercase" style="font-weight: 900 !important; padding-top: 10px;">Total Tax Value </label>
+
+                                    <input id="totalTaxValue" type="text" class="form-control col-4" formControlName="totalTaxValue" placeholder="Total Tax Value" [ngClass]="{ 'is-invalid': projectFormSubmitted && b.totalTaxValue.errors}">
+                                    <div *ngIf="projectFormSubmitted && b.totalTaxValue.errors" class="invalid-feedback pl-0 justify-content-end col-4">
+                                        <div *ngIf="b.totalTaxValue.errors.required">Required</div>
+                                    </div>
+                                </div>
+                                <div class="form-group row justify-content-end">
+                                    <div class="col-2"></div>
+                                    <label for="netValue" class="col-3  text-uppercase" style="font-weight: 900 !important; padding-top: 10px;">Net Value </label>
+
+                                    <input id="netValue" type="text" class="form-control col-4" formControlName="netValue" placeholder="Net Value" [ngClass]="{ 'is-invalid': projectFormSubmitted && b.netValue.errors}">
+                                    <div *ngIf="projectFormSubmitted && b.netValue.errors" class="invalid-feedback pl-0 justify-content-end col-4">
+                                        <div *ngIf="b.netValue.errors.required">Required</div>
+                                    </div>
+                                </div>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn  btn-prev" style="background-color: #808080; color:white" (click)="modernVerticalPrevious()" rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button (click)="onSubmit()" class="btn btn-primary btn-next" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Submit</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>

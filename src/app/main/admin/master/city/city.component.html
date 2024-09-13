@@ -1,0 +1,160 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="pageHeading">
+                                <h4>City</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right my-auto ">
+                                <button type="button" class="btn btn-primary btn-sm mb-2" (click)="openModal(myModal)">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id=citytable class="table table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>S.NO</th>
+                                <th>NAME</th>
+                                <th>SHORT NAME</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let city of cityArr;let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{city.name}}</td>
+                                <td>{{city.shortName}}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a ngbDropdownItem (click)="editCity(myModal,city.id)"><i
+                                                class='bx bxs-edit text-success'></i>
+                                        </a>
+                                        <a ngbDropdownItem (click)="deleteModal(deleteCity,city)"><i class='bx bxs-trash-alt'
+                                                style='color:#c32424'></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">City</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-1" id="myModal">
+        <form [formGroup]="cityForm" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" class="form-control" formControlName="name" placeholder="Name"
+                            [ngClass]="{ 'is-invalid': cityFormSubmitted && f.name.errors}">
+                        <div *ngIf="cityFormSubmitted && f.name.errors" class="invalid-feedback">
+                            <div *ngIf="f.name.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="shortName">Short Name</label>
+                        <input id="shortName" type="text" class="form-control" formControlName="shortName"
+                            placeholder="Short Name"
+                            [ngClass]="{ 'is-invalid': cityFormSubmitted && f.shortName.errors }">
+                        <div *ngIf="cityFormSubmitted && f.shortName.errors" class="invalid-feedback">
+                            <div *ngIf="f.shortName.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="zipCode">Zip Code</label>
+                        <input id="zipCode" type="number" class="form-control" formControlName="zipCode"
+                            placeholder="Zip Code" [ngClass]="{ 'is-invalid': cityFormSubmitted && f.zipCode.errors }">
+                        <div *ngIf="cityFormSubmitted && f.zipCode.errors" class="invalid-feedback">
+                            <div *ngIf="f.zipCode.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="latitude">Latitude</label>
+                        <input id="latitude" type="number" class="form-control" formControlName="latitude"
+                            placeholder="Latitude" [ngClass]="{ 'is-invalid': cityFormSubmitted && f.latitude.errors }">
+                        <div *ngIf="cityFormSubmitted && f.latitude.errors" class="invalid-feedback">
+                            <div *ngIf="f.latitude.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="longitude">Longitude</label>
+                        <input id="longitude" type="number" class="form-control" formControlName="longitude"
+                            placeholder="Longitude"
+                            [ngClass]="{ 'is-invalid': cityFormSubmitted && f.longitude.errors }">
+                        <div *ngIf="cityFormSubmitted && f.longitude.errors" class="invalid-feedback">
+                            <div *ngIf="f.longitude.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="country">Country</label>
+                    <ng-select [items]="countryArr" name="polId" id="country" bindLabel="name" bindValue="id"
+                        placeholder="Choose" formControlName="countryId"
+                        [ngClass]="{ 'is-invalid': cityFormSubmitted && f.countryId.errors}">
+                    </ng-select>
+                    <div *ngIf="cityFormSubmitted && f.countryId.errors" class="invalid-feedback">
+                        <div *ngIf="f.countryId.errors.required">*Required</div>
+                    </div>
+                </div>&nbsp;
+                <div class="col-sm-12">
+                    <label for="state">State</label>
+                    <ng-select [items]="stateArr" name="polId" id="state" bindLabel="name" bindValue="id"
+                        placeholder="Choose" formControlName="stateId"
+                        [ngClass]="{ 'is-invalid': cityFormSubmitted && f.stateId.errors}">
+                    </ng-select>
+                    <div *ngIf="cityFormSubmitted && f.stateId.errors" class="invalid-feedback">
+                        <div *ngIf="f.stateId.errors.required">*Required</div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-2 ">
+                <button type="submit" class="btn btn-sm btn-primary mb-2 "
+                    (click)="onSubmit(modal)">{{buttonText}}</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<ng-template #deleteCity let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+        <div class="text-right mt-2 ">
+            <button type="button" class="btn btn-primary  ml-2 " (click)="delete(modal)">Yes</button>
+        </div>
+    </div>
+
+</ng-template>

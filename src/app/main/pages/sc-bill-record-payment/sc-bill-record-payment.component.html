@@ -1,0 +1,99 @@
+<div class="">
+    <div class="card-body">
+        <div class="mb-3 pageHeading">
+            <h4 class="">Record Payment</h4>
+        </div>
+        <div class=" row bg-white shadow p-4 mx-0">
+            <div class="col-6 ">
+                <div class="row col-12">
+                    <div class="col-5"><strong>Bill No</strong> </div>:
+                    <div class="col-6">{{billDetailsObj.billNumber}} </div>
+                </div>
+                <div class="row col-12  mt-2">
+                    <div class="col-5"><strong>Contractor Name</strong> </div>:
+                    <div class="col-6">{{billDetailsObj.subContractorName}}</div>
+                </div>
+
+            </div>
+            <div class="col-6">
+                <div class="row col-12">
+                    <div class="col-5"><strong>Bill Date</strong> </div>:
+                    <div class="col-6">{{billDetailsObj.periodFrom}} </div>
+                </div>
+                <div class="row col-12  mt-2">
+                    <div class="col-5"><strong>Due Date</strong> </div>:
+                    <div class="col-6">{{billDetailsObj.periodTo}} </div>
+                </div>
+                <div class="row col-12  mt-2">
+                    <div class="col-5"><strong>Total</strong> </div>:
+                    <div class="col-6">{{billDetailsObj.netAmount}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="shadow bg-white mt-5">
+            <div class="p-3">
+                <form [formGroup]="paymentForm">
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            <label for="paymentDate">Payment Date</label>
+                            <input type="text" class="form-control" formControlName="paymentDate" ngbDatepicker #paymentDate="ngbDatepicker" (click)="paymentDate.toggle()" placeholder="yyyy-mm-dd" id="paymentDate" [ngClass]="{'is-invalid':formSubmitted && f.paymentDate.errors}">
+                            <div class="invalid-feedback" *ngIf="formSubmitted && f.paymentDate.errors">
+                                <div *ngIf="f.paymentDate.errors.required">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="paidAmount">Paid Amount</label>
+                            <input type="number" class="form-control" formControlName="paidAmount" placeholder="Paid Amount" id="paidAmount" [ngClass]="{'is-invalid':formSubmitted && f.paidAmount.errors}">
+                            <div class="invalid-feedback" *ngIf="formSubmitted && f.paidAmount.errors">
+                                <div *ngIf="f.paidAmount.errors.required">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="payMethod">Payment Method</label>
+                            <ng-select [items]="['CASH','CHEQUE']" (change)="payMethod()" formControlName="paymentMethod" placeholder="Choose" id="payMethod" [ngClass]="{'is-invalid':formSubmitted && f.paymentMethod.errors}"> </ng-select>
+                            <div class="invalid-feedback" *ngIf="formSubmitted && f.paymentMethod.errors">
+                                <div *ngIf="f.paymentMethod.errors.required">
+                                    Required
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-6 form-group">
+                            <label for="payAccount">Payment Account</label>
+                            <ng-select [items]='accountGroupArray' placeholder="Choose" groupBy="accountName" bindLabel="name" bindValue="id" formControlName="paymentAccountId" id="paymentAccountId" [ngClass]="{'is-invalid':formSubmitted && f.paymentAccountId.errors}"> </ng-select>
+                            <div class="invalid-feedback" *ngIf="formSubmitted && f.paymentAccountId.errors">
+                                <div *ngIf="f.paymentAccountId.errors.required">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 form-group" *ngIf="paymentMethod">
+                            <label for="chequeNo">Cheque No</label>
+                            <input type="number" class="form-control" formControlName="chequeNo" placeholder="Cheque No" id="chequeNo" [ngClass]="{'is-invalid':formSubmitted && f.chequeNo.errors}">
+                            <div class="invalid-feedback" *ngIf="formSubmitted && f.chequeNo.errors">
+                                <div *ngIf="f.chequeNo.errors.required">
+                                    Required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="notes">Notes</label>
+                            <textarea type="text" class="form-control" formControlName="notes" placeholder="Notes" id="notes"></textarea>
+                        </div>
+                        <div class="col-12 text-right">
+                            <button class="btn btn-primary" (click)="onSubmit()">Submit</button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

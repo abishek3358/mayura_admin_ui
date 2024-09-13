@@ -1,0 +1,233 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6">
+                    <div class=" pageHeading">
+                        <h4 class="">Project</h4>
+                    </div>
+                </div>
+                <div class="col-6">
+
+                    <div class="text-right my-auto ">
+                        <button type="button" class="btn btn-primary btn-sm p-1 mb-2" routerLink="new">
+
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <ngx-simplebar>
+                <table id="manage-table" class="table table-bordered ">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>WOD NUMBER
+                            </th>
+                            <th>JOB/PROJECT CODE</th>
+                            <th>PROJECT NAME
+                            </th>
+                            <th>CLIENT
+                            </th>
+                            <th>JOB COST
+                            </th>
+                            <th>GST
+                            </th>
+                            <th>VALIDITY UPTO
+                            </th>
+                            <th>Status</th>
+                            <th>ACTION
+                            </th>
+                            <th>ATTACHEMNT
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let Project of projectArr;let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{Project.wodNumber}}</td>
+                            <td>{{Project.jobCode}}</td>
+                            <td>{{Project.projectName}}</td>
+                            <td>{{Project.customerName}}</td>
+                            <td>{{Project.projectedCost}}</td>
+                            <td>{{Project.projectGst}}</td>
+                            <td>{{Project.endDate}}</td>
+                            <td>
+                                <span class="badge  w-100" [ngClass]="{'badge-success':Project.projectStatus == 'COMPLETED' ,'badge-danger':Project.projectStatus == 'IN_COMPLETED'}">{{Project.projectStatus}}</span>
+                            </td>
+
+                            <td>
+                                
+                                <div ngbDropdown container="body">
+                                    <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                        <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                    </button>
+
+                                    <div ngbDropdownMenu>
+                                        <a ngbDropdownItem (click)="statusModal(status,Project.id)" *ngIf="Project.projectStatus == 'IN_COMPLETED'"><i class='bx bx-check-square text-success'></i><span class="ml-2">Completed</span> </a>
+                                        <a ngbDropdownItem (click)="reportPage(Project.id)"><i class='bx bxs-report' ></i><span
+                                            class="ml-2">Report</span></a>
+                                        <a ngbDropdownItem (click)="editProject(Project.id)"><i
+                                                class='bx bxs-edit text-success'></i><span
+                                                class="ml-2">Edit</span></a><a ngbDropdownItem (click)="deleteModal(deletemodal,Project.id)"><i class='bx bxs-trash-alt'
+                                                style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <div class="text-center">
+                                        <i class="bx bxs-file-doc cursor-pointer mr-2" title="Upload" (click)="openModal(modalRow,Project.id,Project.workOrderFileUploadDTOList)" style="font-size:24px;color:#150658;"></i>
+                                        <!-- <i class='bx bx-download text-success cursor-pointer' *ngIf="Project?.workOrderFileUploadDTOList.length > 0" (click)="downloadOpenModal(Downloadmodal,Project.workOrderFileUploadDTOList)" title="Download" style="font-size: 24px;"></i> -->
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- <tr></tr> -->
+                        <!-- <tr>
+                          
+                         </tr> -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-right">TOTAL VALUE</td> -->
+
+                            <td>{{totalCost}}</td>
+                            <td>{{totalGst}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </ngx-simplebar>
+        </div>
+    </div>
+</div>
+<ng-template #status let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm  Completed</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to Completed?</h6>
+        <div class="text-right mt-2 ">
+            <button type="button" class="btn btn-primary  ml-2 " (click)="statusCompleted(modal,projectId)">Yes</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #Downloadmodal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Documents</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- <div class="P-3"> -->
+        <div class="col-12 row mb-2  d-flex justify-content-center " *ngFor="let download of downloadList;let i=index">
+            <div class="col-8" style="padding-top: 8px;">
+                {{download.name}}
+            </div>
+            <div class="col-4 text-center">
+                <button class="btn btn-danger" (click)="fileDownload(modal,download)">Download</button>
+            </div>
+        </div>
+
+        <!-- </div> -->
+    </div>
+
+</ng-template>
+<ng-template #deletemodal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+        <div class="text-right mt-2 ">
+            <button type="button" class="btn btn-primary  ml-2 " (click)="deleteProject(modal)">Yes</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #modalRow let-modal>
+    <div class="pb-2 ">
+        <div class="modal-header ">
+            <h5>File Upload</h5>
+
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <!-- <div class="col-6">
+
+            </div> -->
+            <!-- <div class="col-6">
+                <button class="btn btn-primary " (click)="addRow()"></button>
+            </div> -->
+        </div>
+
+
+        <div class="modal-body">
+
+            <form [formGroup]="modalForm">
+                <div class="text-right">
+                    <button class="btn btn-primary " (click)="addRow()">add</button>
+                </div>
+                <div class="col-12 pt-1 row mb-2  d-flex justify-content-center " *ngFor="let download of downloadList.workOrderFileUploadDTOList;let i=index">
+                    <div class="col-8 pt-1" style="padding-top: 8px;">
+                        {{download.name}}
+                    </div>
+                    <div class="col-4 pt-1 text-center">
+                        <i class='bx bx-download text-success cursor-pointer mr-2' (click)="fileDownload(modal,download)" title="Download" style="font-size: 24px;"></i>
+                        <i class='bx bxs-trash-alt' style='color:#c32424; font-size:18px; position: relative; top: -4x; cursor: pointer;' (click)="deleteFile(i)"></i>
+                        <!-- <button class="btn btn-danger" (click)="fileDownload(modal,download)">Download</button> -->
+                    </div>
+                </div>
+                <div formArrayName="workOrderFileUploadDTOList">
+
+                    <div *ngFor="let add of form.controls;let i=index;" [formGroupName]="i">
+                        <div class="row ">
+                            <div class="form-group col-5">
+                                <label for="name">Name</label>
+                                <input id="name" type="text" class="form-control" formControlName="name" placeholder="Name" [ngClass]="{ 'is-invalid': submitted &&  form.controls[i].get('name').errors }">
+                                <div *ngIf="submitted && form.controls[i].get('name').errors" class="invalid-feedback">
+                                    <div *ngIf=" form.controls[i].get('name').errors required">Required</div>
+                                </div>
+                            </div>
+                            <div class="col-5  form-group" style="margin-top: 30px;">
+
+                                <input type="file" class="w-100" [ngClass]="{'is-invalid': submitted && form.controls[i].get('fileName').errors}" (change)="onFileChange($event,i)">
+                                <div *ngIf="submitted && form.controls[i].get('fileName').errors" class="invalid-feedback">
+                                    <div *ngIf="form.controls[i].get('fileName').errors.required">Required</div>
+                                </div>
+
+                            </div>
+                            <div class="col-1" style="margin-top: 30px;">
+                                <i class='bx bxs-trash-alt' style='color:#c32424' (click)="deleteRow(i)"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+
+            <div class="text-right mt-2">
+                <button class="btn btn-primary " (click)="rowSubmit(modal)">Submit</button>
+            </div>
+        </div>
+
+
+    </div>
+</ng-template>

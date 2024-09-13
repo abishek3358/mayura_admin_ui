@@ -1,0 +1,109 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="userForm" autocomplete="off">
+            <div class="row">
+                <div class="col-12">
+                    <div class=" pageHeading">
+                        <h4 class="">User</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="jobCode">Full Name</label>
+                        <input id="jobCode" type="text" class="form-control" formControlName="fullName"
+                            placeholder="Full Name "
+                            [ngClass]="{ 'is-invalid': userFormSubmitted && f.fullName.errors}">
+                        <div *ngIf="userFormSubmitted && f.fullName.errors" class="invalid-feedback">
+                            <div *ngIf="f.fullName.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="name">Email</label>
+                        <input id="name" type="email" class="form-control" formControlName="email" placeholder="Email"
+                            [ngClass]="{ 'is-invalid': userFormSubmitted && f.email.errors}">
+                        <div *ngIf="userFormSubmitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="name">Mobile No</label>
+                        <input id="name" type="text" class="form-control" formControlName="phoneNo"
+                            placeholder="Mobile No" [ngClass]="{ 'is-invalid': userFormSubmitted && f.phoneNo.errors}">
+                        <div *ngIf="userFormSubmitted && f.phoneNo.errors" class="invalid-feedback">
+                            <div *ngIf="f.phoneNo.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="userType">User Type</label>
+                        <ng-select [items]="['USER','CUSTOMER']" name="userType" id="userType" bindLabel="name"
+                            bindValue="id" placeholder="Choose" formControlName="userType"
+                            [ngClass]="{ 'is-invalid': userFormSubmitted && f.userType.errors}">
+                        </ng-select>
+                        <div *ngIf="userFormSubmitted && f.userType.errors" class="invalid-feedback">
+                            <div *ngIf="f.userType.errors.required">*Required</div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="userName">User Name</label>
+                        <input id="userName" type="text" class="form-control" formControlName="userName"
+                            placeholder="User Name "
+                            [ngClass]="{ 'is-invalid': userFormSubmitted && f.userName.errors}">
+                        <div *ngIf="userFormSubmitted && f.userName.errors" class="invalid-feedback">
+                            <div *ngIf="f.userName.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input id="password" type="text" class="form-control" formControlName="password"
+                            placeholder="Password" [ngClass]="{ 'is-invalid': userFormSubmitted && f.password.errors}">
+                        <div *ngIf="userFormSubmitted && f.password.errors" class="invalid-feedback">
+                            <div *ngIf="f.password.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="name">Confirm Password </label>
+                        <input id="confirmPassword" type="text" class="form-control" formControlName="confirmPassword"
+                            placeholder="Confirm Password"
+                            [ngClass]="{ 'is-invalid': userFormSubmitted && f.confirmPassword.errors}">
+                        <div *ngIf="mustMatch" class="text-danger">*Password Mismatch
+                        </div>
+                        <div *ngIf="userFormSubmitted && f.confirmPassword.errors" class="invalid-feedback">
+                            <div *ngIf="f.confirmPassword.errors.required">*Required</div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-right  ml-4">
+
+                <button class="btn btn-primary ml-2" (click)=" onSubmit()">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

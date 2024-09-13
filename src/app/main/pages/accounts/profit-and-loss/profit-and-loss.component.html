@@ -1,0 +1,363 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="profitAndLossForm" autocomplete="off">
+            <div class="row">
+                <div class="col-10 row">
+                    <div class="col-4 form-group">
+                        <label for="projectId">Job/Project Code</label>
+                        <ng-select [items]="projectArr" bindValue="id" bindLabel="jobCode" placeholder="Choose"
+                            formControlName="projectId" [ngClass]="{ 'is-invalid': Submitted && f.projectId.errors }">
+                        </ng-select>
+                        <div *ngIf="Submitted && f.projectId.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectId.errors.required">
+                                Required</div>
+                        </div>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="">From Date</label>
+                        <input class="form-control" id="name" formControlName="fromDate" placeholder="yyyy-mm-dd"
+                            ngbDatepicker #profit="ngbDatepicker" (click)="profit.toggle()"
+                            [ngClass]="{'is-invalid': Submitted && f.fromDate.errors}">
+                        <span *ngIf=" Submitted && f.fromDate.errors" class="invalid-feedback text-danger"><span
+                                *ngIf="f.fromDate.errors.required">Required</span>
+                        </span>
+                    </div>
+                    <div class="col-4 form-group">
+                        <label for="">To Date</label>
+                        <input class="form-control" [minDate]="profitAndLossForm.value.fromDate" id="name"
+                            formControlName="toDate" placeholder="yyyy-mm-dd" ngbDatepicker #loss="ngbDatepicker"
+                            (click)="loss.toggle()" [ngClass]="{'is-invalid': Submitted && f.toDate.errors}">
+                        <span *ngIf=" Submitted && f.toDate.errors" class="invalid-feedback text-danger"><span
+                                *ngIf="f.toDate.errors.required">Required</span>
+                        </span>
+
+                    </div>
+                </div>
+                <div class="d-flex" style="align-items: center; margin-top: 5px;">
+                    <button (click)="Submit()" class="btn btn-primary">Fetch</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+<div class="card" *ngIf="waitingForTheResponse">
+    <div style="margin-left: 2%; margin-right: 2% ; font-family: sans-serif !important; border: 1px solid lightgray;" id="print-item" >
+        <div>
+            <div style="width: 100%; display: flex;">
+                <div style="width: 30%; padding-top: 50px;padding-bottom: 10px;">
+                    <img src="assets/images/logo/erplogo.png" style="display: block; width: 220px; height: 190px;"
+                        alt="">
+                </div>
+                <div style="width: 38%;"></div>
+                <div style="width: 32%; margin-top: 15px; padding-bottom: 10px; margin-left: 10px;">
+                    <span style="font-size: 23px; display: inline-block; margin-top: 15px;"><strong>Profit and
+                            Loss</strong> </span><br>
+                    <span style="font-size: 17px;">{{profitAndLossObj.vendorName}}</span><br>
+                    <span style="font-size: 17px;">{{profitAndLossObj.projectName}}</span><br>
+                    <span style="font-size: 16px;">Address:
+                        {{profitAndLossObj.addressLine1}},{{profitAndLossObj.cityName}},<br>{{profitAndLossObj.stateName}},{{profitAndLossObj.countryName}}</span><br>
+                    <span><span style="width: 40px; display: inline-block;">From</span>:
+                        {{profitAndLossObj.fromDate}}</span><br>
+                    <span><span style="width: 40px; display: inline-block;">To</span>:
+                        {{profitAndLossObj.toDate}}</span>
+                </div>
+            </div>
+            <span style="padding-bottom: 20px; font-size: 22px; margin-left: 10px;"><strong>Accounts</strong> </span>
+            <div
+                style="border: 2px solid; border-bottom: hidden; border-top: none; border-left: hidden; border-right: hidden; margin-top: 10px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 17px;">
+                    <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;">
+                            <strong>{{profitAndLossObj.incomeAccountName}}</strong>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px;"></td>
+                    </tr>
+                    <tr *ngFor="let income of profitAndLossObj.profitLossIncomeSubListDTO"
+                        style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;">{{income.subAcoountName}}</td>
+                        <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{income.amount}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong>Total {{profitAndLossObj.incomeAccountName}}</strong>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profitAndLossObj.totalIncome}}</strong></td>
+                    </tr>
+                    <!-- <tr style="height: 5px;"></tr> -->
+                    <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;"><strong>Gross
+                                Profit</strong><br><span style="color: rgb(127, 132, 139); font-size: 16px;"><strong>As
+                                    a Percetage of Total Income</strong></span>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px; padding-top: 5px; ">
+                            ₹&nbsp;{{profitAndLossObj.totalIncome}}<br><span style="color: rgb(127, 132, 139);">
+                                100%</span>
+                        </td>
+                    </tr>
+                    <tr style="height: 8px;"></tr>
+                    <tr style="height: 40px;margin-top: 8px; font-size: 19px;  background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                            <strong>{{profitAndLossObj.purchaseAndWagesName}}</strong>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px;"></td>
+                    </tr>
+                    <tr *ngFor="let wages of profitAndLossObj.purchaseAndWagesDTOList"
+                        style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;">{{wages.subAcoountName}}</td>
+                        <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{wages.amount}} </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong> Total
+                                {{profitAndLossObj.purchaseAndWagesName}}</strong></td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profitAndLossObj.totalpurchaseAndWages}}</strong></td>
+                    </tr>
+                    <tr style="height: 40px;margin-top: 8px; font-size: 19px;  background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                            <strong>{{profitAndLossObj.misExpenseName}}</strong>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px;"></td>
+                    </tr>
+                    <tr *ngFor="let expense of profitAndLossObj.miExpenseDTOList"
+                        style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;">{{expense.subAcoountName}}</td>
+                        <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{expense.amount}} </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong> Total {{profitAndLossObj.misExpenseName}}</strong></td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profitAndLossObj.misExpenseTotalIncome}}</strong></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong> Total Expense</strong></td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profitAndLossObj.totalExpense}}</strong></td>
+                    </tr>
+                    <!-- <tr style="height: 5px;"></tr> -->
+                    <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;"><strong>Net Profit</strong><br>
+                            <span style="font-size: 16px; color: rgb(127, 132, 139);"><strong>As a Percentage of Total
+                                    Income</strong> </span>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px; padding-top: 5px;">
+                            ₹&nbsp;{{profitAndLossObj.netProfit}} <br> <span
+                                style="color: rgb(127, 132, 139);">{{profitAndLossObj.percentageOfTotalIncome}}%</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class=" text-right mr-2 mt-1 mb-2">
+        <button class="btn btn-primary" printTitle="Profit and Loss Copy" printSectionId="print-item"
+            ngxPrint>Download</button>
+    </div>
+</div>
+<div class="card" *ngIf="waitingForfullstatementTheResponse" >
+    <div style="margin-left: 2%; margin-right: 2% ; font-family: sans-serif !important;" id="print-item">
+        <div *ngFor="let profit of profitAndLossObj.profitAndLossResponseDTOList"
+            style="border:  1px solid lightgray; margin-top: 10px;">
+            <div style="width: 100%; display: flex;">
+                <div style="width: 30%; padding-top: 50px;padding-bottom: 10px;">
+                    <img src="assets/images/logo/erplogo.png" style="display: block; width: 220px; height: 190px;"
+                        alt="">
+                </div>
+                <div style="width: 38%;"></div>
+                <div style="width: 32%; margin-top: 15px; padding-bottom: 10px; margin-left: 10px;">
+                    <span style="font-size: 23px; display: inline-block; margin-top: 15px;"><strong>Profit and
+                            Loss</strong> </span><br>
+                    <span style="font-size: 17px;">{{profit.vendorName}}</span><br>
+                    <span style="font-size: 17px;">{{profit.projectName}}</span><br>
+                    <span style="font-size: 16px;">Address:
+                        {{profit.addressLine1}},{{profit.cityName}},<br>{{profit.stateName}},{{profit.countryName}}</span><br>
+                    <span><span style="width: 40px; display: inline-block;">From</span>:
+                        {{profit.fromDate}}</span><br>
+                    <span><span style="width: 40px; display: inline-block;">To</span>:
+                        {{profit.toDate}}</span>
+                </div>
+            </div>
+            <span style="padding-bottom: 20px; font-size: 22px; margin-left: 10px;"><strong>Accounts</strong> </span>
+            <div
+                style="border: 2px solid; border-bottom: hidden; border-top: none; border-left: hidden; border-right: hidden; margin-top: 10px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 17px;">
+                    <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;">
+                            <strong>{{profit.incomeAccountName}}</strong>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px;"></td>
+                    </tr>
+                    <tr *ngFor="let income of profit.profitLossIncomeSubListDTO"
+                        style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;">{{income.subAcoountName}}</td>
+                        <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{income.amount}}</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong>Total {{profit.incomeAccountName}}</strong>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profit.totalIncome}}</strong></td>
+                    </tr>
+                    <!-- <tr style="height: 5px;"></tr> -->
+                    <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;"><strong>Gross
+                                Profit</strong><br><span style="color: rgb(127, 132, 139); font-size: 16px;"><strong>As
+                                    a Percetage of Total Income</strong></span>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px; padding-top: 5px; ">
+                            ₹&nbsp;{{profit.totalIncome}}<br><span style="color: rgb(127, 132, 139);">
+                                100%</span>
+                        </td>
+                    </tr>
+                    <tr style="height: 8px;"></tr>
+                    <tr style="height: 40px;margin-top: 8px; font-size: 19px;  background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                            <strong>{{profit.purchaseAndWagesName}}</strong>
+                        </td>
+
+                        <td style="text-align: right;padding-right: 10px;"></td>
+                    </tr>
+                    <tr *ngFor="let wages of profit.purchaseAndWagesDTOList"
+                        style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;">{{wages.subAcoountName}}</td>
+                        <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{wages.amount}} </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong> Total
+                                {{profit.purchaseAndWagesName}}</strong></td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profit.totalpurchaseAndWages}}</strong></td>
+                    </tr>
+                    <tr style="height: 40px;margin-top: 8px; font-size: 19px;  background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                            <strong>{{profit.misExpenseName}}</strong>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px;"></td>
+                    </tr>
+                    <tr *ngFor="let expense of profit.miExpenseDTOList"
+                        style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;">{{expense.subAcoountName}}</td>
+                        <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{expense.amount}} </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong> Total {{profit.misExpenseName}}</strong></td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profit.misExpenseTotalIncome}}</strong></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                        <td style="padding-left: 10px;"><strong> Total Expense</strong></td>
+                        <td style="text-align: right;padding-right: 10px;"><strong>
+                                ₹&nbsp;{{profit.totalExpense}}</strong></td>
+                    </tr>
+                    <!-- <tr style="height: 5px;"></tr> -->
+                    <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                        <td style="padding-left: 10px;padding: 10px 10px 10px 10px;"><strong>Net Profit</strong><br>
+                            <span style="font-size: 16px; color: rgb(127, 132, 139);"><strong>As a Percentage of Total
+                                    Income</strong> </span>
+                        </td>
+                        <td style="text-align: right;padding-right: 10px; padding-top: 5px;">
+                            ₹&nbsp;{{profit.netProfit}} <br> <span
+                                style="color: rgb(127, 132, 139);">{{profit.percentageOfTotalIncome}}%</span>
+                        </td>
+
+
+                    </tr>
+
+                </table>
+            </div>
+
+
+        </div>
+
+        <div style="border:  1px solid lightgray; margin-top: 10px;" >
+
+            <div style="display: flex;">
+                <div style="width: 40%;">
+                    <img src="assets/images/logo/erplogo.png" alt="" style="width: 200px; height: 200px; margin-left: 2%;">
+                </div>
+                <div style="width: 60%; margin-top: 50px; margin-left: 45%;">
+                    <div>
+                        <span style="font-size: 23px; display: inline-block; margin-top: 15px;"><strong>Profit and
+                                Loss</strong> </span><br>
+                              
+                                <span><span style="width: 40px; display: inline-block;">From</span>:
+                                {{profitAndLossObj.fromDate}}</span><br>
+                            <span><span style="width: 40px; display: inline-block;">To</span>:
+                                {{profitAndLossObj.toDate}}</span>
+                    </div>
+                </div>
+            </div>
+            <table style="width: 100%; border-collapse: collapse; font-size: 17px;">
+                <tr style="height: 40px;margin-top: 8px; font-size: 19px; ">
+                    <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                        <strong>Total Income</strong>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px;"></td>
+                </tr>
+                <tr style="height: 40px;margin-top: 8px; font-size: 19px;  background-color:#d3dbdd">
+                    <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                        <strong>Purchase and Wages</strong>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px;"></td>
+                </tr>
+
+                <tr style="height: 40px; ">
+
+                    <td style="padding-left: 10px;">Purchase and Wages Total Expense </td>
+                    <td style="text-align: right;padding-right: 10px;">
+                        ₹&nbsp;{{profitAndLossObj.overAllTotalpurchaseAndWages}}</td>
+                </tr>
+                <tr style="height: 40px;margin-top: 8px; font-size: 19px;  background-color:#d3dbdd">
+                    <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                        <strong>Mis Expense</strong>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px;"></td>
+                </tr>
+                <tr style="height: 40px; ">
+
+                    <td style="padding-left: 10px;">Total Mis Expense </td>
+                    <td style="text-align: right;padding-right: 10px;">
+                        ₹&nbsp;{{profitAndLossObj.overAllMisExpenseTotalIncome}}</td>
+                    <br>
+                </tr>
+                
+                <tr style="height: 40px; ">
+
+                    <td style="padding-left: 10px;"><strong> Total Expense</strong> </td>
+                    <td style="text-align: right;padding-right: 10px;">
+                        ₹&nbsp;<strong>{{profitAndLossObj.overAllTotalExpense}}</strong></td>
+                    <br>
+                </tr>
+
+                <tr style="height: 40px; ">
+
+                    <td style="padding-left: 10px;"><strong>Total Income</strong></td>
+                    <td style="text-align: right;padding-right: 10px;">
+                        ₹&nbsp;<strong>{{profitAndLossObj.overAllTotalIncome}}</strong> </td>
+                    <br>
+                </tr>
+                <tr style="height: 40px; ">
+                    <td style="padding-left: 10px;"><strong>Net Profit</strong></td>
+                    <td style="text-align: right;padding-right: 10px;">
+                        ₹&nbsp;<strong>{{profitAndLossObj.overAllNetProfit}}</strong> </td>
+                </tr>
+                <tr style="height: 40px; ; color: rgb(127, 132, 139);">
+                    <td style="padding-left: 10px;"><strong> Percentage of Total Income</strong></td>
+                    <td style="text-align: right;padding-right: 10px; ">
+                        &nbsp;<strong>{{profitAndLossObj.overAllPercentageOfTotalIncome}}%</strong></td>
+                </tr>
+
+
+
+            </table>
+
+        </div>
+
+    </div>
+    <div class=" text-right mr-2 mt-1 mb-2">
+        <button class="btn btn-primary" printTitle="Profit and Loss Copy" printSectionId="print-item"
+            ngxPrint>Download</button>
+    </div>
+</div>

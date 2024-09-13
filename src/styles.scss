@@ -1,0 +1,105 @@
+@import '@core/scss/core.scss';
+@import './assets/scss/styles';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import '~ngx-toastr/toastr-bs4-alert';
+@import '~simplebar/dist/simplebar.css';
+
+.modal .modal-header .close {
+    transform: 0 !important;
+    opacity: 0.4 !important;
+    color: black !important;
+    background-color: transparent !important;
+}
+
+// #toast-container>.toast-success {
+//     // background-image: none;
+//     background-color: white !important;
+//     color: #28a745 !important;
+// }
+// #toast-container>.toast-error {
+//     // background-image: none;
+//     background-color: white !important;
+//     color: #dc3545!important;
+// }
+.modal .modal-header .close {
+    position: relative;
+    right: 10px;
+    top: 5px;
+}
+
+.angular-editor .angular-editor-textarea {
+    min-height: 150px !important;
+}
+
+.simplebar-placeholder {
+    margin-top: 20px !important;
+    width: auto !important;
+    // height: 336px !important;
+}
+
+.angular-editor-toolbar {
+    display: none !important;
+}
+
+.angular-editor .angular-editor-textarea {
+    min-height: 150px !important;
+
+}
+
+.icondesign {
+    border: 1px solid rgb(136, 134, 134);
+    padding: 3px;
+    border-radius: 50%;
+    background-color: rgb(235, 236, 235);
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-optgroup.ng-option-disabled {
+    color: black;
+    font-weight: 600;
+}
+
+html .content.app-content {
+    padding: calc(2rem + 3rem + 1.3rem) 2rem 0;
+}
+
+.header-navbar {
+    padding: 0px;
+    min-height: 3.05rem;
+}
+
+.customizer .customizer-toggle {
+    display: none !important;
+}
+
+
+.table.dataTable td {
+    padding: 0.25rem;
+    padding-left: 22px;
+
+}
+
+@media screen and (max-width: 767px) {
+
+    div.dataTables_wrapper div.dataTables_length,
+    div.dataTables_wrapper div.dataTables_filter,
+    div.dataTables_wrapper div.dataTables_info,
+    div.dataTables_wrapper div.dataTables_paginate {
+        text-align: left;
+    }
+}
+
+.nav-tabs .nav-link:after {
+    left: 13px;
+    width: 74%;
+}
+
+
+.nav-tabs {
+    margin-bottom: 0rem;
+    margin-left: -6px;
+
+}
+
+.mt-1, .my-1 {
+    margin-top: 0rem !important;
+}

@@ -1,0 +1,14 @@
+@import '@core/scss/angular/libs/form-wizard.component.scss';
+@import '@core/scss/angular/libs/select.component.scss';
+.percentage-center {
+    display: table !important;
+}
+
+.percentage-center span {
+    display: table-cell !important;
+    vertical-align: middle !important;
+}
+
+// .angular-editor-toolbar {
+//     display: none !important;
+// }

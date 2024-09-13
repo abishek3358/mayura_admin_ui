@@ -1,0 +1,320 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row col-12">
+            <div class="col-6">
+                <div class=" pageHeading">
+                    <h4 class="">Sub Contractor Work Order</h4>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12">
+            <form [formGroup]="SCWOForm" autocomplete="off">
+                <div class="col-12 mt-3 row">
+                    <div class="col-sm-4 form-group">
+                        <label for="projectId">Job/Project Code</label>
+                        <ng-select [items]="projectArr" name="projectId" id="projectId" (change)="getWoDetails()" bindLabel="jobCode" bindValue="id" placeholder="Choose" formControlName="projectId" [ngClass]="{ 'is-invalid': submitted && f.projectId.errors }">
+                        </ng-select>
+                        <div *ngIf="submitted && f.projectId.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectId.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="contractorId">Sub Contractor</label>
+                            <ng-select [items]="contractorArr" id="contractorId" bindLabel="fullName" (change)="getWoDetails()" bindValue="id" placeholder="Choose" formControlName="contractorId" [ngClass]="{ 'is-invalid': submitted && f.contractorId.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.contractorId.errors" class="invalid-feedback">
+                                <div *ngIf="f.contractorId.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="subContractorBoqCode">Sub Contractor Code</label>
+                            <ng-select [items]="subContractorBoqCodeArray" id="subContractorBoqCode" bindLabel="subContractorBoqCode"  bindValue="subContractorBoqCode" placeholder="Choose" formControlName="subContractorBoqCode" [ngClass]="{ 'is-invalid': submitted && f.contractorId.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.subContractorBoqCode.errors" class="invalid-feedback">
+                                <div *ngIf="f.subContractorBoqCode.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="workOrderNo">Work Order No</label>
+                        <input id="workOrderNo" type="text" class="form-control" formControlName="workOrderNo" placeholder="Work Order No" [ngClass]="{ 'is-invalid': submitted && f.workOrderNo.errors }">
+                        <div *ngIf="submitted && f.workOrderNo.errors" class="invalid-feedback">
+                            <div *ngIf="f.workOrderNo.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="workOrderDate">Work Order Date</label>
+                            <input class="form-control" id="workOrderDate" placeholder="yyyy-mm-dd" formControlName="workOrderDate" ngbDatepicker #workOrderDate="ngbDatepicker" (click)="workOrderDate.toggle()" [ngClass]="{ 'is-invalid': submitted && f.workOrderDate.errors}">
+                            <div *ngIf="submitted && f.workOrderDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.workOrderDate.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="latestAmendmentNo">Latest Amendment No</label>
+                        <input id="latestAmendmentNo" type="text" class="form-control" formControlName="latestAmendmentNo" placeholder="Latest Amendment No" [ngClass]="{ 'is-invalid': submitted && f.latestAmendmentNo.errors }">
+                        <div *ngIf="submitted && f.latestAmendmentNo.errors" class="invalid-feedback">
+                            <div *ngIf="f.latestAmendmentNo.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="latestAmendmentDate">Latest Amendment Date</label>
+                            <input class="form-control" id="latestAmendmentDate" placeholder="yyyy-mm-dd" formControlName="latestAmendmentDate" ngbDatepicker #latestAmendmentDate="ngbDatepicker" (click)="latestAmendmentDate.toggle()" [ngClass]="{ 'is-invalid': submitted && f.latestAmendmentDate.errors}">
+                            <div *ngIf="submitted && f.latestAmendmentDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.latestAmendmentDate.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="ourReferanceNo">Our Reference No</label>
+                        <input id="ourReferanceNo" type="text" class="form-control" formControlName="ourReferanceNo" placeholder="Our Reference No" [ngClass]="{ 'is-invalid': submitted && f.ourReferanceNo.errors }">
+                        <div *ngIf="submitted && f.ourReferanceNo.errors" class="invalid-feedback">
+                            <div *ngIf="f.ourReferanceNo.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="ourReferanceDate">Our Reference Date</label>
+                            <input class="form-control" id="ourReferanceDate" placeholder="yyyy-mm-dd" formControlName="ourReferanceDate" ngbDatepicker #ourReferanceDate="ngbDatepicker" (click)="ourReferanceDate.toggle()" [ngClass]="{ 'is-invalid': submitted && f.ourReferanceDate.errors}">
+                            <div *ngIf="submitted && f.ourReferanceDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.ourReferanceDate.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="projectName">Project Name</label>
+                        <input id="projectName" type="text" class="form-control" formControlName="projectName" placeholder="Project Name" [ngClass]="{ 'is-invalid': submitted && f.projectName.errors }">
+                        <div *ngIf="submitted && f.projectName.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectName.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="projectCode">Project Code</label>
+                        <input id="projectCode" type="text" class="form-control" formControlName="projectCode" placeholder="Project Code" [ngClass]="{ 'is-invalid': submitted && f.projectCode.errors }">
+                        <div *ngIf="submitted && f.projectCode.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectCode.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="description">Description</label>
+                        <input id="description" type="text" class="form-control" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+                        <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                            <div *ngIf="f.description.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="dateOfCommencement">Date Of Commencement</label>
+                            <input class="form-control" id="dateOfCommencement" placeholder="yyyy-mm-dd" formControlName="dateOfCommencement" ngbDatepicker #dateOfCommencement="ngbDatepicker" (click)="dateOfCommencement.toggle()" [ngClass]="{ 'is-invalid': submitted && f.dateOfCommencement.errors}">
+                            <div *ngIf="submitted && f.dateOfCommencement.errors" class="invalid-feedback">
+                                <div *ngIf="f.dateOfCommencement.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="dateOfCompletion">Date Of Completion</label>
+                            <input class="form-control" id="dateOfCompletion" placeholder="yyyy-mm-dd" formControlName="dateOfCompletion" ngbDatepicker #dateOfCompletion="ngbDatepicker" (click)="dateOfCompletion.toggle()" [ngClass]="{ 'is-invalid': submitted && f.dateOfCompletion.errors}">
+                            <div *ngIf="submitted && f.dateOfCompletion.errors" class="invalid-feedback">
+                                <div *ngIf="f.dateOfCompletion.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="incomeTaxTds">Income Tax (TDS)</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="incomeTaxTds" placeholder="Choose" formControlName="incomeTaxTds" [ngClass]="{ 'is-invalid': submitted && f.incomeTaxTds.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.incomeTaxTds.errors" class="invalid-feedback">
+                                <div *ngIf="f.incomeTaxTds.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="gst">GST No</label>
+                        <input id="gst" type="text" class="form-control" formControlName="gst" placeholder="GST No" [ngClass]="{ 'is-invalid': submitted && f.gst.errors }">
+                        <div *ngIf="submitted && f.gst.errors" class="invalid-feedback">
+                            <div *ngIf="f.gst.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="mobilizationAdvance">Mobilization Advance</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="mobilizationAdvance" placeholder="Choose" formControlName="mobilizationAdvance" [ngClass]="{ 'is-invalid': submitted && f.mobilizationAdvance.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.mobilizationAdvance.errors" class="invalid-feedback">
+                                <div *ngIf="f.mobilizationAdvance.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="recoveryOfMobilization">Recovery Of Mobilization</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="recoveryOfMobilization" placeholder="Choose" formControlName="recoveryOfMobilization" [ngClass]="{ 'is-invalid': submitted && f.recoveryOfMobilization.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.recoveryOfMobilization.errors" class="invalid-feedback">
+                                <div *ngIf="f.recoveryOfMobilization.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="materialAdvance">Material Advance</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="materialAdvance" placeholder="Choose" formControlName="materialAdvance" [ngClass]="{ 'is-invalid': submitted && f.materialAdvance.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.materialAdvance.errors" class="invalid-feedback">
+                                <div *ngIf="f.materialAdvance.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="recoveryOfMaterialAdvance">Recovery Of Material Advance</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="recoveryOfMaterialAdvance" placeholder="Choose" formControlName="recoveryOfMaterialAdvance" [ngClass]="{ 'is-invalid': submitted && f.recoveryOfMaterialAdvance.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.recoveryOfMaterialAdvance.errors" class="invalid-feedback">
+                                <div *ngIf="f.recoveryOfMaterialAdvance.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="bill">Bill No</label>
+                        <input id="bill" type="text" class="form-control" formControlName="bill" placeholder="Bill No" [ngClass]="{ 'is-invalid': submitted && f.bill.errors }">
+                        <div *ngIf="submitted && f.bill.errors" class="invalid-feedback">
+                            <div *ngIf="f.bill.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="recoveryOfSdRetention">Recovery Of SD Retention</label>
+                        <input id="recoveryOfSdRetention" type="text" class="form-control" formControlName="recoveryOfSdRetention" placeholder="Recovery Of SD Retention" [ngClass]="{ 'is-invalid': submitted && f.recoveryOfSdRetention.errors }">
+                        <div *ngIf="submitted && f.recoveryOfSdRetention.errors" class="invalid-feedback">
+                            <div *ngIf="f.recoveryOfSdRetention.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="releseOfSdRetention">Release Of SD Retention</label>
+                        <input id="releseOfSdRetention" type="text" class="form-control" formControlName="releseOfSdRetention" placeholder="Release Of SD Retention" [ngClass]="{ 'is-invalid': submitted && f.releseOfSdRetention.errors }">
+                        <div *ngIf="submitted && f.releseOfSdRetention.errors" class="invalid-feedback">
+                            <div *ngIf="f.releseOfSdRetention.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="performanceGuaratee">Performance Guarantee</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="performanceGuaratee" placeholder="Choose" formControlName="performanceGuaratee" [ngClass]="{ 'is-invalid': submitted && f.performanceGuaratee.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.performanceGuaratee.errors" class="invalid-feedback">
+                                <div *ngIf="f.performanceGuaratee.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="releaseOfPg">Release Of PG</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="releaseOfPg" placeholder="Choose" formControlName="releaseOfPg" [ngClass]="{ 'is-invalid': submitted && f.releaseOfPg.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.releaseOfPg.errors" class="invalid-feedback">
+                                <div *ngIf="f.releaseOfPg.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="liquidateDamagesForDelay">Liquidate Damages For Delay</label>
+                            <ng-select [items]="['APPLICABLE','NOT_APPLICABLE']" id="liquidateDamagesForDelay" placeholder="Choose" formControlName="liquidateDamagesForDelay" [ngClass]="{ 'is-invalid': submitted && f.liquidateDamagesForDelay.errors }">
+                            </ng-select>
+                            <div *ngIf="submitted && f.liquidateDamagesForDelay.errors" class="invalid-feedback">
+                                <div *ngIf="f.liquidateDamagesForDelay.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="payingAuthority">Paying Authority</label>
+                        <input id="payingAuthority" type="text" class="form-control" formControlName="payingAuthority" placeholder="Paying Authority" [ngClass]="{ 'is-invalid': submitted && f.payingAuthority.errors }">
+                        <div *ngIf="submitted && f.payingAuthority.errors" class="invalid-feedback">
+                            <div *ngIf="f.payingAuthority.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="releaseOfRaBills">Release Of RA Bills</label>
+                        <input id="releaseOfRaBills" type="text" class="form-control" formControlName="releaseOfRaBills" placeholder="Release Of RA Bills" [ngClass]="{ 'is-invalid': submitted && f.releaseOfRaBills.errors }">
+                        <div *ngIf="submitted && f.releaseOfRaBills.errors" class="invalid-feedback">
+                            <div *ngIf="f.releaseOfRaBills.errors.required">Required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="contactPersonName">Contact Person Name</label>
+                        <input id="contactPersonName" type="text" class="form-control" formControlName="contactPersonName" placeholder="Contact Person Name" [ngClass]="{ 'is-invalid': submitted && f.contactPersonName.errors }">
+                        <div *ngIf="submitted && f.contactPersonName.errors" class="invalid-feedback">
+                            <div *ngIf="f.contactPersonName.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label for="contactPersonMobileNo">Contact Person Mobile No</label>
+                        <input id="contactPersonMobileNo" type="text" class="form-control" formControlName="contactPersonMobileNo" placeholder="Contact Person Mobile No" [ngClass]="{ 'is-invalid': submitted && f.contactPersonMobileNo.errors }">
+                        <div *ngIf="submitted && f.contactPersonMobileNo.errors" class="invalid-feedback">
+                            <div *ngIf="f.contactPersonMobileNo.errors.required">Required</div>
+                        </div>
+                    </div>
+                 
+
+                    <div class="form-group col-sm-4">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" class="form-control" formControlName="notes" placeholder="Notes" [ngClass]="{ 'is-invalid': submitted && f.notes.errors }"></textarea>
+                        <div *ngIf="submitted && f.notes.errors" class="invalid-feedback">
+                            <div *ngIf="f.notes.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="waitingForTheResponse">
+                        <table class="table table-bordered text-center ">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>BOQ.No</th>
+                                    <th style="min-width: 300px;">Execution</th>
+                                    <th>Quantity</th>
+                                    <!-- <th>Unit
+                                    </th> -->
+                                    <th>Unit Rate(Rs.)</th>
+                                    <th>Amount(Rs.)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let WoDetails of woDetailsArr;let i=index;">
+                                    <td>{{i+1}}</td>
+                                    <td>{{WoDetails.sacCode}}</td>
+                                    <td>{{WoDetails.executionName}}</td>
+                                    <td>{{WoDetails.quantity}}</td>
+                                    <!-- <td>{{WoDetails.uomName}}</td> -->
+                                    <td>{{WoDetails.unitRate}}</td>
+                                    <td>{{WoDetails.amount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 mt-2 text-right">
+                        <button class="btn btn-primary" (click)="onSubmit()">{{buttonText}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

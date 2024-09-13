@@ -1,0 +1,102 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <div class="pageHeading">
+                    <h4>Execution</h4>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="text-right my-auto ">
+                    <button type="button" class="btn btn-primary btn-sm p-1 mb-2" (click)="openModal(modal)">
+                        Add
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table id="executionTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>NAME</th>
+                        <th>SHORT NAME</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let execution of executionArr; let i= index;">
+                        <td>{{i+1}}</td>
+                        <td>{{execution.name}}</td>
+                        <td>{{execution.shortName}}</td>
+                        <td>
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hie-arrow" ngbDropdownToggle data-toggle="dropdown"> <i class='bx bx-dots-vertical-rounded'
+                                        style='color:#858080'></i>
+                                </button>
+                                <div ngbDropdownMenu>
+                                    <a ngbDropdownItem (click)=editModal(modal,execution)><i
+                                            class='bx bxs-edit text-success'></i><span class="ml-2">Edit</span></a>
+                                    <a ngbDropdownItem (click)=deleteModal(deleteExecution,execution.id)><i class='bx bxs-trash-alt'
+                                            style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+
+    </div>
+</div>
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Execution</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="executionForm">
+            <div>
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}" placeholder="Name">
+                    <span *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                        <span *ngIf="f.name.errors.required">Required </span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="">Short Name</label>
+                    <input type="text" class="form-control" formControlName="shortName" [ngClass]="{'is-invalid': submitted && f.shortName.errors}" placeholder="Short Name">
+                    <span *ngIf="submitted && f.shortName.errors" class="invalid-feedback">
+                        <span *ngIf="f.shortName.errors.required">Required</span>
+                    </span>
+                </div>
+            </div>
+            <div class="text-right mt-2">
+                <button class="btn btn-primary mb-2 p-1" type="submit" (click)="onSubmit(modal)">{{buttonText}}</button>
+            </div>
+        </form>
+
+    </div>
+</ng-template>
+<ng-template #deleteExecution let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+        <div class="text-right mt-2 ">
+            <button type="button" class="btn btn-primary  ml-2 " (click)="delete(modal)">Yes</button>
+        </div>
+    </div>
+
+</ng-template>

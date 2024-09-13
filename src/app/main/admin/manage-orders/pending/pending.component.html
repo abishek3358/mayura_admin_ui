@@ -1,0 +1,159 @@
+<div class="container-fluid mx-auto">
+    <div class="row">
+        <div class="col-12 pr-0 pl-0">
+
+            <div class="shadow p-2 mb-5 col-md-12 card">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-1 pageHeading">
+                            <h4 class="">Pending Order</h4>
+                        </div>
+                    </div>
+
+                </div>
+                <ngx-simplebar>
+                    <table id="pending" class="table table-bordered">
+                        <thead class="thead bg-white">
+                            <tr>
+                                <th>S.NO</th>
+                                <th>ORDER NO</th>
+                                <th>CUSTOMER NAME</th>
+                                <th>ORDER DATE</th>
+                                <th>DELIVERY ADDRESS</th>
+                                <th>TOTAL ITEM</th>
+                                <th class="text-center">ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orderPendingArr; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderNo}}</td>
+                                <td>{{order.customerName}}</td>
+                                <td>{{order.orderDate}}</td>
+                                <td>{{order.customerDeliveryAddress}}</td>
+                                <td>{{order.noOfItem}}</td>
+                                <td>
+                                    <!-- <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                            data-toggle="dropdown">
+                                            <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                        </button> -->
+
+                                    <div class="d-flex">
+                                        <a ngbDropdownItem routerLink="manage-pending/{{order.orderId}}">
+                                            <i class='fa fa-arrow-right'></i>
+                                        </a>
+                                        <a ngbDropdownItem (click)="openModal(myModal,order.orderId)"><i
+                                                class="fa fa-eye" style='color:#048519;font-size:17px;'></i></a>
+                                        <a ngbDropdownItem (click)="openModal(cancelModal,order.orderId)">
+                                            <i class='fa fa-window-close' style='color:rgb(233, 95, 77)'></i>
+                                        </a>
+                                    </div>
+                                    <!-- </div> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ngx-simplebar>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #myModal let-modal>
+    <div class="modal-content" style="display: inline-grid; position: relative; overflow: auto;">
+        <div class="modal-header">
+            <h5 class="modal-title w-100">Order Details</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-1" id="myModal">
+            <div class="row">
+                <div class="col-6">
+                    <label>
+                        <h5 style="margin-right: 12px;">Customer Name</h5>
+                    </label>: &nbsp;
+                    {{view.customerName}} <br>
+                    <label>
+                        <h5 style="margin-right: 67px;">Order No</h5>
+                    </label>: &nbsp;
+                    {{view.orderNo}} <br>
+                    <label>
+                        <h5 style="margin-right: 52px;">Total Items </h5>
+                    </label>: &nbsp;
+                    {{view.noOfItem}} <br>
+
+                </div>
+                <div class="col-6 mnge-size">
+                    <label>
+                        <h5 style="margin-right: 56px;">Total Price</h5>
+                    </label>: &nbsp;
+                    {{view.grandTotal}}<br>
+                    <label>
+                        <h5 style="margin-right: 26px;">Payment Type </h5>
+                    </label>: &nbsp;
+                    <span *ngIf="view.paymentStatus === 'CASH_ON_DELIVERY'">{{"Cash on delivery"}}</span><br>
+                    <label>
+                        <h5 style="margin-right: 7px;">Delivery Address </h5>
+                    </label>: &nbsp;
+                    <span>{{view.customerDeliveryAddress}}</span>
+                </div>
+            </div>
+            <div class="shadow p-2 mb-2 card card-size mt-3">
+                <div class="row">
+                    <table id="pending" class="table table-bordered" style="height: 0px;">
+                        <thead class="thead bg-white">
+                            <tr>
+                                <th>S.NO</th>
+                                <th>PRODUCT NAME</th>
+                                <th>PRICE WITH UOM</th>
+                                <th>ORDER QUANTITY</th>
+                                <th>PRICE</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let vendor of view.customerOrderItemsDTOList; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{vendor.productName}}</td>
+                                <td>{{vendor.priceWithUom}}</td>
+                                <td>{{vendor.orderQty}}</td>
+                                <td>{{vendor.price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #cancelModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Cancel Order</h5>
+        <button type="button" class="close" (click)="modal.dismiss('Cross click')" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body p-1" id="cancelModal">
+        <form [formGroup]="cancelForm" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group ">
+                        <label for="name">Reason</label>
+                        <textarea id="reason" type="text" class="form-control" formControlName="reason"
+                            [ngClass]="{ 'is-invalid': cancelSubmit && f.reason.errors }"></textarea>
+                        <div *ngIf="cancelSubmit && f.reason.errors" class="invalid-feedback">
+                            <div *ngIf="f.reason.errors.required">*Required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-2 " routerLink="shippedList">
+                <button type="submit" class="btn btn-sm btn-primary mb-2 p-1"
+                    (click)="orderCancel(modal)">Submit</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

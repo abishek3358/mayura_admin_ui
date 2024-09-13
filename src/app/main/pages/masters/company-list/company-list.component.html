@@ -1,0 +1,269 @@
+<section class="horizontal-wizard">
+    <div id="stepper3" class="bs-stepper horizontal-wizard-example">
+        <div class="bs-stepper-header">
+            <div class="step" data-target="#personal-info">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bxs-factory font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Company Basic Details</span>
+                        <span class="bs-stepper-subtitle">Add Basic Info</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#address">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-map font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Address</span>
+                        <span class="bs-stepper-subtitle">Add Address</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="bs-stepper-content">
+            <form [formGroup]="companyForm" autocomplete="off">
+                <div id="personal-info" class="content">
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Basic Info</h5>
+                        <!-- <small class="text-muted">Enter Your Basic Info.</small> -->
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="contactPersonName">Name</label>
+                            <input id="contactPersonName" type="text" class="form-control" formControlName="contactPersonName" placeholder="Name" [ngClass]="{ 'is-invalid': companySubmitted && f.contactPersonName.errors }">
+                            <div *ngIf="companySubmitted && f.contactPersonName.errors" class="invalid-feedback">
+                                <div *ngIf="f.contactPersonName.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="companyName">Company Name</label>
+                            <input id="companyName" type="text" class="form-control" formControlName="companyName" placeholder="Company Name" [ngClass]="{ 'is-invalid': companySubmitted && f.companyName.errors }">
+                            <div *ngIf="companySubmitted && f.companyName.errors" class="invalid-feedback">
+                                <div *ngIf="f.companyName.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="contactPersonEmail">Contact Person Email</label>
+                            <input id="contactPersonEmail" type="text" class="form-control" formControlName="contactPersonEmail" placeholder="Contact Person Email" [ngClass]="{ 'is-invalid': companySubmitted && f.contactPersonEmail.errors }">
+                            <div *ngIf="companySubmitted && f.contactPersonEmail.errors" class="invalid-feedback">
+                                <div *ngIf="f.contactPersonEmail.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="companyEmail">Company Email</label>
+                            <input id="companyEmail" type="text" class="form-control" formControlName="companyEmail" placeholder="Company Email" [ngClass]="{ 'is-invalid': companySubmitted && f.companyEmail.errors }">
+                            <div *ngIf="companySubmitted && f.companyEmail.errors" class="invalid-feedback">
+                                <div *ngIf="f.companyEmail.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="contactPersonMobileNo">Contact Person Mobile No</label>
+                            <input id="contactPersonMobileNo" type="text" class="form-control" formControlName="contactPersonMobileNo" placeholder="Contact Person Mobile No" [ngClass]="{ 'is-invalid': companySubmitted && f.contactPersonMobileNo.errors }">
+                            <div *ngIf="companySubmitted && f.contactPersonMobileNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.contactPersonMobileNo.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="companyMobileNo">Company Mobile No</label>
+                            <input id="companyMobileNo" type="text" class="form-control" formControlName="companyMobileNo" placeholder="Company Mobile No" [ngClass]="{ 'is-invalid': companySubmitted && f.companyMobileNo.errors }">
+                            <div *ngIf="companySubmitted && f.companyMobileNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.companyMobileNo.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="companyDisplayName">Company Name</label>
+                            <input id="companyDisplayName" type="text" class="form-control" formControlName="companyDisplayName" placeholder="Company Name" [ngClass]="{ 'is-invalid': companySubmitted && f.companyDisplayName.errors }">
+                            <div *ngIf="companySubmitted && f.companyDisplayName.errors" class="invalid-feedback">
+                                <div *ngIf="f.companyDisplayName.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="panNo">Pan No</label>
+                            <input id="panNo" type="text" class="form-control" formControlName="panNo" placeholder="Pan No" [ngClass]="{ 'is-invalid': companySubmitted && f.panNo.errors }">
+                            <div *ngIf="companySubmitted && f.panNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.panNo.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="gst">GST No</label>
+                            <input id="gst" type="text" class="form-control" formControlName="gst" placeholder="GST No" [ngClass]="{ 'is-invalid': companySubmitted && f.gst.errors }">
+                            <div *ngIf="companySubmitted && f.gst.errors" class="invalid-feedback">
+                                <div *ngIf="f.gst.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="accountNumber">Account No</label>
+                            <input id="accountNumber" type="text" class="form-control" formControlName="accountNumber" placeholder="Account No" [ngClass]="{ 'is-invalid': companySubmitted && f.accountNumber.errors }">
+                            <div *ngIf="companySubmitted && f.accountNumber.errors" class="invalid-feedback">
+                                <div *ngIf="f.accountNumber.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="bankName">Bank Name</label>
+                            <input id="bankName" type="text" class="form-control" formControlName="bankName" placeholder="Bank Name" [ngClass]="{ 'is-invalid': companySubmitted && f.bankName.errors }">
+                            <div *ngIf="companySubmitted && f.bankName.errors" class="invalid-feedback">
+                                <div *ngIf="f.bankName.errors.required">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="ifsCode">IFSC Code</label>
+                            <input id="ifsCode" type="text" class="form-control" formControlName="ifsCode" placeholder="IFSC Code" [ngClass]="{ 'is-invalid': companySubmitted && f.ifsCode.errors }">
+                            <div *ngIf="companySubmitted && f.ifsCode.errors" class="invalid-feedback">
+                                <div *ngIf="f.ifsCode.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary btn-prev" disabled rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next" (click)="next()" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+
+                </div>
+                <div id="address" class="content">
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Address</h5>
+                        <!-- <small class="text-muted">Enter Company Address.</small> -->
+                    </div>
+                    <div class="" formArrayName="companyAddressDTOList">
+                        <!-- <div class="text-right">
+                            <button class="btn btn-primary mb-2">Add</button>
+                        </div> -->
+                        <div *ngFor="let Bills of companyAddressListArr.controls; let i = index" [formGroupName]="i">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group">
+                                            <label for="addressLine1">Address 1</label>
+                                            <textarea name="addressLine1" id="addressLine1" class="form-control" formControlName="addressLine1" placeholder="Address 1" [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('addressLine1').errors }"></textarea>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('addressLine1').errors" class="invalid-feedback">
+                                                <div *ngIf="companyAddressListArr.controls[i].get('addressLine1').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="addressLine2">Address 2</label>
+                                            <textarea name="addressLine2" class="form-control" id="addressLine2" formControlName="addressLine2" placeholder="Address 2"></textarea>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label for="addressType">Address Type</label>
+                                            <ng-select [items]="['BILLING','SHIPPING']" name="addressType" id="addressType" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="addressType" [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('addressType').errors }">
+                                            </ng-select>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('addressType').errors" class="invalid-feedback">
+                                                <div *ngIf="companyAddressListArr.controls[i].get('addressType').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label for="countryId{{i}}">Country</label>
+                                            <ng-select [items]="countryArr" name="countryId" id="countryId{{i}}" (change)="getState($event.id,i)" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="countryId" [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('countryId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('countryId').errors" class="invalid-feedback">
+                                                <div *ngIf="companyAddressListArr.controls[i].get('countryId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label for="state{{i}}">State</label>
+                                            <ng-select [items]="stateListObj[i]" name="stateId" id="state{{i}}" (change)="getCity($event.id,i)" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="stateId" [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('stateId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('stateId').errors" class="invalid-feedback">
+                                                <div *ngIf="companyAddressListArr.controls[i].get('stateId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label for="city{{i}}">City</label>
+                                            <ng-select [items]="cityListObj[i]" name="cityId" id="city{{i}}" bindLabel="name" bindValue="id" placeholder="Choose" formControlName="cityId" [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('cityId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('cityId').errors" class="invalid-feedback">
+                                                <div *ngIf="companyAddressListArr.controls[i].get('cityId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-sm-3 form-group">
+                                            <label for="countryName">Country</label>
+                                            <ng-select [items]="countryArr" name="country" id="country" bindLabel="name"
+                                                bindValue="id" placeholder="Choose" (change)="getCountry($event.id,i)"
+                                                formControlName="countryId"
+                                                [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('countryId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('countryId').errors"
+                                                class="invalid-feedback">
+                                                <div
+                                                    *ngIf="companyAddressListArr.controls[i].get('countryId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label for="state">State</label>
+                                            <ng-select [items]="stateArr" name="state" id="state" bindLabel="name"
+                                                bindValue="id" placeholder="Choose" (change)="getState($event.id,i)"
+                                                formControlName="stateId"
+                                                [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('stateId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('stateId').errors"
+                                                class="invalid-feedback">
+                                                <div
+                                                    *ngIf="companyAddressListArr.controls[i].get('stateId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label for="city">City</label>
+                                            <ng-select [items]="cityArr" name="city" id="city" bindLabel="name"
+                                                bindValue="id" placeholder="Choose" formControlName="cityId"
+                                                [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('cityId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('cityId').errors"
+                                                class="invalid-feedback">
+                                                <div
+                                                    *ngIf="companyAddressListArr.controls[i].get('cityId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div> -->
+                                        <div class="col-sm-3 form-group">
+                                            <label for="postalCode">Postal Code</label>
+                                            <input type="text" class="form-control" id="postalCode" placeholder="Postal Code" formControlName="postalCode" [ngClass]="{ 'is-invalid': companySubmitted && companyAddressListArr.controls[i].get('postalCode').errors }">
+                                            <div *ngIf="companySubmitted && companyAddressListArr.controls[i].get('postalCode').errors" class="invalid-feedback">
+                                                <div *ngIf="companyAddressListArr.controls[i].get('postalCode').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-primary btn-prev" (click)="previous()" rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next" rippleEffect (click)="onSubmit()">
+                            <span class="align-middle d-sm-inline-block d-none">Submit</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

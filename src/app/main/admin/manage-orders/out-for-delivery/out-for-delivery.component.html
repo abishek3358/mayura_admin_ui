@@ -1,0 +1,82 @@
+
+    <form [formGroup]="shippedForm">
+        <div class="container-fluid px-0">
+            <div class="card p-1">
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-2 pageHeading">
+                            <h4 class="">Out For Delivery</h4>
+                        </div>
+                    </div>
+                    <div class="row p-1">
+                        <div class="form-group col-3 ">
+                            <label for="vendor">Vendor</label>
+                            <ng-select [items]="vendorArr" name="vendor"  placeholder="Choose" id="vendor" bindLabel="name" bindValue="name" formControlName="vendorName" [ngClass]="{ 'is-invalid': shippedFormSubmitted && f.vendor.errors}">
+                            </ng-select>
+                            <div *ngIf="shippedFormSubmitted && f.vendor.errors" class="invalid-feedback">
+                                <div *ngIf="f.vendor.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="startDate">Start Date And Time</label>
+                            <input id="startDate" class="form-control" type="datetime-local" formControlName="startDate" [ngClass]="{ 'is-invalid': shippedFormSubmitted && f.startDate.errors}">
+                            <div *ngIf="shippedFormSubmitted && f.startDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.startDate.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-3">
+                            <label for="endDate">End Date And Time</label>
+                            <input id="endDate" class="form-control" type="datetime-local" formControlName="endDate" [ngClass]="{ 'is-invalid': shippedFormSubmitted && f.endDate.errors}">
+                            <div *ngIf="shippedFormSubmitted && f.endDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.endDate.errors.required">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-3">
+                            <button type="button" class="btn btn-primary "
+                                style="margin-top: 20px;margin-left: 100px;" (click)="outForDelivery()">Search</button>
+                        </div>
+</div>
+
+                    <table id="delivery" class="table table-bordered">
+                        <thead class="thead bg-white">
+                            <tr>
+                                <th>S.NO</th>
+                                <th>ORDER</th>
+                                <th>ORDER DATE</th>
+                                <th>ALLOCATED DATE & TIME</th>
+                                <th>OUT FOR DELIVERY</th>
+                                <th>CUSTOMER</th>
+                                <th>VENDOR</th>
+                                <th>VENDOR STATUS</th>
+                                
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orderArr; let i=index" style="width: 100%; height: auto;">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderNo}}</td>
+                                <td>{{order.orderDate}}</td>
+                                <td>{{order.allocatedDate}}</td>
+                                <td>{{order.outForDelivery}}</td>
+                                <td>{{order.customerName}}</td>
+                                <td>{{order.vendorName}}</td>
+                                <td>{{order.vendorOrderStatus}}</td>
+                               
+                            </tr>
+                        </tbody>
+
+                    </table>
+                
+           
+                </div>
+
+                <div class="mt-2 text-right">
+                    <button routerLink="delivered" type="button" class="btn btn-success btn-sm" >Delivered</button>
+                </div>
+</div>
+        </div>
+    </div>
+</form>

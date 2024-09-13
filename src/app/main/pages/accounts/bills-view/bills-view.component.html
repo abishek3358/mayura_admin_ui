@@ -1,0 +1,130 @@
+<div id="print-item" style="background-color: white; padding: 10px; font-family: sans-serif">
+    <div style="border: 1px solid lightgray">
+        <div style="display: flex; padding-left: 1%; width: 100%;" *ngIf="waitingForTheResponse">
+            <div style="width: 50%">
+                <img src="assets/images/logo/erplogo.png" style="margin: 45px 0 0 18px; display: block" width="150" height="120" alt="" />
+            </div>
+            <div style="width: 50%; padding-top: 1% ; padding-left:10%; padding-bottom: 0%;">
+                <span style="margin-top: 8px; font-size: 18px; padding-bottom: 5px;"> Address :</span><br>
+                <span>
+                    {{ companyAddressObj.companyDisplayName }}, <br />
+                    {{ companyAddressObj.companyAddressDTOList[0].addressLine1 }},<br />
+                    {{ companyAddressObj.companyAddressDTOList[0].cityName }},
+                    {{ companyAddressObj.companyAddressDTOList[0].stateName }},{{
+                    companyAddressObj.companyAddressDTOList[0].countryName
+                    }}.<br />
+                    GST : {{ companyAddressObj.gst }} <br />
+                    PAN : {{ companyAddressObj.panNo }} <br />
+                    CONTACT : {{ companyAddressObj.companyMobileNo }}
+                </span>
+            </div>
+        </div>
+        <hr style="border-top: 1px solid lightgray;">
+        <span style=" padding-left: 3%; padding-top: 1%; padding-bottom: 1%; font-size: 17px; display: block;">Bills
+            Details:</span>
+        <div style="display: flex;">
+            <div style="width: 50%; padding-left: 4%;">
+
+                <div style="padding-left: 10px;">
+                    <span style="width:130px; display: inline-block;">Vendor Name</span>: &nbsp; &nbsp; {{billsobj.vendorName}}
+                    <br /><br />
+                    <span style="width:130px; display: inline-block;">Due Amount</span>: &nbsp; &nbsp; {{billsobj.dueAmount}}
+                </div>
+            </div>
+            <div style="width: 50%; padding-left:  10%;">
+                <span style=" width:150px; display: inline-block;">Bill Number</span>: &nbsp; &nbsp; {{billsobj.billNumber}}
+                <br /><br />
+                <span style="width:150px; display: inline-block;">Reference Number</span>: &nbsp; &nbsp; {{billsobj.referenceNumber}} <br /><br />
+                <span style="width:150px; display: inline-block;">Bill Date</span>: &nbsp; &nbsp; {{billsobj.billDate}}
+                <br /><br />
+                <span style="width:150px; display: inline-block;">Due Date</span>: &nbsp; &nbsp; {{billsobj.dueDate}}
+            </div>
+            <!-- <div style="width: 50%; padding-left:  0.5%; padding-top:-10px;"><br />
+          <span style=" width:150px; display: inline-block;">Bill Number</span>: &nbsp; &nbsp; {{billsobj.billNumber}}
+          <br /><br />
+          <span style="width:150px; display: inline-block;">Reference Number</span>: &nbsp; &nbsp;
+          {{billsobj.referenceNumber}} <br /><br />
+          <span style="width:150px; display: inline-block;">Bill Date</span>: &nbsp; &nbsp;
+          {{billsobj.billDate}}<br /><br />
+          <span style="width:150px; display: inline-block;">Due Date</span>: &nbsp; &nbsp; {{billsobj.dueDate}}
+        </div> -->
+
+        </div>
+
+        <div style="padding-left: 3%; padding-right: 3%; padding-top: 7%;">
+            <div style="width: 100%; padding: 0px 0px;">
+                <div class="">
+                    <table id="voucherList-table" class=" " style="width: 100%;border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr>
+                                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">
+                                    S.No
+                                </th>
+                                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">
+                                    Item</th>
+                                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">
+                                    Description</th>
+                                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">
+                                    Qty</th>
+                                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">
+                                    Rate
+                                </th>
+                                <th style="border: 1px solid #dee2e6;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">
+                                    Amount
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            <tr *ngFor="let bills of billsobj.billDtlDTOList ;let i = index">
+                                <td style="border: 1px solid #dee2e6;
+                    font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 2rem;">{{i+1}}</td>
+                                <td style="border: 1px solid #dee2e6;
+                    font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">{{bills.item}}</td>
+                                <td style="border: 1px solid #dee2e6;
+                    font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">{{bills.description}}</td>
+                                <td style="border: 1px solid #dee2e6;
+                    font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">{{bills.quantity}}</td>
+                                <td style="border: 1px solid #dee2e6;
+                    font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">{{bills.rate}}</td>
+                                <td style="border: 1px solid #dee2e6;
+                    font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 1rem;">{{bills.amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex;padding-top:3% ; padding-bottom:2%; padding-left: 3%; justify-content: space-between;">
+            <div style="width: 40%;">
+                <span style="font-size: 18px;">Notes :</span>
+                <p style="text-indent: 50px; margin-left: 5px;"> {{billsobj.notes}}</p>
+
+            </div>
+            <div style="width: 60%; margin-left: 40%; padding-top: 0; margin-right: 3%;">
+                <span style="width: 50%; display: inline-block;">SUB TOTAL</span> <span style="width:20%; display: inline-block;"></span> <span>{{billsobj.subTotal}}</span> <br>
+                <br>
+                <span style="width: 40%; display: inline-block;">IGST</span><span style="width:30%; display: inline-block;" *ngIf="billsobj.igstPercentage">{{billsobj.igstPercentage}}%</span><span *ngIf="!billsobj.igstPercentage" style="width:30%; display: inline-block;">0</span>
+                <span>{{billsobj.igst}}</span><br><br>
+                <span style="width: 40%; display: inline-block;">CGST</span> <span style="width:30%; display: inline-block;" *ngIf="billsobj.cgstPercentage">{{billsobj.cgstPercentage}}%</span> <span style="width:30%; display: inline-block;" *ngIf="!billsobj.cgstPercentage">0</span><span>{{billsobj.cgst}}</span><br><br>
+                <span style="width: 40%; display: inline-block;">SGST</span> <span style="width:30%; display: inline-block;" *ngIf="billsobj.sgstPercentage">{{billsobj.sgstPercentage}}%</span> <span style="width:30%; display: inline-block;" *ngIf="!billsobj.sgstPercentage">0</span>
+                <span>{{billsobj.sgst}}</span> <br><br>
+                <span style="width: 50%; display: inline-block;">TOTAL</span><span style="width:20%; display: inline-block;"></span> <span>{{billsobj.totalAmount}}</span>
+            </div>
+
+        </div>
+
+
+
+    </div>
+</div>
+<div class="text-right mr-5 mt-2">
+    <button class="btn btn-primary" printTitle="bill copy" printSectionId="print-item" ngxPrint>
+        Download
+    </button>
+</div>

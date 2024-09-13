@@ -1,0 +1,302 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title w-100 mb-0">Bill Details</h5>
+            <small class="text-muted">Enter Bill Details.</small>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="billForm" autocomplete="off">
+                <div id="creditTable">
+                    <div class="row">
+                        <div class="col-6  pl-0">
+
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="projectId">Job/Project Code</label>
+                                    <ng-select [items]="projectArr" class="form" id="projectId" id="projectId"
+                                        bindLabel="jobCode" bindValue="id" placeholder="Choose"
+                                        formControlName="projectId"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.projectId.errors }">
+                                    </ng-select>
+                                    <div *ngIf="billSubmitted && f.projectId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.projectId.errors.required">
+                                            Required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="vendorId">Vendor</label>
+                                    <ng-select [items]="vendorArr" class="form" id="vendorId" bindLabel="fullName"
+                                        bindValue="id" placeholder="Choose" formControlName="vendorId"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.vendorId.errors }">
+                                    </ng-select>
+                                    <div *ngIf="billSubmitted && f.vendorId.errors" class="invalid-feedback">
+                                        <div *ngIf="f.vendorId.errors.required">
+                                            Required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="dueAmount">Due Amount</label>
+                                    <input class="form-control" id="dueAmount" placeholder="Due Amount"
+                                        formControlName="dueAmount"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.dueAmount.errors }">
+
+                                    <div *ngIf="billSubmitted && f.dueAmount.errors" class="invalid-feedback">
+                                        <div *ngIf="f.dueAmount.errors.required">
+                                            Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="billNumber">Bill No</label>
+                                    <input id="billNumber" type="text" class="form-control" formControlName="billNumber"
+                                        placeholder="Bill No"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.billNumber.errors}">
+                                    <div *ngIf="billSubmitted && f.billNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="f.billNumber.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="referenceNumber">Reference No</label>
+                                    <input id="referenceNumber" type="text" class="form-control"
+                                        formControlName="referenceNumber" placeholder="Reference No"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.referenceNumber.errors}">
+                                    <div *ngIf="billSubmitted && f.referenceNumber.errors" class="invalid-feedback">
+                                        <div *ngIf="f.referenceNumber.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="billDate">Bill Date</label>
+                                    <input class="form-control" id="billDate" placeholder="yyyy-mm-dd"
+                                        formControlName="billDate" ngbDatepicker #billDate="ngbDatepicker"
+                                        (click)="billDate.toggle()"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.billDate.errors}">
+                                    <div *ngIf="billSubmitted && f.billDate.errors" class="invalid-feedback">
+                                        <div *ngIf="f.billDate.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label for="dueDate">Due Date</label>
+                                    <input class="form-control" id="dueDate" placeholder="yyyy-mm-dd"
+                                        formControlName="dueDate" ngbDatepicker #dueDate="ngbDatepicker"
+                                        (click)="dueDate.toggle()"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.dueDate.errors}">
+                                    <div *ngIf="billSubmitted && f.dueDate.errors" class="invalid-feedback">
+                                        <div *ngIf="f.dueDate.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-12 px-0 my-2">
+                        <ngx-simplebar>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Quantity</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+
+
+                                <tbody class="workOrder-table" formArrayName="billDtlDTOList">
+                                    <tr *ngFor="let itemList of billListarr.controls;let i=index;" [formGroupName]="i">
+                                        <td>{{i+1}}</td>
+                                        <!-- <td class="px-1"> 
+                                <ng-select class="form-control border-top-0 border-left-0 border-right-0 pt-0 pb-0 mr-3" [items]="itemArr" [appendTo]="'body'" type="text" name="polId" id="workOrderDetailsId{{i}}"   bindLabel="itemDescription" bindValue="id" 
+                                placeholder="Item" formControlName="workOrderDetailsId" [ngClass]="{ 'is-invalid': billSubmitted && billListarr.controls[i].get('workOrderDetailsId').errors}">
+                                </ng-select>                   
+                                <div *ngIf="billSubmitted && billListarr.controls[i].get('workOrderDetailsId').errors" class="invalid-feedback">
+                                    <div *ngIf="billListarr.controls[i].get('workOrderDetailsId').errors.required">
+                                        Required</div>
+                                </div>
+                               </td>       -->
+                                        <td class="px-1">
+                                            <input class="form-control border-top-0 border-left-0 border-right-0"
+                                                type="text" id="item{{i}}" [title]="itemList.value.item"
+                                                placeholder="Item" formControlName="item" style="width: 200px;"
+                                                [ngClass]="{ 'is-invalid': billSubmitted && billListarr.controls[i].get('item').errors }">
+                                            <div *ngIf="billSubmitted && billListarr.controls[i].get('item').errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="billListarr.controls[i].get('item').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-1">
+                                            <input class="form-control border-top-0 border-left-0 border-right-0"
+                                                type="text" id="description{{i}}" placeholder="Description"
+                                                [title]="itemList.value.description" formControlName="description"
+                                                style="width: 200px;"
+                                                [ngClass]="{ 'is-invalid': billSubmitted && billListarr.controls[i].get('description').errors }">
+                                            <div *ngIf="billSubmitted && billListarr.controls[i].get('description').errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="billListarr.controls[i].get('description').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <input class="form-control border-top-0 border-left-0 border-right-0"
+                                                type="number" id="quantity{{i}}" placeholder="Quantity"
+                                                (keyup)="calculateAmount(i)" formControlName="quantity"
+                                                style="width: 130px;"
+                                                [ngClass]="{ 'is-invalid': billSubmitted && billListarr.controls[i].get('quantity').errors }">
+                                            <div *ngIf="billSubmitted && billListarr.controls[i].get('quantity').errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="billListarr.controls[i].get('quantity').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <input class="form-control border-top-0 border-left-0 border-right-0"
+                                                type="number" id="rate{{i}}" placeholder="Rate"
+                                                (keyup)="calculateAmount(i)" formControlName="rate"
+                                                style="width: 130px;"
+                                                [ngClass]="{ 'is-invalid': billSubmitted && billListarr.controls[i].get('rate').errors }">
+                                            <div *ngIf="billSubmitted && billListarr.controls[i].get('rate').errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="billListarr.controls[i].get('rate').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <input class="form-control border-top-0 border-left-0 border-right-0"
+                                                id="amount{{i}}" placeholder="Amount" formControlName="amount"
+                                                (ngModelChange)="calculateSubTotal()" (keyup)="calculateSubTotal(i)"
+                                                style="width: 100px;"
+                                                [ngClass]="{ 'is-invalid': billSubmitted && billListarr.controls[i].get('amount').errors }">
+                                            <div *ngIf="billSubmitted && billListarr.controls[i].get('amount').errors"
+                                                class="invalid-feedback">
+                                                <div *ngIf="billListarr.controls[i].get('amount').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <i class="bx bxs-trash-alt text-danger delIconSize ml-1 mt-1"
+                                                (click)="deleteterm(i)"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </ngx-simplebar>
+                    </div>
+
+                    <div class="row col-12">
+                        <div class="col-6 pl-0">
+                            <div class="text-left col-12 pl-0 mb-1">
+                                <button class="btn btn-primary" (click)="add()">Add</button>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="notes">Notes</label>
+                                    <textarea id="notes" rows="4" type="text" class="form-control"
+                                        formControlName="notes" placeholder="Notes"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.notes.errors}"> </textarea>
+                                    <div *ngIf="billSubmitted && f.notes.errors" class="invalid-feedback">
+                                        <div *ngIf="f.notes.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!-- <div class="col-sm-12"> -->
+                            <div class="form-group row justify-content-end mt-2">
+                                <label for="subTotal" class="col-3 "
+                                    style="font-weight: 900 !important; padding-top: 10px;">SUB TOTAL</label>
+                                <div class="col-2"></div>
+                                <div class="col-4 px-0">
+                                    <input id="subTotal" type="number" class="form-control" formControlName="subTotal"
+                                        (ngModelChange)="calculateTotal()" placeholder="Sub Total"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.subTotal.errors}">
+                                    <div *ngIf="billSubmitted && f.subTotal.errors" class="invalid-feedback ">
+                                        <div *ngIf="f.subTotal.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="igstPercentage" class="col-3 "
+                                    style="font-weight: 900 !important; padding-top: 10px;">IGST</label>
+                                <div class="col-2 pl-0">
+                                    <input type="number" class="form-control  mr-1" placeholder="%"
+                                        (keyup)="taxCalculation()" formControlName="igstPercentage">
+                                </div>
+                                <div class="col-4 px-0">
+                                    <input id="igst" type="text" class="form-control" formControlName="igst"
+                                        (ngModelChange)="calculateTotal()" placeholder="IGST">
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="cgstPercentage" class="col-3"
+                                    style="font-weight: 900 !important; padding-top: 10px;">CGST</label>
+                                <div class="col-2 pl-0">
+                                    <input type="number" class="form-control mr-1" placeholder="%"
+                                        (keyup)="taxCalculation()" formControlName="cgstPercentage">
+                                </div>
+                                <div class="col-4 px-0">
+                                    <input id="cgst" type="text" class="form-control" formControlName="cgst"
+                                        (ngModelChange)="calculateTotal()" placeholder="CGST">
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="sgstPercentage" class="col-3"
+                                    style="font-weight: 900 !important; padding-top: 10px;">SGST</label>
+                                <div class="col-2 pl-0">
+                                    <input type="number" class="form-control  mr-1" placeholder="%"
+                                        (keyup)="taxCalculation()" formControlName="sgstPercentage">
+                                </div>
+                                <div class="col-4 px-0">
+                                    <input id="sgst" type="text" class="form-control " formControlName="sgst"
+                                        (ngModelChange)="calculateTotal()" placeholder="SGST">
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="total" class="col-3"
+                                    style="font-weight: 900 !important; padding-top: 10px;">TOTAL</label>
+                                <div class="col-2"></div>
+                                <div class="col-4 px-0">
+                                    <input id="totalAmount" type="number" class="form-control"
+                                        formControlName="totalAmount" placeholder="Total"
+                                        [ngClass]="{ 'is-invalid': billSubmitted && f.totalAmount.errors}">
+                                    <div *ngIf="billSubmitted && f.totalAmount.errors"
+                                        class="invalid-feedback ">
+                                        <div *ngIf="f.totalAmount.errors.required">Required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right  ml-4">
+                        <button type="button" class="btn btn-primary" routerLink="/app/accounts/bills">
+                            <span class="">Cancel</span>
+                        </button>
+                        <button (click)="onSubmit()" class="btn btn-primary ml-2 mr-2">
+                            Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

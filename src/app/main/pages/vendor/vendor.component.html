@@ -1,0 +1,61 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="pageHeading">
+                        <h4>Vendor</h4>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="text-right my-auto ">
+                        <button type="button" class="btn btn-primary btn-sm  mb-2" routerLink="new">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <table id="vendorTable" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Company Name</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vendor of vendorArr;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{vendor.fullName}}</td>
+                        <td>{{vendor.companyName}}</td>
+                        <td>{{vendor.email}}</td>
+                        <td>{{vendor.phoneNo}}</td>
+                        <td>
+                            <div ngbDropdown container="body">
+                                <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                    data-toggle="dropdown">
+                                    <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                </button>
+
+                                <div ngbDropdownMenu>
+
+                                    <a ngbDropdownItem (click)="editvendor(vendor.id)"><i
+                                            class='bx bxs-edit text-success'></i><span class="ml-2">Edit</span></a><a
+                                        ngbDropdownItem (click)="deletevendor(vendor.id)"><i class='bx bxs-trash-alt'
+                                            style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

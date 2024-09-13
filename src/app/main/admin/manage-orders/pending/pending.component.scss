@@ -1,0 +1,22 @@
+.modal-content[_ngcontent-ugk-c232] {
+    position: absolute;
+    display: inline-grid;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(34, 41, 47, 0.2);
+    border-radius: 0.358rem;
+    outline: 0;
+}
+.modal .modal-content {
+    border: none;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: 0 5px 20px 0 rgba(34, 41, 47, 0.1);
+}
+.table.dataTable td {
+    padding: 0.25rem;
+    padding-left: 10px;
+}

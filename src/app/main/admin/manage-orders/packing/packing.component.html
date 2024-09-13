@@ -1,0 +1,90 @@
+<form [formGroup]="orderForm">
+    <div class="container-fluid px-0">
+        <div class="card p-0">
+            <div class="card-body">
+                <!-- <nav aria-label="breadcrumb" class="mb-1">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item mt-0">Allocated Orders
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page"><a
+                                routerLink="/admin/order-management/allocated-orders/delivered">Delivered Order</a>
+                        </li>
+                    </ol>
+                </nav> -->
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-1 pageHeading">
+                            <h4 class="">Allocated Order</h4>
+                        </div>
+                    </div>
+                
+                    <div class="row p-1 col-sm-12">
+                        <div class="form-group col-sm-3">
+                            <label for="vendorName">Vendor</label>
+                            <ng-select [items]="vendorArr" name="vendorName" placeholder="Choose" id="vendorName"
+                                bindLabel="name" bindValue="name" formControlName="vendorName" (clear)="onVendorClear()"
+                                [ngClass]="{ 'is-invalid': orderFormSubmitted && f.vendorName.errors}">
+                            </ng-select>
+                            <div *ngIf="orderFormSubmitted && f.vendorName.errors" class="invalid-feedback">
+                                <div *ngIf="f.vendorName.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="start">Start Date </label>
+                            <input id="startDate" class="form-control" type="date" formControlName="startDate">
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <label for="start">End Date </label>
+                            <input id="endDate" class="form-control" type="date" formControlName="endDate">
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <div class="d-flex">
+                            <button *ngIf="this.orderForm.value.startDate && this.orderForm.value.endDate" type="button" class="btn btn-sm btn-primary " style="margin-top: 19px;margin-left: 10px;"
+                            (click)="formReset()">Reset</button>
+                            <button type="button" class="btn btn-primary " style="margin-top: 19px;margin-left: 100px;"
+                                (click)="orderPending()">Search</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <ngx-simplebar>
+                    <table id="packing" class="table table-bordered ">
+                        <thead class="thead bg-white">
+                            <tr>
+                                <th>S.NO</th>
+                                <th>ORDER NO</th>
+                                <th>VENDOR NAME</th>
+                                <th>CUSTOMER NAME</th>
+                                <th>ORDER DATE</th>
+                                <th>ALLOCATED DATE</th>
+                                <th>DELIVERY ADDRESS</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let order of orderArr; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{order.orderNo}}</td>
+                                <td>{{order.vendorName}}</td>
+                                <td>{{order.customerName}}</td>
+                                <td>{{order.orderDate}}</td>
+                                <td>{{order.allocatedDate}}</td>
+                                <td>{{order.customerDeliveryAddress}}</td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </ngx-simplebar>
+
+                <!-- <div class="mt-2 text-right">
+                    <button routerLink="delivered" type="button" class="btn btn-sm btn-success">View Delivered
+                        List</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</form>

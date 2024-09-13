@@ -1,0 +1,548 @@
+<section class="horizontal-wizard">
+    <div id="stepper3" class="bs-stepper horizontal-wizard-example">
+        <div class="bs-stepper-header">
+            <div class="step" data-target="#personal-info">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">1</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Basic Info</span>
+                        <span class="bs-stepper-subtitle">Add Basic Info</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#address">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">2</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">WO Details</span>
+                        <span class="bs-stepper-subtitle">Add WO Details</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#wo-estimate">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">3</span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">WO Estimate Details</span>
+                        <span class="bs-stepper-subtitle">Add WO Estimate Details</span>
+                    </span>
+                </button>
+            </div>
+
+        </div>
+        <div class="bs-stepper-content">
+            <form [formGroup]="subContractWorkOrderForm" autocomplete="off">
+                <div id="personal-info" class="content">
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Work Info</h5>
+                        <!-- <small class="text-muted">Enter Work Info.</small> -->
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="assetType">Job/Project Code</label>
+                            <ng-select class="custom" [items]="projectArr" placeholder="Choose" formControlName="projectId" bindLabel="jobCode" (change)="itemGet()" bindValue="id" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.projectId.errors || f.projectId.invalid && (f.projectId.dirty || f.projectId.touched)}">
+                            </ng-select>
+                            <div *ngIf="subContractWorkOrderFormsubmitted && f.projectId.errors" class="invalid-feedback">
+                                <div *ngIf="f.projectId.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="projectId">Contractor </label>
+                            <ng-select class="custom" [items]="ContractorArr" placeholder="Choose" formControlName="contractorId" bindLabel="fullName" bindValue="id" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.contractorId.errors || f.contractorId.invalid && (f.contractorId.dirty || f.contractorId.touched)}">
+                            </ng-select>
+                            <div *ngIf="subContractWorkOrderFormsubmitted && f.contractorId.errors" class="invalid-feedback">
+                                <div *ngIf="f.contractorId.errors.required">Required</div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group col-sm-6">
+                            <label for="workOrderNo">WO No</label>
+                            <input id="workOrderNo" type="text" class="form-control" formControlName="workOrderNo" placeholder="WO No" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.workOrderNo.errors }">
+                            <div *ngIf="subContractWorkOrderFormsubmitted && f.workOrderNo.errors" class="invalid-feedback">
+                                <div *ngIf="f.workOrderNo.errors.required">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="hire">WO Date</label>
+                            <input id="email" type="text" class="form-control" id="workOrderDate" formControlName="workOrderDate" placeholder="yyyy-mm-dd" ngbDatepicker #workOrderDate="ngbDatepicker" (click)="workOrderDate.toggle()" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.workOrderDate.errors }">
+                            <div *ngIf="subContractWorkOrderFormsubmitted && f.workOrderDate.errors" class="invalid-feedback">
+                                <div *ngIf="f.workOrderDate.errors.required">Required</div>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="hire">WO Start Date</label>
+                            <input id="workOrderStartFrom" type="text" class="form-control" id="workOrder From" formControlName="workOrderStartFrom" placeholder="yyyy-mm-dd" ngbDatepicker #workOrderStartFrom="ngbDatepicker" (click)="workOrderStartFrom.toggle()" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.workOrderStartFrom.errors }">
+                            <div *ngIf="subContractWorkOrderFormsubmitted && f.workOrderStartFrom.errors" class="invalid-feedback">
+                                <div *ngIf="f.workOrderStartFrom.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="hire">WO End Date</label>
+                            <input id="workOrderEndto" type="text" class="form-control" [minDate]="subContractWorkOrderForm.value.workOrderStartFrom" id="workOrderEnd" formControlName="workOrderEndto" placeholder="yyyy-mm-dd" ngbDatepicker #workOrderEndto="ngbDatepicker" (click)="workOrderEndto.toggle()"
+                                [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.workOrderEndto.errors }">
+                            <div *ngIf="subContractWorkOrderFormsubmitted && f.workOrderEndto.errors" class="invalid-feedback">
+                                <div *ngIf="f.workOrderEndto.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-12">
+                            <label for="name">Nature Of Work</label>
+                            <input id="natureOfWork" type="text" class="form-control" formControlName="natureOfWork" placeholder="Nature Of Work" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.natureOfWork.errors }">
+                            <div *ngIf="subContractWorkOrderFormsubmitted && f.natureOfWork.errors" class="invalid-feedback">
+                                <div *ngIf="f.natureOfWork.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary btn-prev" disabled rippleEffect>
+                            <!-- <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i> -->
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next" (click)="basicToWODetail()" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <!-- <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i> -->
+                        </button>
+                    </div>
+                </div>
+                <div id="address" class="content">
+
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Work Order </h5>
+                        <!-- <small class="text-muted">Enter Work Order Details.</small> -->
+                    </div>
+                    <div class="col-12 px-0">
+                        <ngx-simplebar>
+                            <!-- <div class="table-responsive"> -->
+
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Uom</th>
+                                        <th>Qty</th>
+                                        <th>Rate</th>
+                                        <th>Amount</th>
+                                        <th>Delivery Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="workOrder-table" formArrayName="subContractItemDTOList">
+                                    <tr *ngFor="let tablelament of subContractItemDTOListArr.controls;let i=index;" [formGroupName]="i">
+                                        <td>{{i+1}}</td>
+
+                                        <td class="px-1">
+                                            <ng-select class="custom" style="width: 150px;" [items]="itemsArr" name="name" placeholder="Choose" formControlName="workOrderDetailsId" bindLabel="serviceDescription" [appendTo]="'body'" bindValue="id" (ngModelChange)="titleGet(i)" [title]="titleArr[i]"
+                                                [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('workOrderDetailsId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('workOrderDetailsId').errors" class="invalid-feedback">
+                                                <div *ngIf="subContractItemDTOListArr.controls[i].get('workOrderDetailsId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <input class="form-control" style="width: 200px;" style="width: 10rem;" id="description" formControlName="description" placeholder="Description" [title]="tablelament.value.description" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('description').errors }">
+                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('description').errors" class="invalid-feedback">
+                                                <div *ngIf="subContractItemDTOListArr.controls[i].get('description').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <ng-select class="custom" style="width: 150px;" [items]="uomArr" name="name" placeholder="Choose" formControlName="uomId" bindLabel="name" [appendTo]="'body'" bindValue="id" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('uomId').errors }">
+                                            </ng-select>
+                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('uomId').errors" class="invalid-feedback">
+                                                <div *ngIf="subContractItemDTOListArr.controls[i].get('uomId').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-1">
+                                            <input type="number" style="width: 100px;" class="form-control" (keyup)="calculateAmount(i)" id="quantity" formControlName="quantity" placeholder="Qty" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('quantity').errors }">
+                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('quantity').errors" class="invalid-feedback">
+                                                <div *ngIf="subContractItemDTOListArr.controls[i].get('quantity').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-1">
+                                            <input type="number" style="width: 100px;" class="form-control" (keyup)="calculateAmount(i)" id="rate" formControlName="rate" placeholder="Rate" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('rate').errors }">
+                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('rate').errors" class="invalid-feedback">
+                                                <div *ngIf="subContractItemDTOListArr.controls[i].get('rate').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-1">
+                                            <input type="number" style="width: 150px;" class="form-control" id="amount" formControlName="amount" (ngModelChange)="calculateSubTotal()" (keyup)="calculateSubTotal" placeholder="Amount" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('amount').errors }">
+                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('amount').errors" class="invalid-feedback">
+                                                <div *ngIf="subContractItemDTOListArr.controls[i].get('amount').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-1">
+                                            <input id="email" type="text" style="width: 200px;" class="form-control" container="body" id="deliveryDate" formControlName="deliveryDate" placeholder="yyyy-mm-dd" ngbDatepicker #deliveryDate="ngbDatepicker" (click)="deliveryDate.toggle()" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('deliveryDate').errors }">
+                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('deliveryDate').errors" class="invalid-feedback">
+                                                <div *ngIf="subContractItemDTOListArr.controls[i].get('deliveryDate').errors.required">
+                                                    Required</div>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <i class='bx bxs-trash-alt' style='color:#c32424;font-size: 23px;' (click)="deleteterm(i)">
+                                            </i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </ngx-simplebar>
+                        <!-- </div> -->
+                        <div class="text-left mt-2">
+                            <button class="btn btn-primary mb-2" (click)="add()">Add</button>
+                        </div>
+
+                        <div class="col-12 mt-2">
+                            <!-- <div class="col-sm-12"> -->
+                            <div class="form-group row justify-content-end">
+                                <label for="subTotal" class="col-2 " style="font-weight: 900 !important; padding-top: 10px;">SUB TOTAL</label>
+                                <div class="col-1 mr-2"></div>
+                                <div class="col-2 px-0">
+                                    <input id="subTotal" type="number" class="form-control " formControlName="subTotal" (ngModelChange)="calculateTotal()" placeholder="Sub Total" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.subTotal.errors}">
+                                    <div *ngIf="subContractWorkOrderFormsubmitted && f.subTotal.errors" class="invalid-feedback text-right">
+                                        <div *ngIf="f.subTotal.errors.required">Required</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="igst" class="col-2 " style="font-weight: 900 !important; padding-top: 10px;">IGST</label>
+                                <div class="col-1 mr-2 pl-0">
+                                    <input type="number" class="form-control sub mr-1" placeholder="%" (keyup)="taxCalculation()" formControlName="igstPercentage">
+
+                                </div>
+                                <div class="col-2 px-0">
+                                    <input id="igst" type="text" class="form-control" formControlName="igst" (ngModelChange)="calculateTotal()" placeholder="IGST">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="cgst" class="col-2 " style="font-weight: 900 !important; padding-top: 10px;">CGST</label>
+                                <div class="col-1 mr-2 pl-0">
+                                    <input type="number" class="form-control sub mr-1" placeholder="%" (keyup)="taxCalculation()" formControlName="cgstPercentage">
+
+                                </div>
+                                <div class="col-2 px-0">
+                                    <input id="cgst" type="text" class="form-control" formControlName="cgst" (ngModelChange)="calculateTotal()" placeholder="CGST">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="sgst" class="col-2 " style="font-weight: 900 !important; padding-top: 10px;">SGST</label>
+                                <div class="col-1 mr-2 pl-0">
+                                    <input type="number" class="form-control sub  mr-1" placeholder="%" (keyup)="taxCalculation()" formControlName="sgstPercentage">
+
+                                </div>
+                                <div class="col-2 px-0">
+                                    <input id="sgst" type="text" class="form-control " formControlName="sgst" (ngModelChange)="calculateTotal()" placeholder="SGST">
+
+                                </div>
+
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <label for="total" class="col-2 " style="font-weight: 900 !important; padding-top: 10px;">TOTAL</label>
+                                <div class="col-1 mr-2"></div>
+                                <input id="total" type="text" class="form-control col-2" formControlName="total" placeholder="Total" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && f.total.errors}">
+                                <div *ngIf="subContractWorkOrderFormsubmitted && f.total.errors" class="invalid-feedback text-right">
+                                    <div *ngIf="f.total.errors.required">Required</div>
+                                </div>
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn  btn-prev" style="background-color: #808080; color:white" (click)="previous()" rippleEffect>
+                                <!-- <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i> -->
+                                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                            </button>
+                            <button class="btn btn-primary btn-next" (click)="next()" rippleEffect>
+                                <span class="align-middle d-sm-inline-block d-none">Next</span>
+                                <!-- <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i> -->
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="wo-estimate" class="content">
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Work Order Estimate</h5>
+                        <!-- <small class="text-muted">Enter Work Order Estimate Info.</small> -->
+                    </div>
+                    <div class="col-12 col-12">
+                        <div class="text-right">
+
+                            <button class="btn btn-primary mb-2" (click)="addWo()">Add</button>
+                        </div>
+                        <!-- <div class="table-responsive  mx-0"> -->
+                        <ngx-simplebar>
+
+                            <!-- <table class="table table-borderd"> -->
+                            <div>
+
+                                <div class="d-flex py-2 px-2" style="background-color: lightgray; width: fit-content; font-weight: 900;">
+                                    <div style="min-width: 150px;">S.No</div>
+                                    <div style="min-width: 200px;">Description</div>
+                                    <div style="min-width: 200px;">Uom</div>
+                                    <div style="min-width: 200px;">No Of Members</div>
+                                    <div style="min-width: 200px;">Length</div>
+                                    <div style="min-width: 200px;">Bredth</div>
+                                    <div style="min-width: 200px;">Depth</div>
+                                    <div style="min-width: 200px;">Quantity</div>
+                                    <div style="min-width: 200px;">Remark</div>
+                                    <div style="min-width: 200px;">Action</div>
+
+                                </div>
+
+                                <div formArrayName="subContractWOEstimateDTOList" style="width: 2000px;">
+                                    <div class="mt-2" *ngFor="let subContractWOEstimateDTO of arr.controls;let i = index" [formGroupName]='i'>
+                                        <div>
+                                            <div class="" style=" background-color: aliceblue;">
+                                                <div class="d-flex" style="position: relative;">
+                                                    <div class="col-sm-4 ">
+                                                        <div class="form-group">
+                                                            <input id="name" type="text" class="form-control border-0" formControlName="name" placeholder="Name" style=" background-color: aliceblue; font-size: 16px; font-weight: 400; margin-top: 10px" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('name').errors }">
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('name').errors" class="invalid-feedback pl-1">
+                                                                <div *ngIf="arr.controls[i].get('name').errors.required">
+                                                                    Name Required</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pr-5 mr-5 pt-2" style="position: absolute; right: 78px; font-size: 24px;">
+                                                        <i class='bx bx-plus-circle cursor-pointer mr-2' (click)="addSubRow(i)"></i>
+                                                        <i class='bx bxs-trash-alt cursor-pointer' style='color:#c32424' (click)="deleteMainRow(i)"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div formArrayName="subContractWOEstimateDTLDTOList" class="bg-white mt-2" style="clear: both;">
+                                                <div *ngFor="let subContractWOEstimatee of subContractWOEstimate(i).controls;let j=index" [formGroupName]='j'>
+                                                    <div class="d-flex ml-0 list-padding">
+                                                        <div class="pl-2" style="width:150px ; padding-top: 11px; ">
+                                                            {{j+1}}
+                                                        </div>
+                                                        <div class="form-group" style="width: 200px;">
+                                                            <input id="name" type="text" class="form-control" formControlName="name" placeholder="Name" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('name').errors}">
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('name').errors" class="invalid-feedback px-0">
+                                                                <div class="px-0" *ngIf="subContractWOEstimate(i).controls[j].get('name').errors.required">
+                                                                    Required</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class=" form-group" style="width:200px">
+                                                            <ng-select [items]="uomArr" name="Uom" id="uomId" bindLabel="name" [appendTo]="'body'" bindValue="id" placeholder="Choose" formControlName="uomId" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('uomId').errors }">
+                                                            </ng-select>
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('uomId').errors" class="invalid-feedback px-0">
+                                                                <div class="px-0" *ngIf="subContractWOEstimate(i).controls[j].get('uomId').errors.required">
+                                                                    Required</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group " style="width: 200px;">
+                                                            <input id="noOfMember" type="text" class="form-control" formControlName="noOfMember" placeholder="No Of Member" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('noOfMember').errors}">
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('noOfMember').errors" class="invalid-feedback px-0">
+                                                                <div class="px-0" *ngIf="subContractWOEstimate(i).controls[j].get('noOfMember').errors.required">
+                                                                    Required</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group " style="width: 200px;">
+                                                            <input id="length" type="text" class="form-control" (keyup)="calculateQuantity(i,j)" formControlName="length" placeholder="Length" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('length').errors}">
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('length').errors" class="invalid-feedback px-0">
+                                                                <div class="px-0" *ngIf="subContractWOEstimate(i).controls[j].get('length').errors.required">
+                                                                    Required</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group " style="width: 200px;">
+                                                            <input id="bredth" type="text" class="form-control" (keyup)="calculateQuantity(i,j)" formControlName="bredth" placeholder="Bredth" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('bredth').errors}">
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('bredth').errors" class="invalid-feedback px-0">
+                                                                <div class="px-0" *ngIf="subContractWOEstimate(i).controls[j].get('bredth').errors.required">
+                                                                    Required</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group " style="width: 200px;">
+                                                            <input id="depth" type="text" class="form-control" (keyup)="calculateQuantity(i,j)" formControlName="depth" placeholder="Depth" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('depth').errors}">
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('depth').errors" class="invalid-feedback px-0">
+                                                                <div class="px-0" *ngIf="subContractWOEstimate(i).controls[j].get('depth').errors.required">
+                                                                    Required</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group " style="width: 200px;">
+                                                            <input id="quantity" type="text" class="form-control" formControlName="quantity" placeholder="Quantity" (ngModelChange)="calculateFullTotal(i)" (keyup)="calculateFullTotal(i)" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('quantity').errors}">
+                                                            <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('quantity').errors" class="invalid-feedback px-0">
+                                                                <div class="px-0" *ngIf="subContractWOEstimate(i).controls[j].get('quantity').errors.required">
+                                                                    Required</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group " style="width: 200px;">
+                                                            <input id="remarks" type="text" class="form-control" formControlName="remarks" placeholder="Remark">
+                                                            <!-- <div *ngIf="subContractWorkOrderFormsubmitted && subContractWOEstimate(i).controls[j].get('remarks').errors" class="invalid-feedback">
+                                                                <div *ngIf="subContractWOEstimate(i).controls[j].get('remarks').errors.required">
+                                                                    Required</div>
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="px-3" style="width: 200px;">
+                                                            <i class='bx bxs-trash-alt mt-1 font-size-20 cursor-pointer' style='color:#c32424' (click)="deleteRow(i,j)"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 mt-5 pl-0 ml-5">
+                                                <div class="form-group row d-flex">
+                                                    <label for="total text-right" style="padding-top: 11px;" class="col-2"><strong>Total</strong></label>
+                                                    <input type="number" style="width: 200px;" placeholder="Total" formControlName="total" class="form-control" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('total').errors }">
+                                                    <div class="col-2"></div>
+                                                    <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('total').errors" class="invalid-feedback col-10 ml-auto pl-0">
+                                                        <div *ngIf="arr.controls[i].get('total').errors.required">
+                                                            Required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ngx-simplebar>
+                        <!-- </div> -->
+                        <!-- </table> -->
+                        <!-- <tbody formArrayName="subContractWOEstimateDTLDTOList">
+                                <tr>
+
+                                </tr>
+                                <tr>
+                                    <td class="text-left">
+                                        <input name="name" id="name" class="form-control insize" placeholder="Item Name">
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td>
+
+                                        <div class="text-right ">
+
+                                            <button class="btn-sm btn-primary mb-2" (click)="addsubContract()">+</button>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+
+                                <tr *ngFor="let item of arr.controls;let i=index;" [formGroupName]="i">
+
+                                    <td>{{i+1}}</td>
+                                    <td>
+                                        <input name="name" id="description" class="form-control insize" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('description').errors }">
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('description').errors" class="invalid-feedback">
+                                            <div *ngIf="arr.controls[i].get('description').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <ng-select class="custom insize" [items]="uomArr" name="name" placeholder="Choose" formControlName="uomId" bindLabel="name" [appendTo]="'body'" bindValue="id" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('uomId').errors }">
+                                        </ng-select>
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && subContractItemDTOListArr.controls[i].get('uomId').errors" class="invalid-feedback">
+                                            <div *ngIf="subContractItemDTOListArr.controls[i].get('uomId').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td> <input name="unitRate" id="unitRate" class="form-control insize" formControlName="noOfMember" placeholder="No Of Member" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('noOfMember').errors }">
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('noOfMember').errors" class="invalid-feedback">
+                                            <div *ngIf="arr.controls[i].get('noOfMember').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td> <input name="unitRate" type="number" (keyup)="calculateQuantity(i)" id="length" class="form-control insize" formControlName="length" placeholder="Length" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('length').errors }">
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('length').errors" class="invalid-feedback">
+                                            <div *ngIf="arr.controls[i].get('length').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td><input name="unitRate" type="number" id="bredth" (keyup)="calculateQuantity(i)" class="form-control insize" formControlName="bredth" placeholder="Bredth" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('bredth').errors }">
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('bredth').errors" class="invalid-feedback">
+                                            <div *ngIf="arr.controls[i].get('bredth').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td><input name="unitRate" type="number" id="depth" (keyup)="calculateQuantity(i)" class="form-control insize" formControlName="depth" placeholder="Depth" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('depth').errors }">
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('depth').errors" class="invalid-feedback">
+                                            <div *ngIf="arr.controls[i].get('depth').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td><input name="unitRate" type="number" id="quantity" class="form-control insize" (ngModelChange)="calculatewoTotal()" (keyup)="calculatewoTotal" formControlName="quantity" placeholder="Quantity" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('quantity').errors }">
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('quantity').errors" class="invalid-feedback">
+                                            <div *ngIf="arr.controls[i].get('quantity').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td><input name="unitRate" style="width:9rem;" type="text" id="remarks" class="form-control" formControlName="remarks" placeholder="Remark" [ngClass]="{ 'is-invalid': subContractWorkOrderFormsubmitted && arr.controls[i].get('remarks').errors }">
+                                        <div *ngIf="subContractWorkOrderFormsubmitted && arr.controls[i].get('remarks').errors" class="invalid-feedback">
+                                            <div *ngIf="arr.controls[i].get('remarks').errors.required">
+                                                Required</div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-right">
+
+                                            <i class='bx bxs-trash-alt mr-1' style='color:#c32424;font-size: 23px;' (click)="deleteWo(i)">
+                                            </i>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                                <td>
+                                    <div class="text-right">
+
+                                        <input name="name" id="total" formContolName="total" class="form-control insize" placeholder="Total">
+                                    </div>
+                                </td>
+                            </tbody> -->
+
+                        <!-- </table> -->
+                        <!-- </div> -->
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn  btn-prev" style="background-color: #808080; color:white" (click)="previous()" rippleEffect>
+                            <!-- <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i> -->
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next" (click)=" onSubmit() " rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Submit</span>
+                            <!-- <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i> -->
+                        </button>
+                    </div>
+
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

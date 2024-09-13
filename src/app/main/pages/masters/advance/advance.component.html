@@ -1,0 +1,177 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="pageHeading">
+                        <h4>Advance</h4>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="text-right my-auto ">
+                        <button type="button" class="btn btn-primary btn-sm p-1 mb-2" (click)="advanceModel(modal)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table bg-white table-bordered" id="advanceTable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Project Name</th>
+                            <th>Sub Contractor</th>
+                            <th>Date </th>
+                            <th>Amount</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let advance of advanceArray;let i=index">
+                            <td>{{i+1}}</td>
+                            <td>
+                                {{advance.projectName}}
+                            </td>
+                            <td>
+                                {{advance.contractorName}}
+                            </td>
+                            <td>
+                                {{advance.date}}
+                            </td>
+                            <td>
+                                {{advance.amount}}
+                            </td>
+                            <td>
+                                <div ngbDropdown container="body">
+                                    <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle
+                                        data-toggle="dropdown">
+                                        <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                    </button>
+                                    <div ngbDropdownMenu>
+                                        <a ngbDropdownItem (click)="advanceEdit(modal,advance)"><i
+                                                class='bx bxs-edit text-success'></i><span
+                                                class="ml-2">Edit</span></a><a ngbDropdownItem
+                                            (click)="deleteModal(deleteAdvance,advance)"><i class='bx bxs-trash-alt'
+                                                style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Advance</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form id="advanceId" autocomplete="off" [formGroup]="advanceForm">
+            <div class="form-group ">
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="projectId">Job/Project Code</label>
+                        <ng-select class="" [items]="projectArr" placeholder="Choose" formControlName="projectId" bindLabel="jobCode"  bindValue="id" id="projectId"  [ngClass]="{ 'is-invalid': advanceSubmitted && f.projectId.errors}">
+                        </ng-select>
+                        <div *ngIf="advanceSubmitted && f.projectId.errors" class="invalid-feedback">
+                            <div *ngIf="f.projectId.errors.required">Required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label for="subContractorId">Sub Contractor</label>
+                        <ng-select [items]="contractArray" name="name" id="id" bindLabel="fullName"
+                            bindValue="id" placeholder="Choose" formControlName="subContractorId"
+                            [ngClass]="{ 'is-invalid': advanceSubmitted && f.subContractorId.errors}">
+                        </ng-select>
+                        <span *ngIf=" advanceSubmitted && f.subContractorId.errors"
+                            class="invalid-feedback text-danger"><span
+                                *ngIf="f.subContractorId.errors.required">Required</span>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="advanceType">Advance Type</label>
+                        <ng-select [items]="['MATERIAL','CASE','OTHERS']" class="" type="text" name="advanceType" id="advanceType"
+                            formControlName="advanceType" placeholder="Advance Type"
+                            [ngClass]="{'is-invalid': advanceSubmitted && f.advanceType.errors}">
+                        </ng-select>
+                        <span *ngIf=" advanceSubmitted && f.advanceType.errors"
+                            class="invalid-feedback text-danger"><span
+                                *ngIf="f.advanceType.errors.required">Required</span>
+                        </span> 
+                    </div>
+                    <div class="form-group col">
+                        <label for="date">Date</label>
+                        <input class="form-control" id="date" placeholder="yyyy-mm-dd" formControlName="date" ngbDatepicker #date="ngbDatepicker" (click)="date.toggle()" [ngClass]="{ 'is-invalid': advanceSubmitted && f.date.errors}">
+                        <div *ngIf="advanceSubmitted && f.date.errors" class="invalid-feedback">
+                            <div *ngIf="f.date.errors.required">Required</div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+                    <!-- <div class="form-group col">
+                        <label for="referenceNo">Reference No</label>
+                        <input class="form-control" type="text" name="referenceNo" id="referenceNo" formControlName="referenceNo"
+                            placeholder="Reference No" [ngClass]="{'is-invalid': advanceSubmitted && f.referenceNo.errors}">
+                        <span *ngIf=" advanceSubmitted && f.referenceNo.errors" class="invalid-feedback text-danger"><span
+                                *ngIf="f.referenceNo.errors.required">Required</span>
+                        </span>
+                    </div> -->
+                    <div class="form-group col">
+                        <label for="amount">Amount</label>
+                        <input class="form-control" type="text" name="amount" id="amount" formControlName="amount"
+                            placeholder="Amount" [ngClass]="{'is-invalid': advanceSubmitted && f.amount.errors}">
+                        <span *ngIf=" advanceSubmitted && f.amount.errors" class="invalid-feedback text-danger"><span
+                                *ngIf="f.amount.errors.required">Required</span>
+                        </span>
+                    </div>
+                    <fieldset class="col">
+                        <label for="notes">Notes</label>
+                        <textarea class="form-control" id="notes" rows="3" formControlName="notes" placeholder="Notes"
+                            [ngClass]="{'is-invalid': advanceSubmitted && f.notes.errors}">
+                                  </textarea>
+                        <span *ngIf=" advanceSubmitted && f.notes.errors" class="invalid-feedback text-danger">
+                            <span *ngIf="f.notes.errors.required ">Required</span>
+                        </span>
+                    </fieldset>
+
+                </div>
+
+              
+            </div>
+            <div class="text-right mt-2 ">
+                <button type="button" class="btn btn-sm btn-primary mb-2 p-1"
+                    (click)="advanceSubmit(modal)">{{buttonText}}</button>
+            </div>
+        </form>
+    </div>
+
+</ng-template>
+<ng-template #deleteAdvance let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+        <div class="text-right mt-2 ">
+            <button type="button" class="btn btn-primary  ml-2 " (click)="advanceDelete(modal)">Yes</button>
+        </div>
+    </div>
+
+</ng-template>

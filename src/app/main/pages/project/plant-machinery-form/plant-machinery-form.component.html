@@ -1,0 +1,219 @@
+<section class="horizontal-wizard">
+    <div id="stepper3" class="bs-stepper horizontal-wizard-example">
+        <div class="bs-stepper-header">
+            <div class="step" data-target="#personal-info">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-detail font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Basic Details</span>
+                        <span class="bs-stepper-subtitle">Add Basic Info</span>
+                    </span>
+                </button>
+            </div>
+            <div class="line"> <i data-feather="chevron-right" class='bx bx-chevron-right' style='color:#b9b9c3'></i>
+            </div>
+            <div class="step" data-target="#address">
+                <button class="step-trigger">
+                    <span class="bs-stepper-box">
+                        <i class='bx bx-notepad font-medium-3'></i>
+                    </span>
+                    <span class="bs-stepper-label">
+                        <span class="bs-stepper-title">Reading Details</span>
+                        <span class="bs-stepper-subtitle">Add Reading Details</span>
+                    </span>
+                </button>
+            </div>
+
+        </div>
+        <div class="bs-stepper-content">
+            <form [formGroup]="plantMachineryForm" autocomplete="off">
+                <div id="personal-info" class="content">
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Basic Details</h5>
+                        <!-- <small class="text-muted">Enter Your Basic Info.</small> -->
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" class="form-control" formControlName="name" placeholder="Name"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.name.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.name.errors" class="invalid-feedback">
+                                <div *ngIf="f.name.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group col-sm-6">
+                            <label for="assetName">Asset Name</label>
+                            <input id="assetName" type="text" class="form-control" formControlName="asset,Name"
+                                placeholder="Asset Name"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.assetName.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.assetName.errors" class="invalid-feedback">
+                                <div *ngIf="f.assetName.errors.required">Required</div>
+                            </div>
+                        </div> -->
+
+
+                        <div class="form-group col-sm-6">
+                            <label for="assetType">Asset Type</label>
+                            <ng-select class="custom" [items]="assetTypeArr" placeholder="Choose"
+                                formControlName="assetType" bindLabel="name" bindValue="id"
+                                (change)="selectAsset($event)" (click)="selectLocation()"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.assetType.errors || f.assetType.invalid && (f.assetType.dirty || f.assetType.touched)}">
+                            </ng-select>
+                            <div *ngIf="plantMachineryFormsubmitted && f.assetType.errors" class="invalid-feedback">
+                                <div *ngIf="f.assetType.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6" *ngIf="asset">
+                            <label for="assetId">Asset </label>
+                            <ng-select class="custom" [items]="assetArr" formControlName="assetId" bindLabel="name"
+                                bindValue="id" placeholder="Choose"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.assetId.errors }">
+                            </ng-select>
+                            <div *ngIf="plantMachineryFormsubmitted && f.assetId.errors" class="invalid-feedback">
+                                <div *ngIf="f.assetId.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6" *ngIf="hire">
+                            <label for="hire">Hire</label>
+                            <input id="hire" type="text" class="form-control" formControlName="hire" placeholder="Hire"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.hire.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.hire.errors" class="invalid-feedback">
+                                <div *ngIf="f.hire.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="fuel">Fuel</label>
+                            <input id="fuel" type="number" class="form-control" formControlName="fuel"
+                                placeholder="Fuel"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.fuel.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.fuel.errors" class="invalid-feedback">
+                                <div *ngIf="f.fuel.errors.required">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="amount">Amount</label>
+                            <input id="amount" type="text" class="form-control" formControlName="amount"
+                                placeholder="Amount"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.amount.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.amount.errors" class="invalid-feedback">
+                                <div *ngIf="f.amount.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="totelHours">Total Hours</label>
+                            <input id="totelHours" type="text" class="form-control" formControlName="totelHours"
+                                placeholder="Total Hours"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.totelHours.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.totelHours.errors" class="invalid-feedback">
+                                <div *ngIf="f.totelHours.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group col-sm-6">
+                            <label for="vehicletypeName">Vehicle Type Name</label>
+                            <input id="vehicletypeName" type="text" class="form-control"
+                                formControlName="vehicletypeName" placeholder="Vehicle Type Name"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.vehicletypeName.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.vehicletypeName.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="f.vehicletypeName.errors.required">Required</div>
+                            </div>
+                        </div> -->
+                    </div>
+
+
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary btn-prev" disabled rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next" (click)="next()" rippleEffect>
+                            <span class="align-middle d-sm-inline-block d-none">Next</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="address" class="content">
+
+                    <div class="content-header">
+                        <h5 class="mb-0">Reading Details</h5>
+                        <!-- <small class="text-muted">Enter customer Job details.</small> -->
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            <label for="projectId">Job/Project Code</label>
+                            <ng-select [items]="projectArr" class="form" id="jobCode" bindLabel="jobCode" bindValue="id"
+                                placeholder="Choose" formControlName="projectId"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.projectId.errors }">
+                            </ng-select>
+                            <div *ngIf="plantMachineryFormsubmitted && f.projectId.errors" class="invalid-feedback">
+                                <div *ngIf="f.projectId.errors.required">
+                                    Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="startReading">Start Reading</label>
+                            <input id="startReading" type="text" class="form-control" formControlName="startReading"
+                                placeholder="Start Reading"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.startReading.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.startReading.errors" class="invalid-feedback">
+                                <div *ngIf="f.startReading.errors.required">Required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label for="closingReading">Closing Reading</label>
+                            <input id="closingReading" type="text" class="form-control" formControlName="closingReading"
+                                placeholder="Closing Reading"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.closingReading.errors }">
+                            <div *ngIf="plantMachineryFormsubmitted && f.closingReading.errors"
+                                class="invalid-feedback">
+                                <div *ngIf="f.closingReading.errors.required">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="vehicletypeId">Vehicle Type </label>
+                            <ng-select class="custom" [items]="vechileArr" formControlName="vehicletypeId"
+                                bindLabel="name" bindValue="id" placeholder="Choose"
+                                [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.vehicletypeId.errors || f.vehicletypeId.invalid && (f.vehicletypeId.dirty || f.vehicletypeId.touched)}">
+                            </ng-select>
+                            <div *ngIf="plantMachineryFormsubmitted && f.vehicletypeId.errors" class="invalid-feedback">
+                                <div *ngIf="f.vehicletypeId.errors.required">Required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="date">Date</label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd" name="Disabled Date Picker"
+                                    ngbDatepicker #disabledDP="ngbDatepicker" (click)="disabledDP.toggle()"
+                                    formControlName="date"
+                                    [ngClass]="{ 'is-invalid': plantMachineryFormsubmitted && f.date.errors }">
+                                <div *ngIf="plantMachineryFormsubmitted && f.date.errors" class="invalid-feedback">
+                                    <div *ngIf="f.date.errors.required">Required</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn  btn-prev" style="background-color: #808080; color:white"
+                            (click)="previous()" rippleEffect>
+                            <i data-feather="arrow-left" class="align-middle mr-sm-25 mr-0"></i>
+                            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                        </button>
+                        <button class="btn btn-primary btn-next" rippleEffect (click)="onSubmit()">
+                            <span class="align-middle d-sm-inline-block d-none">Submit</span>
+                            <i data-feather="arrow-right" class="align-middle ml-sm-25 ml-0"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

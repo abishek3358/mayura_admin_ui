@@ -1,0 +1,66 @@
+// .card {
+//     position: relative;
+//     display: inline-table;
+//     flex-direction: column;
+//     min-width: 0;
+//     word-wrap: break-word;
+//     background-color: #fff;
+//     background-clip: border-box;
+//     border: 1px solid rgba(34, 41, 47, 0.125);
+//     border-radius: 0.428rem;
+// }
+
+// @media (min-width: 1024px) {
+//     .card {
+//         position: relative;
+//         display: flex;
+//         flex-direction: column;
+//         min-width: 0;
+//         word-wrap: break-word;
+//         background-color: #fff;
+//         background-clip: border-box;
+//         border: 1px solid rgba(34, 41, 47, 0.125);
+//         border-radius: 0.428rem;
+//     }
+// }
+
+
+// .card-body {
+//     flex: 1 1 auto;
+//     min-height: 1px;
+//     padding: 1.5rem;
+// }
+
+.mt-1,
+.my-1 {
+    margin-top: -1rem !important;
+}
+
+.table.dataTable td {
+    padding: 0rem;
+    padding-left: 22px;
+}
+
+.page {
+    overflow-x: scroll;
+}
+
+@media (min-width:1024px) {
+    .page {
+        overflow-x: hidden;
+    }
+}
+
+// @media (min-width: 768px) {
+//     .card {
+//         position: relative;
+//         display: flex;
+//         flex-direction: column;
+//         min-width: 0;
+//         word-wrap: break-word;
+//         background-color: #fff;
+//         background-clip: border-box;
+//         border: 1px solid rgba(34, 41, 47, 0.125);
+//         border-radius: 0.428rem;
+//     }
+//   }

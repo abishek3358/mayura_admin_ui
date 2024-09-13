@@ -1,0 +1,143 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class=" pageHeading">
+                                <h4 class=""> HSN SAC Code</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right my-auto ">
+                                <button type="button" class="btn btn-primary btn-sm p-1 mb-2" (click)="openModal(myModal)">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <table id="sacCode" class="table table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>hsn Sac Code</th>
+                                <th>igst</th>
+                                <th>sgst</th>
+                                <th>cgst</th>
+                                <th>description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let sacCodeData of sacCodeArr;let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{sacCodeData.hsnSacCode}}</td>
+                                <td>{{sacCodeData.igst}}</td>
+                                <td>{{sacCodeData.sgst}}</td>
+                                <td>{{sacCodeData.cgst}}</td>
+                                <td>{{sacCodeData.description}}</td>
+                                <td>
+                                    <div ngbDropdown container="body">
+                                        <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                            <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                        </button>
+
+                                        <div ngbDropdownMenu>
+                                            <a ngbDropdownItem (click)="editsacCode(myModal,sacCodeData)"><i
+                                                    class='bx bxs-edit text-success'></i><span
+                                                    class="ml-2">Edit</span></a><a ngbDropdownItem (click)="openModall(dModal,sacCodeData.id)"><i class='bx bxs-trash-alt'
+                                                    style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #myModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title w-100">HSN SAC Code</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body p-1" id="myModal">
+            <form [formGroup]="sacCodeForm" autocomplete="off" (ngSubmit)="onSubmit(modal)">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group ">
+                            <label for="hsnSacCode">HSN SAC Code</label>
+                            <input id="hsnSacCode" type="text" class="form-control" formControlName="hsnSacCode" placeholder="HSN SAC Code" [ngClass]="{ 'is-invalid': sacCodeSubmitted && f.hsnSacCode.errors || f.hsnSacCode.invalid && (f.hsnSacCode.dirty)}">
+                            <div *ngIf="sacCodeSubmitted && f.hsnSacCode.errors || f.hsnSacCode.invalid && (f.hsnSacCode.dirty)" class="invalid-feedback">
+                                <div *ngIf="f.hsnSacCode.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group ">
+                            <label for="igst">IGST</label>
+                            <input id="igst" type="text" class="form-control" formControlName="igst" placeholder="IGST" [ngClass]="{ 'is-invalid': sacCodeSubmitted && f.igst.errors || f.igst.invalid && (f.igst.dirty)}">
+                            <div *ngIf="sacCodeSubmitted && f.igst.errors || f.igst.invalid && (f.igst.dirty)" class="invalid-feedback">
+                                <div *ngIf="f.igst.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group ">
+                            <label for="sgst">SGST</label>
+                            <input id="sgst" type="text" class="form-control" formControlName="sgst" placeholder="SGST" [ngClass]="{ 'is-invalid': sacCodeSubmitted && f.sgst.errors || f.sgst.invalid && (f.sgst.dirty)}">
+                            <div *ngIf="sacCodeSubmitted && f.sgst.errors || f.sgst.invalid && (f.sgst.dirty)" class="invalid-feedback">
+                                <div *ngIf="f.sgst.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group ">
+                            <label for="cgst">CGST</label>
+                            <input id="cgst" type="text" class="form-control" formControlName="cgst" placeholder="CGST" [ngClass]="{ 'is-invalid': sacCodeSubmitted && f.cgst.errors || f.cgst.invalid && (f.cgst.dirty)}">
+                            <div *ngIf="sacCodeSubmitted && f.cgst.errors || f.cgst.invalid && (f.cgst.dirty)" class="invalid-feedback">
+                                <div *ngIf="f.cgst.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group ">
+                            <label for="description">Description</label>
+                            <textarea id="description" type="text" class="form-control" formControlName="description" placeholder="Description" [ngClass]="{ 'is-invalid': sacCodeSubmitted && f.description.errors || f.description.invalid && (f.description.dirty)}">
+                            </textarea>
+                            <div *ngIf="sacCodeSubmitted && f.description.errors || f.description.invalid && (f.description.dirty)" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">Required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right mt-2 ">
+                    <button type="submit" data-dismiss="modal" class="btn btn-sm btn-primary mb-2 p-1">{{buttonText}}</button>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #dModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title">Confirm Delete</h5>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+            <div class="text-right mt-2 ">
+                <button type="button" class="btn btn-primary  ml-2 " (click)=" deleteData(modal)">Yes</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,184 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class=" pageHeading">
+                                <h4 class="">Company Details</h4>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="text-right my-auto ">
+                                <button (click)="editCompany($event)" type="button"
+                                    class="btn btn-primary btn-sm p-1 mb-2">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <table class="mt-2 mt-xl-0 w-100">
+                                <tr>
+                                    <th class="pb-50">
+                                        <span class="font-weight-bold">Contact Person Name</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50">{{companyObj.contactPersonName}}</td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-50 pt-2">
+                                        <span class="font-weight-bold">Contact Person Email</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50 text-capitalize"> {{companyObj.contactPersonEmail}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-50 pt-2">
+                                        <span class="font-weight-bold">Company Name</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50 text-capitalize"> {{companyObj.companyName}} </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <table class="mt-2 mt-xl-0 w-100">
+                                <tr>
+                                    <th class="pb-50">
+                                        <span class="font-weight-bold">Company Display Name</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50 text-capitalize"> {{companyObj.companyDisplayName}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-50 pt-2">
+                                        <span class="font-weight-bold">Company Email</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50 text-capitalize"> {{companyObj.companyEmail}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-50 pt-2">
+                                        <span class="font-weight-bold"> Contact Person Mobile No</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50">{{companyObj.contactPersonMobileNo}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-4">
+                            <table class="mt-2 mt-xl-0 w-100">
+                                <tr>
+                                    <th class="pb-50">
+                                        <span class="font-weight-bold">Company Mobile No</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50 text-capitalize"> {{companyObj.companyMobileNo}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-50 pt-2">
+                                        <span class="font-weight-bold">GST</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50 text-capitalize"> {{companyObj.gst}} </td>
+                                </tr>
+                                <tr>
+                                    <th class="pb-50 pt-2">
+                                        <span class="font-weight-bold">Pan No</span>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="pb-50 text-capitalize"> {{companyObj.panNo}} </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 px-0">
+    <div class="card user-card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class=" pageHeading">
+                        <h4 class="pb-3">Address</h4>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <table class="mt-2 mt-xl-0 w-100" *ngFor="let companyObj of companyObj.companyAddressDTOList">
+                        <tr>
+                            <th class="pb-50">
+                                <span class="font-weight-bold">Address Type</span>
+                            </th>
+                            <td  class="pb-50 col-md-8"><span  >{{companyObj.addressType}}</span> </td>
+                        </tr>
+                        <tr>
+                            <th class="pb-50">
+                                <span class="font-weight-bold">Address</span>
+                            </th>
+                            <td class="pb-50 text-capitalize col-md-8"><span>{{companyObj.addressLine1}}, {{companyObj.addressLine2}},
+                                {{companyObj.cityName}} , {{companyObj.stateName}}, {{companyObj.countryName}},
+                                {{companyObj.postalCode}}.</span> </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12 px-0">
+    <div class="card user-card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class=" pageHeading">
+                        <h4 class="pb-3">Bank Details</h4>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <table class="mt-2 mt-xl-0 w-100" >
+                        <tr class="">
+                            <th class="pb-50 ">
+                                <span class="font-weight-bold">Bank Name </span>
+                            </th>
+                            <td class="pb-50  col-md-8"><span> {{companyObj.bankName}}</span> </td>
+                        </tr>
+                        <tr class="">
+                            <th class="pb-50 ">
+                                <span class="font-weight-bold">Account No </span>
+                            </th>
+                            <td class="pb-50  col-md-8"><span> {{companyObj.accountNumber}}</span></td>
+                        </tr>
+                        <tr class="">
+                            <th class="pb-50 ">
+                                <span class="font-weight-bold">IFSC Code </span>
+                            </th>
+                            <td class="pb-50  col-md-8"><span>{{companyObj.ifsCode}}</span> </td>
+                        </tr>
+
+                  
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid px-0">
+    <div class="card">
+                    <app-company-contacts></app-company-contacts>
+    </div>
+</div>

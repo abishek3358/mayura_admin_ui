@@ -1,0 +1,27 @@
+.heading{
+    flex-wrap: nowrap !important;
+}
+.btn{
+    margin-top: -3px !important;
+}
+.cardBg .card-body{
+    overflow-x: scroll;
+}
+.cardBg .card-body{
+    padding: 0.1rem !important;
+}
+@media (min-width:1440px) {
+    // .cardBg .card-body{
+    //     overflow-x: hidden;
+    // }
+}
+// @media (min-width:768px) {
+//     .cardBg .card-body{
+//         overflow-x: scroll;
+//     }
+// }
+// @media (min-width:768px) {
+//     .cardBg .card-body{
+//         overflow-x: hidden;
+//     }
+// }

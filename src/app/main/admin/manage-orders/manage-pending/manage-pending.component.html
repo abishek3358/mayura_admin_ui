@@ -1,0 +1,112 @@
+<div class="container-fluid mx-auto">
+    <div class="row">
+        <div class="col-12 pr-0 pl-0">
+            <div class="shadow p-1 mb-3  col-md-12 card">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/admin/order-management/pending">Pending Orders</a>
+                        </li>
+                        <!-- <li class="breadcrumb-item active" aria-current="page"></li> -->
+                        <li class="breadcrumb-item " aria-current="page">Allocate Order</li>
+
+                    </ol>
+                </nav>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="mb-1 pageHeading">
+                            <h3 class="">Allocate Order</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <label>
+                            <h5 style="margin-right: 61px;">Orders# </h5>
+                        </label>: &nbsp;
+                        {{venArr. orderNo}} <br>
+
+                        <label>
+                            <h5 style="margin-right: 38px;">Total Items </h5>
+                        </label>: &nbsp;
+                        {{venArr.noOfProducts}} <br>
+                        <label>
+                            <h5 style="margin-right: 10px;">Order Amount </h5>
+                        </label>: &nbsp;
+                        {{venArr.grandTotal}} <br>
+
+                    </div>
+                    <div class="col-6 mnge-size">
+                        <label>
+                            <h5 style="margin-right: 51px;">Order Date </h5>
+                        </label>: &nbsp;
+                        {{venArr.orderDate}}<br>
+                        <label>
+                            <h5 style="margin-right: 27px;">Total Quantity </h5>
+                        </label>: &nbsp;
+                        {{venArr.quantity}} <br>
+                        <label>
+                            <h5 style="margin-right: 26px;">Payment Type </h5>
+                        </label>: &nbsp;
+                        <span *ngIf="venArr.paymentMode === 'CASH_ON_DELIVERY'">{{"Cash on delivery"}}</span><br>
+                        <label>
+                            <h5 style="margin-right: 7px;">Delivery Address </h5>
+                        </label>: &nbsp;
+                        <span>{{this.obj.receiverName}},
+                            {{this.obj.mobileNo}},{{this.obj.addressType}},{{this.obj.addressLine1}}</span>
+
+                        <span> {{this.obj.addressLine2}}
+                            {{this.obj.countryName}}</span>
+                        <!-- <label><h5>Delivery Address : &nbsp; {{this.obj.addressType}}, &nbsp;{{this.obj.addressLine2}}
+                                            <h5 style="margin-left: 150px;"> {{this.obj.addressLine1}},
+                                          {{this.obj.cityName}},
+                                          <p >{{this.obj.countryName}}</p></h5></h5></label> <br> -->
+
+                    </div>
+                </div>
+            </div>
+            <div class="shadow p-2 mb-2  col-md-12 card card-size">
+                <div class="row">
+                    <div class="col-12">
+                        <table id="pending" class="table table-bordered" style="height: 0px;">
+                            <thead class="thead bg-white">
+                                <tr>
+                                    <th>S.NO</th>
+                                    <th>VENDOR NAME</th>
+                                    <th>VENDOR CODE</th>
+                                    <th>BRANCH ADDRESS</th>
+                                    <th>RATING</th>
+                                    <th>NO OF ORDERS HANDLED</th>
+                                    <th>ACTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let vendor of vendorObj; let i=index">
+
+                                    <td>{{i+1}}</td>
+                                    <td>{{vendor.vendorName}}</td>
+                                    <td>{{vendor.vendorCode}}</td>
+                                    <td>{{vendor.branchAddress}}</td>
+                                    <td>{{vendor.ratings}}</td>
+                                    <td>{{vendor.handledOrders}}</td>
+
+
+                                    <td>
+                                        <button type="button" class=" btn btn-primary pick"
+                                            style="padding:0.2px 1px; font-size: 12px; margin-left:12px ;"
+                                            [ngClass]="{'highlight' : vendor== objj}"
+                                            (click)="onClick(vendor)">Pick</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="mt-2 pt-2 text-right">
+                    <button type="button" (click)="submit()" class="btn btn-sm-1 btn-success ;color:white;">Confirm
+                        Allocation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

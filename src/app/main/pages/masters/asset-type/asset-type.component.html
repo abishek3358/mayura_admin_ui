@@ -1,0 +1,116 @@
+<div class="container-fluid px-0">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="pageHeading">
+                        <h4>Asset Type</h4>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="text-right my-auto ">
+                        <button type="button" class="btn btn-primary btn-sm p-1 mb-2" (click)="assetTypeModal(modal)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <table class="table bg-white table-bordered" id="assetTypeTable">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let assetType of assetTypeArr; let i =index">
+                            <td>{{i+1}}</td>
+                            <td>{{assetType.name}}</td>
+                            <td>{{assetType.description}}</td>
+                            <td>
+                                <div ngbDropdown container="body">
+                                    <button type="button" class="btn btn-sm hide-arrow" ngbDropdownToggle data-toggle="dropdown">
+                                        <i class='bx bx-dots-vertical-rounded' style='color:#858080'></i>
+                                    </button>
+                                    <div ngbDropdownMenu>
+                                        <a ngbDropdownItem (click)="editAssetType(modal,assetType)"><i
+                                                class='bx bxs-edit text-success'></i><span
+                                                class="ml-2">Edit</span></a><a ngbDropdownItem (click)="deleteConfirmation(deleteAssetType,assetType)"><i class='bx bxs-trash-alt'
+                                                style='color:#c32424'></i><span class="ml-2">Delete</span></a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title w-100">Asset Type</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body px-0">
+        <form id="assetId" autocomplete="off" [formGroup]="assetTypeForm">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group col">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" name="name" id="name" formControlName="name" placeholder="Name" [ngClass]="{'is-invalid': assetTypeSubmitted && f.name.errors}" />
+                            <span *ngIf=" assetTypeSubmitted && f.name.errors" class="invalid-feedback text-danger"><span
+                                    *ngIf="f.name.errors.required">Required</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <fieldset class="col">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" rows="3" formControlName="description" placeholder="Description" [ngClass]="{'is-invalid': assetTypeSubmitted && f.description.errors}">
+                                  </textarea>
+                                <span *ngIf=" assetTypeSubmitted && f.description.errors" class="invalid-feedback text-danger">
+                                    <span *ngIf="f.description.errors.required ">Required</span>
+                                </span>
+                            </fieldset>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="text-right mt-2 mr-1">
+                <button type="button" class="btn btn-sm btn-primary mb-2 p-1" (click)="assetSubmit(modal) ">{{buttonText}}</button>
+            </div>
+
+        </form>
+
+    </div>
+
+</ng-template>
+<ng-template #deleteAssetType let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <h6 class="text-center mt-2">Are you sure want to delete?</h6>
+        <div class="text-right mt-2">
+            <button type="button" class="btn btn-primary ml-2" (click)="delete(modal)">Yes</button>
+        </div>
+    </div>
+
+</ng-template>

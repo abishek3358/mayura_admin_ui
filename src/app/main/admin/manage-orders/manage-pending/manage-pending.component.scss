@@ -1,0 +1,29 @@
+@import '@core/scss/angular/libs/form-wizard.component.scss';
+@import '@core/scss/angular/libs/select.component.scss';
+
+.class_name{ background-color: yellow; }
+.btn-primary.highlight {
+    background-color: #4CAF50 !important;
+    color: #ffffff;
+}
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    // padding: 0.3rem 1rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 0;
+    margin-left: -11px;
+    margin-top:-10px ;
+}
+.pageHeading{
+    margin-top: 20px;
+}
+.mnge-size{
+    margin-top: 1px;
+}
+.card-size{
+    margin-top: 30px;
+}

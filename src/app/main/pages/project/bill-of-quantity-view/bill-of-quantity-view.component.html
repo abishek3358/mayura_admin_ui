@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+
+
+            <ngx-simplebar>
+                <table class="table table-bordered text-center " >
+                    <thead>
+                        <tr style="height: 20px;">
+                            <th rowspan="3" class="sno"style="vertical-align: middle;">s.no</th>
+                            <th rowspan="3" style="vertical-align: middle;">description of work/items</th>
+                            <th rowspan="3" style="vertical-align: middle;">no.of qty</th>
+                            <th rowspan="2" colspan="2" style="vertical-align: middle;">sales</th>
+                            <th colspan="7">ace</th>
+                        </tr>
+                        <tr>
+
+                            <th colspan="2">supply</th>
+                            <th colspan="2">execution</th>
+                            <th rowspan="2" style="vertical-align: middle;">misc</th>
+                            <th colspan="2">total</th>
+                        </tr>
+                        <tr>
+                            <th>rate</th>
+                            <th>amount</th>
+                            <th>rate</th>
+                            <th>amount</th>
+
+                            <th>rate</th>
+                            <th>amount</th>
+                            <th>rate</th>
+                            <th>amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let boqData of billOfQuantityDtlDTO.billOfQuantityDtlDTOList; let i=index;">
+                            <td>{{ i + 1}}</td>
+                            <td class="item">{{boqData.itemCode}}</td>
+                            <td>{{boqData.quantity}}</td>
+                            <td>{{boqData.salesRate}}</td>
+                            <td>{{boqData.salesAmount}}</td>
+                            <td>{{boqData.supplyRate}}</td>
+                            <td>{{boqData.supplyAmount}}</td>
+                            <td>{{boqData.executionRate}}</td>
+                            <td>{{boqData.executionAamount}}</td>
+                            <td>{{boqData.misc}}</td>
+                            <td>{{boqData.totalRrate}}</td>
+                            <td>{{boqData.totalAmount}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </ngx-simplebar>
+        </div>
+    </div>
+    <div class="text-right">
+        <button class="btn btn-primary" (click)="download(id)">Download</button>
+    </div>
+</div>

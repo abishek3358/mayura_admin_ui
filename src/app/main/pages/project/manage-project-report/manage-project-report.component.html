@@ -1,0 +1,169 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="reportForm" autocomplete="off">
+            <div class="row">
+                <div class="row col-10">
+                    <div class="form-goup col-12 col-md-4 col-sm-3 col-lg-4">
+                        <label for="projectId">Job Code</label>
+                        <ng-select [items]="projectArr" bindValue="id" bindLabel="jobCode" placeholder="Choose"
+                            formControlName="projectId" [ngClass]="{ 'is-invalid': submitted && f.projectId.errors }">
+                        </ng-select>
+                        <div *ngIf="submitted && f.projectId.errors" class="invalid-feedback text-danger">
+                            <div *ngIf="f.projectId.errors.required">Required</div>
+                        </div>
+                    </div>
+
+                    <div class="form-goup col-12  col-md-4 col-sm-3 col-lg-4">
+                        <label for="">From Date</label>
+                        <input class="form-control" id="name" formControlName="fromDate" placeholder="yyyy-mm-dd"
+                            ngbDatepicker #profit="ngbDatepicker" (click)="profit.toggle()"
+                            [ngClass]="{'is-invalid': submitted && f.fromDate.errors}">
+                        <span *ngIf=" submitted && f.fromDate.errors" class="invalid-feedback text-danger"><span
+                                *ngIf="f.fromDate.errors.required">Required</span>
+                        </span>
+                    </div>
+                    <div class="form-goup col-12  col-md-4 col-sm-3 col-lg-4">
+                        <label for="">To Date</label>
+                        <input class="form-control" [minDate]="reportForm.value.fromDate" id="name"
+                            formControlName="toDate" placeholder="yyyy-mm-dd" ngbDatepicker #loss="ngbDatepicker"
+                            (click)="loss.toggle()" [ngClass]="{'is-invalid': submitted && f.toDate.errors}">
+                        <span *ngIf=" submitted && f.toDate.errors" class="invalid-feedback text-danger"><span
+                                *ngIf="f.toDate.errors.required">Required</span>
+                        </span>
+                    </div>
+
+
+                </div>
+                <div class="d-flex mt-1" style="align-items: center;">
+                    <button type="button" class="btn btn-primary " (click)="submit()">Fetch</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card" *ngIf="waitingForTheResponse">
+    <div style="margin-left: 2%; margin-right: 2% ; font-family: sans-serif !important; border: 1px solid lightgray;margin-top: 20px;margin-bottom: 20px;"
+        id="print-item">
+        <div>
+            <div style="width: 100%; display: flex;">
+                <div style="width: 30%; padding-top: 50px;padding-bottom: 10px;">
+                    <img src="assets/images/logo/erplogo.png" style="display: block; width: 220px; height: 190px;"
+                        alt="">
+                </div>
+                <div style="width: 38%;"></div>
+                <div style="width: 32%; margin-top: 15px; padding-bottom: 10px; margin-left: 10px;">
+                    <span style="font-size: 23px; display: inline-block; margin-top: 15px;"><strong>Manage Project
+                        </strong> </span><br>
+                    <!-- <span style="font-size: 17px;">{{record.vendorName}}</span><br> -->
+                    <span style="font-size: 17px;">{{record.projectName}}</span><br>
+                    <span style="font-size: 16px;">Address:
+                        {{record.addressLine1}},{{record.cityName}},<br>{{record.stateName}},{{record.countryName}}
+                        -{{record.postalCode}}</span><br>
+                    <span><span style="width: 40px; display: inline-block;">From</span>:
+                        {{record.fromDate}}</span><br>
+                    <span><span style="width: 40px; display: inline-block;">To</span>:
+                        {{record.toDate}}</span>
+                </div>
+            </div>
+            <span style="padding-bottom: 20px; font-size: 22px; margin-left: 10px;"><strong>Accounts</strong>
+            </span>
+        </div>
+
+        <div
+            style="border: 2px solid; border-bottom: hidden; border-top: none; border-left: hidden; border-right: hidden; margin-top: 10px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 17px;">
+                <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                    <td style="padding-left: 10px;padding: 10px 10px 10px 10px;">
+                        <strong>Income Accounts</strong>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px;"></td>
+                </tr>
+                <tr *ngFor="let projectSubList of record.projectSubListDTOList"
+                    style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                    <td style="padding-left: 10px;">{{projectSubList.subAcoountName}} </td>
+                    <td style="text-align: right;padding-right: 10px;"> ₹&nbsp;{{projectSubList.amount}}</td>
+                </tr>
+                <!-- <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                <td style="padding-left: 10px;padding: 10px 10px 10px 10px;">
+                    <strong>Total Income Account</strong>
+                </td>
+                <td style="text-align: right;padding-right: 10px;"></td>
+            </tr> -->
+                <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                    <td style="padding-left: 10px;"><strong> Total Income
+                        </strong></td>
+                    <td style="text-align: right;padding-right: 10px;"><strong>
+                            ₹&nbsp; {{record.totalIncome}}</strong></td>
+                </tr>
+                <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                    <td style="padding-left: 10px;padding: 10px 10px 10px 10px;">
+                        <strong>{{record.purchaseAndWagesName}}</strong>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px;"></td>
+                </tr>
+                <tr *ngFor="let income of record.projectPurchaseAndWagesDTOList"
+                    style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                    <td style="padding-left: 10px;">{{income.subAcoountName}}</td>
+                    <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{income.amount}}</td>
+                </tr>
+
+                <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                    <td style="padding-left: 10px;"><strong>Total </strong>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px;"><strong>
+                            ₹&nbsp;{{record.totalpurchaseAndWages}}</strong></td>
+                </tr>
+
+                <tr style="height: 8px;"></tr>
+                <tr style="height: 40px;margin-top: 8px; font-size: 19px;  background-color:#d3dbdd">
+                    <td style="padding-left: 10px;padding: 10px 10px 10px 10px;display: block;">
+                        <strong>{{record.misExpenseName}}</strong>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px;"></td>
+                </tr>
+
+                <tr *ngFor="let misExpense of record.miExpenseDTODTOList"
+                    style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                    <td style="padding-left: 10px;">{{misExpense.subAcoountName}}</td>
+                    <td style="text-align: right;padding-right: 10px;">₹&nbsp;{{misExpense.amount}} </td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                    <td style="padding-left: 10px;"><strong> Total
+                        </strong></td>
+                    <td style="text-align: right;padding-right: 10px;"><strong>
+                            ₹&nbsp; {{record.misExpenseTotalIncome}}</strong></td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgb(202, 198, 198);height: 40px;">
+                    <td style="padding-left: 10px;"><strong> Total Expense</strong></td>
+                    <td style="text-align: right;padding-right: 10px;"><strong>
+                            ₹&nbsp;{{record.totalExpense}}</strong></td>
+                </tr>
+
+
+
+
+
+                <!-- <tr style="height: 5px;"></tr> -->
+                <tr style="height: 40px; font-size: 19px; border-radius: 15px; background-color:#d3dbdd">
+                    <td style="padding-left: 10px;padding: 10px 10px 10px 10px;"><strong>Net Profit</strong><br>
+                        <span style="font-size: 16px; color: rgb(127, 132, 139);"><strong>As a Percentage of Total
+                                Income</strong> </span>
+                    </td>
+                    <td style="text-align: right;padding-right: 10px; padding-top: 5px;">
+                        ₹&nbsp;{{record.netProfit}} <br> <span
+                            style="color: rgb(127, 132, 139);">{{record.percentageOfTotalIncome}}%</span>
+                    </td>
+                </tr>
+
+                <tr>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class=" text-right mr-2 mt-1 mb-2">
+        <button class="btn btn-primary" printTitle="Profit and Loss Copy" printSectionId="print-item"
+            ngxPrint>Download</button>
+    </div>
+</div>

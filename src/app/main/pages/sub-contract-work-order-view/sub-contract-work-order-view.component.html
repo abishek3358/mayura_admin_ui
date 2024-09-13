@@ -1,0 +1,474 @@
+<div id="print-item"
+    style="background-color: white; padding: 10px; font-family: sans-serif;box-shadow: 0 4px 24px 0 rgb(34 41 47 / 10%);">
+    <div style="border: 1px solid lightgray;">
+        <div style="text-align: center;">
+            <h3 style="padding-top: 10px;">Work Order</h3>
+        </div>
+
+
+
+        <!-- <div style="display: flex;" *ngIf="waitingForTheResponse">
+            <div style="width: 40%;"><img src="assets/images/logo/erplogo.png" style=" margin: 35px 24px 0 ; display: block;" width="150" height="120" alt=""></div>
+            <div style="width: 50%; padding-top:10px ; padding-left: 25%; padding-bottom: 1%;">
+                <span style="margin-top: 8px; font-size: 18px; padding-bottom: 5px;"> Address :</span><br>
+
+                <span>{{companyAddressObj.companyDisplayName}}, <br>
+                    {{companyAddressObj.companyAddressDTOList[0].addressLine1}},<br>
+                    {{companyAddressObj.companyAddressDTOList[0].cityName}},
+                    {{companyAddressObj.companyAddressDTOList[0].stateName}},{{companyAddressObj.companyAddressDTOList[0].countryName}}.<br>
+                    GST : {{companyAddressObj.gst}} <br>
+                    PAN : {{companyAddressObj.panNo}} <br>
+                    CONTACT: {{companyAddressObj.companyMobileNo}}
+                </span>
+
+
+            </div>
+
+        </div> -->
+
+        <!-- <div style="display: flex; width: 100%;">
+            <div style="width: 50%;margin-left: 3%;border: 1px solid;border-right: none;border-bottom: none;">
+                <div style="padding-left: 8px;">
+                    <span style="font-size: 17px;"><b> Contractor Name and Address:</b></span><br>
+                    <span>{{workOrderObj.contactPersonName}},</span><br>
+                    <span>{{workOrderObj.contractorAddressLine1}},</span><br>
+                    <span>{{workOrderObj.contractorCityName}},</span><br>
+                    <span>{{workOrderObj.contractorStateName}},</span><br>
+                    <span>{{workOrderObj.contractorCountryName}} -{{workOrderObj.contractorPostalCode}}.</span><br>
+                    <span></span>
+                </div>
+
+
+                <div style="padding-top: 40px;">
+                    <table style="width: 100%;">
+                        <tr style="border: 1px solid;border-left: none;border-right: none;">
+                            <td style="padding: 8px;border-left: none;border-top: 1px solid;">Contact Person Name
+                            </td>
+                            <td style="padding: 8px;border-right: none;border-left: 1px solid; border-top: 1px solid; ">
+                                {{workOrderObj.contactPersonName}}</td>
+                        </tr>
+                        <tr style="border: 1px solid;border-left: none;border-right: none;border-bottom: none;">
+                            <td style="padding: 8px;border-bottom: none;border-left: none;border-top: 1px solid; ">
+                                Contact
+                                Mobile. Number
+                            </td>
+                            <td
+                                style="padding: 8px;border-bottom: none;border-right: none;border-left:1px solid;border-top: 1px solid;">
+                                {{workOrderObj.contactPersonMobileNo}}</td>
+                        </tr>
+                    </table>
+
+                </div> -->
+
+        <div style="padding-left: 3%; padding-right: 3%; ">
+            <div style="">
+                <table style="border-collapse: collapse;border-left: none;border-bottom: none;width: 100%">
+                    <tr style="border: 1px solid;">
+                        <td colspan="2" style="padding: 8px;"><b>Contractor Name and Address:</b> </td>
+
+                        <td style="border: 1px solid;padding: 8px;"> Work Order No</td>
+                        <td style="padding: 8px;"> {{workOrderObj.workOrderNo}}</td>
+                    </tr>
+                    <tr style="border: 1px solid;  ">
+                        <td colspan="2" rowspan="4" style="padding: 8px;"><span
+                                style="position: relative;bottom:20px">{{workOrderObj.contractorName}},<br>{{workOrderObj.contractorAddressLine1}},<br>{{workOrderObj.contractorCityName}},<br>{{workOrderObj.contractorStateName}},<br>{{workOrderObj.contractorCountryName}}
+                                -{{workOrderObj.contractorPostalCode}}.</span></td>
+
+                        <td style="border: 1px solid;padding: 8px;">Work Order Date</td>
+                        <td style="padding: 8px;border: 1px solid;"> {{workOrderObj.workOrderDate}}</td>
+                    </tr>
+                    <tr style="border: 1px solid;">
+
+
+                        <td style="border: 1px solid;padding: 8px;"> Latest Amendment No</td>
+                        <td style="padding: 8px;">{{workOrderObj.latestAmendmentNo}}</td>
+                    </tr>
+                    <tr style="border: 1px solid;">
+
+
+                        <td style="border: 1px solid;padding: 8px;">Latest Amendment Date</td>
+                        <td style="padding: 8px;">{{workOrderObj.latestAmendmentDate}}</td>
+                    </tr>
+                    <tr style="border: 1px solid;">
+
+
+                        <td style="border: 1px solid;padding: 8px;"> Our Ref. No & Date</td>
+                        <td style="padding: 8px; border-bottom: none !important;">{{workOrderObj.ourReferanceNo}} &
+                            {{workOrderObj.ourReferanceDate}}
+                        </td>
+                    </tr>
+                    <tr style="border: 1px solid;">
+                        <td style="padding:8px; border-right: 1px solid; border-top: 1px solid;">Contact Person Name
+                        </td>
+                        <td style="padding: 8px;"> {{workOrderObj.contactPersonName}}</td>
+                        <td style="border: 1px solid;padding: 8px;">Contractor GST Reg No</td>
+                        <td style="padding: 8px;">{{workOrderObj.contractorGstNo}}</td>
+                    </tr>
+                    <tr style="border: 1px solid;border-bottom: none;">
+                        <td style="padding: 8px;border-right: 1px solid;"> Contact Mobile No </td>
+                        <td style="padding: 8px;">{{workOrderObj.contactPersonMobileNo}}</td>
+                        <td style="border: 1px solid;padding: 8px;border-bottom: none;">Contractor PAN No</td>
+                        <td style="padding: 8px;">{{workOrderObj.contractorPanNo}}</td>
+                    </tr>
+                    
+                </table>
+            </div>
+            <!-- <div style="width: 50%; border: 1px solid;">
+                <div style="padding-left: 20px;">
+                    <span style="width:180px; display: inline-block;">Work Order No</span>: &nbsp; &nbsp;
+                    {{workOrderObj.workOrderNo}}
+                    <br /><br> <span style="width:180px; display: inline-block;">Work Order Date</span>: &nbsp; &nbsp;
+                    {{workOrderObj.workOrderDate}}
+                    <br /> <br><span style="width:180px; display: inline-block;">Latest Amendment No</span>: &nbsp;
+                    &nbsp; {{workOrderObj.latestAmendmentNo}}
+                    <br /><br>
+                    <span style="width:180px; display: inline-block;">Latest Amendment Date
+                    </span>: &nbsp; &nbsp;
+                    {{workOrderObj.latestAmendmentDate}}
+                    <br /><br>
+                    <span style="width:180px; display: inline-block;">Our Ref. No and Date
+                    </span>: &nbsp; &nbsp;
+                    {{workOrderObj.latestAmendmentNo}} & {{workOrderObj.latestAmendmentDate}}
+                    <br /><br>
+                    <span style="width:180px; display: inline-block;">Contractor GST Reg No:
+                    </span>: &nbsp; &nbsp;
+                    <br /><br>
+                    <span style="width:180px; display: inline-block;">Contractor PAN No
+                    </span>: &nbsp; &nbsp;
+
+                    <br /><br />
+                </div>
+            </div> -->
+        </div>
+        <div style="padding-left: 3%; padding-right: 3%; ">
+            <div>
+                <table style="width: 100%;border-collapse: collapse;">
+                    <tr style="border: 1px solid;">
+                        <td style="padding:8px" ><span  style="display: inline-block;width: 130px;"><b> Project Name</b></span>: </td>
+                        <td colspan="3" style="padding:8px" >{{workOrderObj.projectName}}</td>
+                    </tr>
+                    <tr style="border: 1px solid;">
+                        <td style="padding:8px;width: 200px;"><span  style="display: inline-block;width: 130px;">Company PAN No</span>:</td>
+                        <td style="padding:8px;width: 225px;">{{workOrderObj.companyPanNumber}}</td>
+                        <td style="padding:8px;width: 200px;"><span  style=""> Company GST Reg.No </span>:</td>
+                        <td style="padding:8px">{{workOrderObj.companyGst}}</td>
+
+
+                    </tr>
+                    <!-- <tr style="border: 1px solid;">
+                       <td style="padding:8px" ><span style="width: 120px; display: inline-block;"><b>Description</b></span>: </td> 
+                       <td  style="padding:8px">{{workOrderObj.description}}</td>
+                    </tr> -->
+                </table>
+            </div>
+        </div>
+        <div style="padding-left: 3%; padding-right: 3%; ">
+            <div>
+                <table style="width: 100%;border-collapse: collapse;">
+                   
+                    <tr style="border: 1px solid;border-top: none;border-bottom: none;">
+                       <td style="padding:8px;width: 200px;" ><span style="display: inline-block;width: 130px;"><b>Description </b></span>: </td> 
+                       <td  style="padding:8px">{{workOrderObj.description}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- <div style="border: 1px solid; margin-left: 3%;margin-right: 3%; margin-top: 0px;border-bottom: none;">
+            <span style="width:150px; display: inline-block; padding: 8px;"><b>Project
+                    Name</b></span>: &nbsp; &nbsp;<span>{{workOrderObj.projectName}}</span>
+        </div>
+        <div style="display: flex; border: 1px solid; padding: 8px; margin-left: 3%; margin-right: 3%;">
+            <div style="width: 41%; ">
+                <span style="display: inline-block; width: 142px;"> Company PAN No</span>: &nbsp; &nbsp;
+                <span>{{workOrderObj.companyPanNumber}}</span>
+            </div>
+            <div style="width: 50%; ">
+                <span style="display: inline-block; width: 185px; margin-left: 2%;padding-left: 35px;"></span>: &nbsp;
+                &nbsp;<span> {{workOrderObj.companyGst}}</span>
+
+            </div>
+
+        </div>
+        <div style="border: 1px solid;margin-left: 3%;margin-right: 3%;border-top:none;border-bottom: none;">
+            <span style="padding:8px;"><b>Description:</b> {{workOrderObj.description}}</span>
+        </div> -->
+        <!-- <div style="border-top: 1px solid lightgray; display: flex; padding-top: 2%;">
+            <div style="width:50% ;padding-left: 30px;   ">
+                <span style="font-size: 17px; display: block; padding-bottom: 1%;">WO Details:</span>
+                <div style="padding-left: 20px;">
+                    <span style="width:100px; display: inline-block;">Job Code</span>: &nbsp; &nbsp;
+                    {{workOrderObj.jobCode}}
+                    <br /><br /> <span style="width:100px; display: inline-block;">Contractor</span>: &nbsp; &nbsp;
+                    {{workOrderObj.contractorName}}
+                    <br /><br /> <span style="width:100px; display: inline-block;">WO
+                        No</span>: &nbsp; &nbsp; {{workOrderObj.workOrderNo}}
+                    <br /><br />
+                    <span style="width:100px; display: inline-block;">WO Date </span>: &nbsp; &nbsp;
+                    {{workOrderObj.workOrderDate}}
+                    <br /><br /> -->
+        <!-- <span>Job Code :{{workOrderObj.jobCode}} </span>: &nbsp; &nbsp;<br /> <br />
+                    <span>Contractor : {{workOrderObj.contractorName}}</span> <br /><br />
+                    <span>WO No : {{workOrderObj.workOrderNo}}</span> <br /><br />
+                    <span>WO date : {{workOrderObj.workOrderDate}}</span> -->
+        <!-- </div>
+
+            </div>
+            <div style="width:50%; padding-left: 15%;">
+                <br>
+                <span style="width: 120px; display: inline-block;">WO Start Date</span>: &nbsp; &nbsp;
+                {{workOrderObj.workOrderStartFrom}}
+                <br /><br />
+                <span style="width: 120px; display: inline-block;">WO End Date</span>: &nbsp; &nbsp;
+                {{workOrderObj.workOrderEndto}}
+            </div>
+        </div> -->
+        <div style="padding-left: 3%; padding-right: 3%; ">
+            <div style="width: 100%;padding: 0px 00px;">
+                <div class="">
+                    <table id="voucherList-table" class=" "
+                        style="width: 100%;border-collapse: collapse; text-align: left;border-top: none !important;">
+                        <thead>
+                            <tr>
+                                <th
+                                    style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                            text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    S.No
+                                </th>
+                                <!-- <th
+                                    style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                            text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    Item
+                                </th> -->
+                                <th style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    Sac Code</th>
+                                <th
+                                    style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                            text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    Description</th>
+                                <th
+                                    style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                            text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.5px;padding: 0.72rem 0.74rem;">
+                                    UOM</th>
+                                <th
+                                    style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                            text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    Qty</th>
+                                <!-- <th
+                                    style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                            text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    Rate
+                                </th> -->
+                                <th
+                                    style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                            text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    Amount
+                                </th>
+                                <!-- <th style="border: 1px solid ;background-color: #f3f2f7;vertical-align: top;
+                        text-transform: uppercase;font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.62rem 0.64rem;">
+                                    Dlvr Date
+                                </th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            <tr *ngFor="let workOrder of workOrderObj.subContractoWorkOrderBoqDtlList ;let i = index">
+                                <td style="border: 1px solid ;
+                        font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">{{i+1}}</td>
+                                <!-- <td style="border: 1px solid ;
+                        font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">{{workOrder.itemName}}
+                                </td> -->
+                                <td style="border: 1px solid ;
+                                font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    {{workOrder.sacCode}}</td>
+                                <td style="border: 1px solid ;
+                          font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    {{workOrder.executionName}}</td>
+                                <td style="border: 1px solid ;
+                              font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    {{workOrder.uomName}}</td>
+                                <td style="border: 1px solid ;
+                        font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">{{workOrder.quantity}}
+                                </td>
+                                <!-- <td style="border: 1px solid ;
+                        font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">{{workOrder.rate}}</td> -->
+                                <td style="border: 1px solid ;
+                        font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">{{workOrder.amount}}</td>
+                                <!-- <td style="border: 1px solid ;
+                          font-size: 0.857rem;letter-spacing: 0.1px;padding: 0.72rem 0.74rem;">
+                                    {{workOrder.deliveryDate}}</td> -->
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="margin-right: 3%;margin-left: 3%;">
+            <table style=" width: 100%;border-collapse: collapse;">
+                <tr style="border:  1px solid;border-top: none;">
+                    <td style="padding: 8px; border: 1px solid;border-top: none; width: 6%;">1</td>
+                    <td style="padding: 8px; border: 1px solid;border-top: none; width: 22%;">Date of Commencement</td>
+                    <td style="padding: 8px; border: 1px solid;border-top: none; width: 22%;">
+                        {{workOrderObj.dateOfCommencement}}</td>
+                    <td style="width: 25%;padding-left: 18px;">TOTAL (in Rs.)</td>
+                    <td style="width: 15%; border-bottom:0 ;">{{workOrderObj.netAmount}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">2</td>
+                    <td style="padding: 8px; border: 1px solid">Date of Completion</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.dateOfCompletion}}</td>
+                    <!-- <td rowspan="1" colspan="2" style="padding: 8px; border: 1px solid;border-bottom: none;text-align: center;">Total Work Order Value (In Words)</td> -->
+                    <td rowspan="3" style="border: 1px solid;text-align: center;"><b>Prepared By</b> </td>
+                    <td rowspan="3" style="border: 1px solid;text-align: center;"><b>Approved By</b></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">3</td>
+                    <td style="padding: 8px; border: 1px solid"><b>Detection of Taxes:</b></td>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <!-- <td style="padding: 8px; border: 1px solid;border-top: none;text-align: center;" colspan="2">(Rs. {{numberInWords}} only /-)</td> -->
+
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">a) Income Tax (TDS)</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.incomeTaxTds}}</td>
+
+                </tr>
+                <tr style="clear: right;">
+                    <td style="padding: 8px; border: 1px solid">4</td>
+                    <td style="padding: 8px; border: 1px solid">GST</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.gst}}</td>
+                    <td style="border: 1px solid ;padding: 8px; " rowspan="8"></td>
+                    <td style="border: 1px solid ;padding: 8px; " rowspan="8"></td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">5</td>
+                    <td style="padding: 8px; border: 1px solid"><b>Terms of Payments:</b></td>
+                    <td style="padding: 8px; border: 1px solid"></td>
+
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">a) Mobilisation Advance</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.mobilizationAdvance}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">b) Recovery of Mobilisation </td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.recoveryOfMobilization}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">c) Material Advance</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.materialAdvance}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">d) Recovery of Material</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.recoveryOfMaterialAdvance}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">e) Bill</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.bill}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">6</td>
+                    <td style="padding: 8px; border: 1px solid">a) Recovery of SD Retention</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.recoveryOfSdRetention}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">b) Release of SD Retention</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.releseOfSdRetention}}</td>
+                    <td rowspan="6" colspan="2"
+                        style="padding: 8px; border: 1px solid;text-align: center;padding-top: 180px;"><b>Accepted by
+                            Sub
+                            Contractor With Seal & Signature</b> </td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">7</td>
+                    <td style="padding: 8px; border: 1px solid">a) Performance Guarantee</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.performanceGuaratee}}</td>
+
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid"></td>
+                    <td style="padding: 8px; border: 1px solid">b) Release of PG</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.releaseOfPg}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">8</td>
+                    <td style="padding: 8px; border: 1px solid">Liquidated Damages for Delay</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.liquidateDamagesForDelay}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">9</td>
+                    <td style="padding: 8px; border: 1px solid">Paying Authority</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.payingAuthority}}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 8px; border: 1px solid">10</td>
+                    <td style="padding: 8px; border: 1px solid">Release of RA Bills</td>
+                    <td style="padding: 8px; border: 1px solid">{{workOrderObj.releaseOfRaBills}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style=" margin-top: 0px; border: 1px solid; padding: 8px; margin-right: 3%; margin-left: 3%;border-top:0;">
+            <span><b>Note:</b> </span>{{workOrderObj.notes}}<span>
+               
+            </span>
+        </div>
+
+
+    </div>
+    <!-- <div>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="border:1px solid;padding:8px;width: 20px;">2</td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid;padding:8px;width: 20px;">2</td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td rrows style="border:1px solid;padding:8px"></td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid;padding:8px;width: 20px;">3</td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid;padding:8px;width: 20px;">4</td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid;padding:8px;width: 20px;">5</td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid;padding:8px;width: 20px;">6</td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                    <td style="border:1px solid;padding:8px"></td>
+                </tr>
+            </table> -->
+    <!-- </div> -->
+
+
+</div>
+<div class=" text-right mr-5 mt-2">
+    <button class="btn btn-primary" printTitle="Sub-Contract-Work-Order Copy" printSectionId="print-item"
+        ngxPrint>Download</button>
+</div>

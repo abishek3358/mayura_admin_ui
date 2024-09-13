@@ -1,0 +1,40 @@
+.cardBg .card-body{
+    padding: 0.5rem !important;
+}
+.cardBg .card-body{
+    overflow-x: scroll;
+}
+@media (min-width:1024px) {
+    .cardBg .card-body{
+        overflow-x: hidden;
+    }
+}
+// .heading{
+//     width: 1000px; 
+//     height: 400px;
+//     overflow-x: scroll;
+//     // white-space: nowrap !important;
+//     flex-wrap: nowrap !important;
+// }
+// .content {
+//     width: 1000px; 
+//   }
+::ng-deep .ng-select.is-invalid .ng-select-container {
+    border-color: #ea5455 !important;
+    padding-right: calc(1.45em + 0.876rem) !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23ea5455' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ea5455' stroke='none'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right calc(0.3625em + 0.219rem) center !important;
+    background-size: calc(0.725em + 0.438rem) calc(0.725em + 0.438rem) !important;
+}
+.table.dataTable td {
+    padding: 0rem;
+    padding-left: 22px;
+}
+// .table-bordered{
+//     overflow-x: scroll;
+ 
+// }
+// .angular-editor-toolbar {
+//     display: none !important;
+// }
