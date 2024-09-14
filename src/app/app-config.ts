@@ -16,9 +16,9 @@ import { CoreConfig } from '@core/types';
 // prettier-ignore
 export const coreConfig: CoreConfig = {
   app: {
-    appName: 'A2Z-Markets Admin',                                        // App Name
-    appTitle: 'A2Z-Markets Admin', // App Title
-    appLogoImage: 'assets\images\logo\logo_hd.jpg',                  // App Logo
+    appName: 'Mayura fashion Admin',                                        // App Name
+    appTitle: 'Mayura fashion Admin', // App Title
+    appLogoImage: 'assets\images\logo\MAYURA.1.png',                  // App Logo
     appLanguage: 'en',                                           // App Default Language (en, fr, de, pt etc..)
   },
   layout: {

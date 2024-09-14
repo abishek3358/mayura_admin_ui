@@ -24,6 +24,7 @@ export class StateComponent implements OnInit {
   ngOnInit(): void {
 this.spinner.show();
     this.getCountry();
+    this.spinner.hide();
   }
   getCountry() {
     this.locationService.getCountry().pipe(first()).subscribe(res => {
